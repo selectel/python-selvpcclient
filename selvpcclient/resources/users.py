@@ -1,0 +1,130 @@
+from selvpcclient import base
+from selvpcclient.resources.roles import RolesManager
+
+
+class User(base.Resource):
+    """Represents a user."""
+
+    def get_roles(self):
+        """List roles for current user.
+
+        :rtype: list of :class:`selvpcclient.resources.roles.Role`
+        """
+        return self.manager.roles_manager.get_user_roles(self.id)
+
+    def update_name(self, new_name):
+        """Update name for current user.
+
+        :param string new_name: New user name.
+        :rtype: :class:`User`
+        """
+        return self.manager.update(self.id, name=new_name)
+
+    def update_password(self, new_password):
+        """Update password for current user.
+
+        :param string new_password: New user password.
+        :rtype: :class:`User`
+        """
+        return self.manager.update(self.id, password=new_password)
+
+    def update_status(self, enabled):
+        """Update status (enabled|disabled) for current user.
+
+        :param bool enabled: New user status: enabled or disabled.
+        :rtype: :class:`User`
+        """
+        return self.manager.update(self.id, enabled=enabled)
+
+    def add_to_project(self, project_id):
+        """Add current user to project.
+
+        :param str project_id: Project id, where user will be added.
+        :rtype: :class:`selvpcclient.resources.roles.Role`
+        """
+        return self.manager.roles_manager.add_user_role_in_project(
+            project_id=project_id, user_id=self.id)
+
+    def remove_from_project(self, project_id):
+        """Remove current user from project.
+
+        :param str project_id: Project id, where user will be removed.
+        :rtype: None
+        """
+        self.manager.roles_manager.delete_user_role_from_project(
+            project_id=project_id, user_id=self.id)
+
+    def check_in_project(self, project_id):
+        """Check if the current user is have a role in project.
+
+        :param str project_id: Project id, where user will be checked.
+        :rtype: bool
+        """
+        roles = self.manager.roles_manager.get_user_roles(self.id)
+        for role in roles:
+            if role.project_id == project_id:
+                return True
+        return False
+
+    def delete(self):
+        """Delete current user"""
+        return self.manager.delete(self.id)
+
+
+class UsersManager(base.Manager):
+    """Manager class for manipulating users."""
+    resource_class = User
+
+    def __init__(self, client):
+        super(UsersManager, self).__init__(client)
+        self.roles_manager = RolesManager(client)
+
+    def list(self):
+        """Get list of all users in current domain.
+
+        :rtype: list of :class:`User`
+        """
+        return self._list('/users', 'users')
+
+    def create(self, name, password, enabled):
+        """Create new user in current domain.
+
+        :param string name: User name.
+        :param string password: User password.
+        :param bool enabled: User status.
+        :rtype: :class:`User`
+        """
+        body = {
+            "user": {
+                "name": name,
+                "password": password,
+                "enabled": str(enabled).lower() in ['true', '1']
+            }
+        }
+        return self._post('/users', body, 'user')
+
+    def update(self, user_id, name=None, password=None, enabled=None):
+        """Edit user parameters.
+
+        :param string user_id: User id.
+        :param string name: New user name. (optional)
+        :param string password: New user password. (optional)
+        :param bool enabled: New user status. (optional)
+        :rtype: :class:`User`
+        """
+        body = {"user": {}}
+        if name:
+            body["user"]["name"] = name
+        if password:
+            body["user"]["password"] = password
+        if enabled is not None:
+            body["user"]["enabled"] = str(enabled).lower() in ['true', '1']
+        return self._patch('/users/{}'.format(user_id), body, 'user')
+
+    def delete(self, user_id):
+        """Delete user and it's roles from domain.
+
+        :param string user_id: User id.
+        :rtype: None
+        """
+        self._delete('/users/{}'.format(user_id))
