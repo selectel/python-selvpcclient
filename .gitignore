@@ -1,0 +1,8 @@
+.idea
+*.pyc
+.coverage
+*.cache
+*~
+/.eggs/
+/python_selvpcclient.egg-info/
+/.tox/
