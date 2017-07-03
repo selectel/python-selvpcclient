@@ -26,7 +26,8 @@ class Create(ShowCommand):
 class Update(ShowCommand):
     """Set project properties"""
 
-    columns = ["id", "name", "url", "enabled"]
+    columns = ["id", "name", "url", "custom_url",
+               "enabled", "color", "logo"]
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)
@@ -37,23 +38,56 @@ class Update(ShowCommand):
         parser.add_argument(
             '-n',
             '--name',
-            metavar="NEW_NAME",
-            required=True,
+            metavar="NEW_NAME"
+        )
+        parser.add_argument(
+            '--cname'
+        )
+        parser.add_argument(
+            '--color'
+        )
+        parser.add_argument(
+            '--logo'
+        )
+        parser.add_argument(
+            '--reset-cname',
+            default=False,
+            action="store_true"
+        )
+        parser.add_argument(
+            '--reset-color',
+            default=False,
+            action="store_true"
+        )
+        parser.add_argument(
+            '--reset-logo',
+            default=False,
+            action="store_true"
         )
         return parser
 
     @handle_http_error
     def take_action(self, parsed_args):
         result = self.app.context["client"].projects.update(
-            parsed_args.id, parsed_args.name
+            parsed_args.id,
+            parsed_args.name,
+            cname=parsed_args.cname,
+            color=parsed_args.color,
+            logo=parsed_args.logo,
+            reset_cname=parsed_args.reset_cname,
+            reset_color=parsed_args.reset_color,
+            reset_logo=parsed_args.reset_logo
         )
+        result.logo = result["theme"]["logo"]
+        result.color = result["theme"]["color"]
         return self.setup_columns(result, parsed_args)
 
 
 class Show(ShowCommand):
     """Display project info"""
 
-    columns = ["id", "name", "url", "enabled"]
+    columns = ["id", "name", "url", "custom_url",
+               "enabled", "color", "logo"]
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)
@@ -66,6 +100,8 @@ class Show(ShowCommand):
     @handle_http_error
     def take_action(self, parsed_args):
         result = self.app.context["client"].projects.show(parsed_args.id)
+        result.logo = result["theme"]["logo"]
+        result.color = result["theme"]["color"]
         return self.setup_columns(result, parsed_args)
 
 

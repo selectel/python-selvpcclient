@@ -3,12 +3,20 @@ PROJECTS_LIST = {
         "id": "15c578ea47a5466db2aeb57dc8443676",
         "name": "pr1",
         "url": "http://11111.selvpc.ru",
-        "enabled": True
+        "enabled": True,
+        "theme": {
+            "color": "",
+            "logo": ""
+        }
     }, {
         "id": "2c578ea47a5466db2aeb57dc8443676",
         "name": "pr2",
         "url": "http://11111.selvpc.ru",
-        "enabled": True
+        "enabled": True,
+        "theme": {
+            "color": "",
+            "logo": ""
+        }
     }]
 }
 
@@ -17,11 +25,30 @@ PROJECTS_CREATE = {
         "id": "15c578ea47a5466db2aeb57dc8443676",
         "name": "project1",
         "url": "http://11111.selvpc.ru",
-        "enabled": True
+        "enabled": True,
+        "custom_url": "",
+        "theme": {
+            "color": "",
+            "logo": ""
+        }
     }
 }
 
-PROJECTS_SET = PROJECTS_CREATE
+PROJECTS_SET = {
+    'project': {
+        "id": "15c578ea47a5466db2aeb57dc8443676",
+        "name": "project1",
+        "url": "http://11111.selvpc.ru",
+        "enabled": True,
+        "custom_url": "www.customhost.no",
+        "theme": {
+            "color": "",
+            "logo": ""
+        }
+    }
+}
+
+PROJECTS_SET_WITHOUT_CNAME = PROJECTS_CREATE
 
 PROJECTS_SHOW = {
     'project': {
@@ -58,6 +85,10 @@ PROJECTS_SHOW = {
                     "used": 0
                 }
             ]
+        },
+        "theme": {
+            "color": "",
+            "logo": ""
         }
     }
 }
@@ -1472,14 +1503,14 @@ SUBNETS_PARTIAL = {
         ],
         "ok": [
             {
-             "status": "DOWN",
-             "subnet_id": "6145fba6-dbe2-47af-bad2-6d1dcese5996",
-             "region": "ru-1",
-             "network_id": "47e4a3e8-a2c0-400c-a20c-2b3bf2f8b681",
-             "cidr": "192.168.5.0/29",
-             "project_id": "7810f45ae1be4a1f8ab3e95aef2e3ddd",
-             "id": 420
-             }
+                "status": "DOWN",
+                "subnet_id": "6145fba6-dbe2-47af-bad2-6d1dcese5996",
+                "region": "ru-1",
+                "network_id": "47e4a3e8-a2c0-400c-a20c-2b3bf2f8b681",
+                "cidr": "192.168.5.0/29",
+                "project_id": "7810f45ae1be4a1f8ab3e95aef2e3ddd",
+                "id": 420
+            }
         ],
         "error": "multi_status"
     }

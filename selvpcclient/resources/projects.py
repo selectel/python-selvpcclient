@@ -5,6 +5,7 @@ from selvpcclient.resources.quotas import QuotasManager
 from selvpcclient.resources.roles import RolesManager
 from selvpcclient.resources.subnets import SubnetManager
 from selvpcclient.resources.tokens import TokensManager
+from selvpcclient.util import process_theme_params
 
 
 class Project(base.Resource):
@@ -17,13 +18,22 @@ class Project(base.Resource):
         """
         return self.manager.get(self.id)
 
-    def update(self, name=None):
+    def update(self, name=None, cname=None,
+               color=None, logo=None, reset_cname=False,
+               reset_color=False, reset_logo=False):
         """Update current project properties.
 
         :param string name: New name for project.
         :rtype: :class:`Project` with new name.
         """
-        return self.manager.update(self.id, name or self.name)
+        return self.manager.update(self.id,
+                                   name or self.name,
+                                   cname=cname,
+                                   color=color,
+                                   logo=logo,
+                                   reset_cname=reset_cname,
+                                   reset_color=reset_color,
+                                   reset_logo=reset_logo)
 
     def get_roles(self):
         """List all roles for the project.
@@ -196,15 +206,33 @@ class ProjectsManager(base.Manager):
         """
         return self._get('/projects/{}'.format(project_id), 'project')
 
-    def update(self, project_id, name):
+    @process_theme_params
+    def update(self, project_id, name=None, cname=None,
+               color=None, logo=None, reset_cname=False,
+               reset_color=False, reset_logo=False):
         """Update Project's properties.
 
         :param string project_id: Project id.
         :param string name: New name for project.
         :rtype: :class:`Project`
         """
-
-        body = {"project": {"name": name}}
+        body = {"project": {"theme": {}}}
+        if name:
+            body["project"]["name"] = name
+        if cname:
+            body["project"]["custom_url"] = cname
+        if color:
+            body["project"]["theme"].update({"color": color})
+        if logo:
+            body["project"]["theme"].update({"logo": logo})
+        if reset_cname:
+            body["project"]["custom_url"] = ""
+        if reset_color:
+            body["project"]["theme"].update({"color": ""})
+        if reset_logo:
+            body["project"]["theme"].update({"logo": ""})
+        if not body["project"]["theme"]:
+            body["project"].pop("theme")
         return self._patch('/projects/{}'.format(project_id), body, 'project')
 
     def delete(self, project_id):

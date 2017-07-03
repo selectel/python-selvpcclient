@@ -1,6 +1,9 @@
+import base64
 import hashlib
 import json
 import logging
+import requests
+import os
 import sys
 
 import six
@@ -8,6 +11,8 @@ import six
 log = logging.getLogger(__name__)
 
 SENSITIVE_HEADERS = ['X-Token']
+
+FILES_EXTENSIONS = ("png", "jpg", "svg", "txt")
 
 
 def parse_headers(headers):
@@ -226,3 +231,47 @@ def process_partial_quotas(resp_ok):
                 k: item[k] for k in item if k != "resource"
             })
     return result
+
+
+def is_url(data):
+    """Checks if getting value is valid url and path exists."""
+    try:
+        r = requests.head(data)
+    except Exception:
+        return False
+    return r.status_code == requests.codes.ok
+
+
+def process_logo_by_url(url):
+    """Download and encode image by url."""
+    res = requests.get(url)
+    encoded_logo = base64.b64encode(res.content)
+    return encoded_logo
+
+
+def process_theme_params(func):
+    """This decorator allows to enter path to logo/url to logo
+     and adds hash to color value.
+
+     Example:
+         ...will be added soon...
+     """
+    def inner(*args, **kwargs):
+        color = kwargs.get("color", None)
+        if color and not color.startswith("#"):
+            kwargs["color"] = "#" + color
+        path = kwargs.get("logo", None)
+        if path:
+            if os.path.isfile(path) and path.endswith(FILES_EXTENSIONS):
+                with open(path, "rb") as image_file:
+                    if not path.endswith("txt"):
+                        encoded_logo = base64.b64encode(image_file.read())
+                    else:
+                        encoded_logo = image_file.read()
+                    kwargs["logo"] = encoded_logo
+            elif is_url(path):
+                kwargs["logo"] = process_logo_by_url(path)
+            else:
+                raise Exception("Invalid path/url or file")
+        return func(*args, **kwargs)
+    return inner

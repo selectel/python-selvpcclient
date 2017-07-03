@@ -10,6 +10,7 @@ from selvpcclient.resources.subnets import SubnetManager
 from selvpcclient.resources.tokens import TokensManager
 from selvpcclient.resources.users import UsersManager
 from selvpcclient.resources.vrrp import VRRPManager
+from selvpcclient.resources.customization import CustomizationManager
 
 
 def setup_http_client(api_url, api_token=None, api_version=2,
@@ -50,3 +51,4 @@ class Client:
         self.vrrp = VRRPManager(client)
         self.capabilities = CapabilitiesManager(client)
         self.tokens = TokensManager(client)
+        self.customization = CustomizationManager(client)
