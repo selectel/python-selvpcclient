@@ -1,3 +1,5 @@
+from tests.util.params import LOGO_BASE64
+
 PROJECTS_LIST = {
     'projects': [{
         "id": "15c578ea47a5466db2aeb57dc8443676",
@@ -101,6 +103,28 @@ PROJECTS_SHOW_ROLES = {
         "project_id": "2_7354286c9ebf464d86efc16fb56d4fa3",
         "user_id": "5900efc62db34decae9f2dbc04a8ce0f"
     }]
+}
+
+PROJECT_CUSTOMIZE = {
+    'theme': {
+        "color": "00ffee",
+        "logo": LOGO_BASE64
+    }
+}
+
+CUSTOMIZATION_CREATE = PROJECT_CUSTOMIZE
+
+CUSTOMIZATION_SHOW = PROJECT_CUSTOMIZE
+
+CUSTOMIZATION_UPDATE = {
+    'theme': {
+        "color": "00eeff",
+        "logo": LOGO_BASE64
+    }
+}
+
+CUSTOMIZATION_NO_THEME = {
+    "theme": {"color": "", "logo": ""}
 }
 
 LIMITS_SHOW = {

@@ -64,6 +64,11 @@ class Update(ShowCommand):
             default=False,
             action="store_true"
         )
+        parser.add_argument(
+            '--reset-theme',
+            default=False,
+            action="store_true"
+        )
         return parser
 
     @handle_http_error
@@ -76,7 +81,8 @@ class Update(ShowCommand):
             logo=parsed_args.logo,
             reset_cname=parsed_args.reset_cname,
             reset_color=parsed_args.reset_color,
-            reset_logo=parsed_args.reset_logo
+            reset_logo=parsed_args.reset_logo,
+            reset_theme=parsed_args.reset_theme
         )
         result.logo = result["theme"]["logo"]
         result.color = result["theme"]["color"]

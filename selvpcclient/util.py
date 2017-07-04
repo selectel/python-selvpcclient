@@ -251,11 +251,7 @@ def process_logo_by_url(url):
 
 def process_theme_params(func):
     """This decorator allows to enter path to logo/url to logo
-     and adds hash to color value.
-
-     Example:
-         ...will be added soon...
-     """
+     and adds hash to color value."""
     def inner(*args, **kwargs):
         color = kwargs.get("color", None)
         if color and not color.startswith("#"):

@@ -1,3 +1,5 @@
+LOGO_BASE64 = "0JzQvtGPINGA0LDQsdC+0YLQsCwg0Lgg0L/RgNCw0LLQuNC70LA="
+
 floatingips = {
     "floatingips": [
         {

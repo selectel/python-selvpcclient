@@ -9,6 +9,10 @@ commands = {
     'capabilities show subnets': capabilities.Subnets,
     'capabilities show traffic': capabilities.Traffic,
 
+    'customization update': customization.Update,
+    'customization show': customization.Show,
+    'customization delete': customization.Delete,
+
     'project create': project.Create,
     'project list': project.List,
     'project update': project.Update,
@@ -53,9 +57,5 @@ commands = {
     'role list': role.List,
     'role delete': role.Delete,
 
-    'token create': token.Add,
-
-    'customization update': customization.Update,
-    'customization show': customization.Show,
-    'customization delete': customization.Delete,
+    'token create': token.Add
 }

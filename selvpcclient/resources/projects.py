@@ -18,11 +18,18 @@ class Project(base.Resource):
         """
         return self.manager.get(self.id)
 
-    def update(self, name=None, cname=None,
-               color=None, logo=None, reset_cname=False,
-               reset_color=False, reset_logo=False):
+    def update(self, name=None, cname=None, color=None,
+               logo=None, reset_cname=False, reset_color=False,
+               reset_logo=False, reset_theme=False):
         """Update current project properties.
 
+        :param bool reset_theme: Reset logo and color
+        :param bool reset_logo: Reset logo
+        :param bool reset_color: Reset color
+        :param bool reset_cname: Reset CNAME
+        :param string logo: Logo for project panel
+        :param string color: Color for project panel
+        :param string cname: New CNAME for project
         :param string name: New name for project.
         :rtype: :class:`Project` with new name.
         """
@@ -33,7 +40,8 @@ class Project(base.Resource):
                                    logo=logo,
                                    reset_cname=reset_cname,
                                    reset_color=reset_color,
-                                   reset_logo=reset_logo)
+                                   reset_logo=reset_logo,
+                                   reset_theme=reset_theme)
 
     def get_roles(self):
         """List all roles for the project.
@@ -209,9 +217,16 @@ class ProjectsManager(base.Manager):
     @process_theme_params
     def update(self, project_id, name=None, cname=None,
                color=None, logo=None, reset_cname=False,
-               reset_color=False, reset_logo=False):
+               reset_color=False, reset_logo=False, reset_theme=False):
         """Update Project's properties.
 
+        :param bool reset_theme: Reset logo and color
+        :param bool reset_logo: Reset logo
+        :param bool reset_color: Reset color
+        :param bool reset_cname: Reset CNAME
+        :param string logo: Logo for project panel
+        :param string color: Color for project panel
+        :param string cname: New CNAME for project
         :param string project_id: Project id.
         :param string name: New name for project.
         :rtype: :class:`Project`
@@ -231,6 +246,8 @@ class ProjectsManager(base.Manager):
             body["project"]["theme"].update({"color": ""})
         if reset_logo:
             body["project"]["theme"].update({"logo": ""})
+        if reset_theme:
+            body["project"]["theme"].update({"color": "", "logo": ""})
         if not body["project"]["theme"]:
             body["project"].pop("theme")
         return self._patch('/projects/{}'.format(project_id), body, 'project')
