@@ -90,3 +90,15 @@ def test_roles_partial_resp():
 
     assert len(result) == 1
     assert [role._info for role in result] == answers.ROLES_PARTIAL_RESULT
+
+
+@responses.activate
+def test_get_user_raw_roles():
+    responses.add(responses.GET, 'http://api/v2/roles/users/666',
+                  json=answers.USERS_ROLE_SHOW)
+
+    manager = RolesManager(client)
+
+    result = manager.get_user_roles(user_id=666, return_raw=True)
+
+    assert result == answers.USERS_ROLE_SHOW["roles"]

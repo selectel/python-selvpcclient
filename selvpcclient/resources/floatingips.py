@@ -15,16 +15,18 @@ class FloatingIPManager(base.Manager):
     resource_class = FloatingIP
 
     @resource_filter
-    def list(self, detailed=False):
+    def list(self, detailed=False, return_raw=False):
         """Get list of all floatingips in current domain.
 
         :param bool detailed: Include info about servers. (optional)
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: list of :class:`FloatingIP`
         """
         return self._list('/floatingips?detailed=' + str(detailed),
-                          'floatingips')
+                          'floatingips', return_raw=return_raw)
 
-    def add(self, project_id, floatingips):
+    def add(self, project_id, floatingips, return_raw=False):
         """Create floatingips in project.
 
         :param string project_id: Project id.
@@ -39,19 +41,25 @@ class FloatingIPManager(base.Manager):
                                             }
                                         ]
                                     }
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: list of :class:`FloatingIP`
         """
 
         url = '/floatingips/projects/{}'.format(project_id)
-        return self._list(url, 'floatingips', body=floatingips)
+        return self._list(url, 'floatingips', body=floatingips,
+                          return_raw=return_raw)
 
-    def show(self, floatingip_id):
+    def show(self, floatingip_id, return_raw=False):
         """ Show detailed floatingip information.
 
         :param string floatingip_id: Floatingip id.
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: :class:`FloatingIP`
         """
-        return self._get('/floatingips/{}'.format(floatingip_id), 'floatingip')
+        return self._get('/floatingips/{}'.format(floatingip_id), 'floatingip',
+                         return_raw=return_raw)
 
     def delete(self, floatingip_id):
         """Delete floatingip from domain.

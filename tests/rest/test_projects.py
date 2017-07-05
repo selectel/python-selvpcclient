@@ -198,3 +198,15 @@ def test_add_fips_from_single_obj():
     ips = project.add_floating_ips(floatingips=params.floatingips)
 
     assert len(ips) > 0
+
+
+@responses.activate
+def test_get_raw_project_list():
+    responses.add(responses.GET, 'http://api/v2/projects',
+                  json=answers.PROJECTS_LIST)
+    manager = ProjectsManager(client)
+    project_list_raw = manager.list(return_raw=True)
+
+    assert len(project_list_raw) > 0
+    assert project_list_raw == answers.PROJECTS_LIST["projects"]
+

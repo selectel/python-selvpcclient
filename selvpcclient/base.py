@@ -49,7 +49,8 @@ class Manager(object):
     def __init__(self, client):
         self.client = client
 
-    def _list(self, url, response_key, obj_class=None, body=None, **kwargs):
+    def _list(self, url, response_key, obj_class=None, body=None,
+              return_raw=False, **kwargs):
         """List the collection.
 
         :param url: a partial URL, e.g., '/servers'
@@ -59,12 +60,16 @@ class Manager(object):
                 (self.resource_class will be used by default)
         :param body: data that will be encoded as JSON and passed in POST
                 request (GET will be sent by default)
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :param kwargs: Additional arguments will be passed to the request.
         """
         if body:
             resp = self.client.post(url, json=body, **kwargs)
         else:
             resp = self.client.get(url, **kwargs)
+        if return_raw:
+            return resp.json()[response_key]
         data = resp.json()[response_key]
         if obj_class is None:
             obj_class = self.resource_class
@@ -80,16 +85,20 @@ class Manager(object):
                                     fail=data["fail"])
         return [obj_class(self, res) for res in data if res]
 
-    def _get(self, url, response_key, **kwargs):
+    def _get(self, url, response_key, return_raw=False, **kwargs):
         """Get an object from collection.
 
         :param url: a partial URL, e.g., '/servers'
         :param response_key: the key to be looked up in response dictionary,
             e.g., 'server'
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :param kwargs: Additional arguments will be passed to the request.
         """
 
         resp = self.client.get(url, **kwargs)
+        if return_raw:
+            return resp.json()[response_key]
         return self.resource_class(self, resp.json()[response_key])
 
     def _post(self, url, body, response_key, return_raw=False, **kwargs):
@@ -109,7 +118,8 @@ class Manager(object):
             return resp.json()[response_key]
         return self.resource_class(self, resp.json()[response_key])
 
-    def _patch(self, url, body=None, response_key=None, **kwargs):
+    def _patch(self, url, body=None, response_key=None, return_raw=False,
+               **kwargs):
         """Update an object with PATCH method.
 
         :param url: a partial URL, e.g., '/servers'
@@ -117,9 +127,13 @@ class Manager(object):
             request (GET will be sent by default)
         :param response_key: the key to be looked up in response dictionary,
             e.g., 'servers'
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :param kwargs: Additional arguments will be passed to the request.
         """
         resp = self.client.patch(url, json=body, **kwargs)
+        if return_raw:
+            return resp.json()[response_key] if response_key else resp.json()
         if response_key:
             data = resp.json()[response_key]
             if "ok" in data:

@@ -92,3 +92,14 @@ def test_licenses_partial_resp():
 
     assert len(licenses) == 1
     assert [lic._info for lic in licenses] == answers.LICENSES_PARTIAL_RESULT
+
+
+@responses.activate
+def test_list():
+    responses.add(responses.GET, 'http://api/v2/licenses',
+                  json=answers.LICENSES_LIST)
+    manager = LicenseManager(client)
+
+    licenses = manager.list(return_raw=True)
+
+    assert licenses == answers.LICENSES_LIST["licenses"]

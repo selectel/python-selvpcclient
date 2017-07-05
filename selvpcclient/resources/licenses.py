@@ -15,15 +15,18 @@ class LicenseManager(base.Manager):
     resource_class = License
 
     @resource_filter
-    def list(self, detailed=False):
+    def list(self, detailed=False, return_raw=False):
         """Get list of all licenses in current domain.
 
         :param bool detailed: Include info about servers. (optional)
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: list of :class:`License`
         """
-        return self._list('/licenses?detailed=' + str(detailed), 'licenses')
+        return self._list('/licenses?detailed=' + str(detailed), 'licenses',
+                          return_raw=return_raw)
 
-    def add(self, project_id, licenses):
+    def add(self, project_id, licenses, return_raw=False):
         """Create licenses for project.
 
         :param string project_id: Project id.
@@ -42,19 +45,25 @@ class LicenseManager(base.Manager):
                                         "type": "license_windows_2012_standard"
                                      }]
                                  }
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: list of :class:`License`
         """
         url = '/licenses/projects/{}'.format(project_id)
-        return self._list(url, 'licenses', body=licenses)
+        return self._list(url, 'licenses', body=licenses,
+                          return_raw=return_raw)
 
-    def show(self, license_id):
+    def show(self, license_id, return_raw=False):
         """ Show detailed license information.
 
         :param string license_id: License id.
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: :class:`License`
         """
         return self._get('/licenses/{}'.format(license_id),
-                         response_key='license')
+                         response_key='license',
+                         return_raw=return_raw)
 
     def delete(self, license_id):
         """Delete license from domain.
