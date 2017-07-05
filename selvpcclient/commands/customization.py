@@ -9,12 +9,8 @@ class Update(ShowCommand):
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            '--logo'
-        )
-        parser.add_argument(
-            '--color'
-        )
+        parser.add_argument('--logo')
+        parser.add_argument('--color')
         return parser
 
     @handle_http_error

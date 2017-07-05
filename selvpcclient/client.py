@@ -1,6 +1,7 @@
 from selvpcclient import __version__
 from selvpcclient.httpclient import HTTPClient
 from selvpcclient.resources.capabilities import CapabilitiesManager
+from selvpcclient.resources.customization import CustomizationManager
 from selvpcclient.resources.floatingips import FloatingIPManager
 from selvpcclient.resources.licenses import LicenseManager
 from selvpcclient.resources.projects import ProjectsManager
@@ -10,7 +11,6 @@ from selvpcclient.resources.subnets import SubnetManager
 from selvpcclient.resources.tokens import TokensManager
 from selvpcclient.resources.users import UsersManager
 from selvpcclient.resources.vrrp import VRRPManager
-from selvpcclient.resources.customization import CustomizationManager
 
 
 def setup_http_client(api_url, api_token=None, api_version=2,

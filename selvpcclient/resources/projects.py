@@ -237,15 +237,15 @@ class ProjectsManager(base.Manager):
         if cname:
             body["project"]["custom_url"] = cname
         if color:
-            body["project"]["theme"].update({"color": color})
+            body["project"]["theme"]["color"] = color
         if logo:
-            body["project"]["theme"].update({"logo": logo})
+            body["project"]["theme"]["logo"] = logo
         if reset_cname:
             body["project"]["custom_url"] = ""
         if reset_color:
-            body["project"]["theme"].update({"color": ""})
+            body["project"]["theme"]["color"] = ""
         if reset_logo:
-            body["project"]["theme"].update({"logo": ""})
+            body["project"]["theme"]["logo"] = ""
         if reset_theme:
             body["project"]["theme"].update({"color": "", "logo": ""})
         if not body["project"]["theme"]:

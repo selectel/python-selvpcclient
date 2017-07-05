@@ -40,15 +40,9 @@ class Update(ShowCommand):
             '--name',
             metavar="NEW_NAME"
         )
-        parser.add_argument(
-            '--cname'
-        )
-        parser.add_argument(
-            '--color'
-        )
-        parser.add_argument(
-            '--logo'
-        )
+        parser.add_argument('--cname')
+        parser.add_argument('--color')
+        parser.add_argument('--logo')
         parser.add_argument(
             '--reset-cname',
             default=False,
