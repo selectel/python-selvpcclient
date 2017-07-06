@@ -25,7 +25,7 @@ Create a project
 
     >>> project = selvpc.projects.create("Bonnie")
 
-Also you can get raw json from manager by passing **return_raw=True** param
+Also you can get raw json from VPC API by passing **return_raw=True** param.
 It's suitable for all managers' methods that return values.
 
 .. code-block:: python
