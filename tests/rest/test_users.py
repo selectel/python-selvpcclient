@@ -167,3 +167,15 @@ def test_check_if_user_in_proj_from_single_obj():
 
     assert not user.check_in_project('2_7111116c9ebf464d86efc16fb56d4fa3')
     assert user.check_in_project('1_7354286c9ebf464d86efc16fb56d4fa3')
+
+
+@responses.activate
+def test_list_raw():
+    responses.add(responses.GET, 'http://api/v2/users',
+                  json=answers.USERS_LIST)
+
+    manager = UsersManager(client)
+
+    users = manager.list(return_raw=True)
+
+    assert users == answers.USERS_LIST["users"]

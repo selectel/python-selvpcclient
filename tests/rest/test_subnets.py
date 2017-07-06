@@ -98,3 +98,13 @@ def test_subnets_partial_resp():
     assert len(subnets) == 1
     assert [sub._info for sub in subnets] == answers.SUBNETS_PARTIAL_RESULT
 
+
+@responses.activate
+def test_list_raw():
+    responses.add(responses.GET, 'http://api/v2/subnets',
+                  json=answers.SUBNET_LIST)
+
+    manager = SubnetManager(client)
+
+    subnets = manager.list(return_raw=True)
+    assert subnets == answers.SUBNET_LIST["subnets"]

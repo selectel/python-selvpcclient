@@ -5,50 +5,66 @@ from selvpcclient.resources.roles import RolesManager
 class User(base.Resource):
     """Represents a user."""
 
-    def get_roles(self):
+    def get_roles(self, return_raw=False):
         """List roles for current user.
 
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: list of :class:`selvpcclient.resources.roles.Role`
         """
-        return self.manager.roles_manager.get_user_roles(self.id)
+        return self.manager.roles_manager.get_user_roles(self.id,
+                                                         return_raw=return_raw)
 
-    def update_name(self, new_name):
+    def update_name(self, new_name, return_raw=False):
         """Update name for current user.
 
         :param string new_name: New user name.
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: :class:`User`
         """
-        return self.manager.update(self.id, name=new_name)
+        return self.manager.update(self.id, name=new_name,
+                                   return_raw=return_raw)
 
-    def update_password(self, new_password):
+    def update_password(self, new_password, return_raw=False):
         """Update password for current user.
 
         :param string new_password: New user password.
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: :class:`User`
         """
-        return self.manager.update(self.id, password=new_password)
+        return self.manager.update(self.id, password=new_password,
+                                   return_raw=return_raw)
 
-    def update_status(self, enabled):
+    def update_status(self, enabled, return_raw=False):
         """Update status (enabled|disabled) for current user.
 
         :param bool enabled: New user status: enabled or disabled.
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: :class:`User`
         """
-        return self.manager.update(self.id, enabled=enabled)
+        return self.manager.update(self.id, enabled=enabled,
+                                   return_raw=return_raw)
 
-    def add_to_project(self, project_id):
+    def add_to_project(self, project_id, return_raw=False):
         """Add current user to project.
 
         :param str project_id: Project id, where user will be added.
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: :class:`selvpcclient.resources.roles.Role`
         """
         return self.manager.roles_manager.add_user_role_in_project(
-            project_id=project_id, user_id=self.id)
+            project_id=project_id, user_id=self.id, return_raw=return_raw)
 
     def remove_from_project(self, project_id):
         """Remove current user from project.
 
         :param str project_id: Project id, where user will be removed.
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: None
         """
         self.manager.roles_manager.delete_user_role_from_project(
@@ -79,19 +95,23 @@ class UsersManager(base.Manager):
         super(UsersManager, self).__init__(client)
         self.roles_manager = RolesManager(client)
 
-    def list(self):
+    def list(self, return_raw=False):
         """Get list of all users in current domain.
 
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: list of :class:`User`
         """
-        return self._list('/users', 'users')
+        return self._list('/users', 'users', return_raw=return_raw)
 
-    def create(self, name, password, enabled):
+    def create(self, name, password, enabled, return_raw=False):
         """Create new user in current domain.
 
         :param string name: User name.
         :param string password: User password.
         :param bool enabled: User status.
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: :class:`User`
         """
         body = {
@@ -101,15 +121,21 @@ class UsersManager(base.Manager):
                 "enabled": str(enabled).lower() in ['true', '1']
             }
         }
-        return self._post('/users', body, 'user')
+        return self._post('/users', body, 'user', return_raw=return_raw)
 
-    def update(self, user_id, name=None, password=None, enabled=None):
+    def update(self, user_id,
+               name=None,
+               password=None,
+               enabled=None,
+               return_raw=False):
         """Edit user parameters.
 
         :param string user_id: User id.
         :param string name: New user name. (optional)
         :param string password: New user password. (optional)
         :param bool enabled: New user status. (optional)
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: :class:`User`
         """
         body = {"user": {}}
@@ -119,7 +145,8 @@ class UsersManager(base.Manager):
             body["user"]["password"] = password
         if enabled is not None:
             body["user"]["enabled"] = str(enabled).lower() in ['true', '1']
-        return self._patch('/users/{}'.format(user_id), body, 'user')
+        return self._patch('/users/{}'.format(user_id), body, 'user',
+                           return_raw=return_raw)
 
     def delete(self, user_id):
         """Delete user and it's roles from domain.

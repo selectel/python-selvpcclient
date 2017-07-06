@@ -15,14 +15,17 @@ class VRRPManager(base.Manager):
     resource_class = VRRP
 
     @resource_filter
-    def list(self):
+    def list(self, return_raw=False):
         """Get list of all vrrp in current domain.
 
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: list of :class:`VRRP`
         """
-        return self._list('/vrrp_subnets', 'vrrp_subnets')
+        return self._list('/vrrp_subnets', 'vrrp_subnets',
+                          return_raw=return_raw)
 
-    def add(self, project_id, vrrp):
+    def add(self, project_id, vrrp, return_raw=False):
         """Create vrrp in project.
 
         :param string project_id: Project id.
@@ -39,19 +42,25 @@ class VRRPManager(base.Manager):
                                             }
                                         ]
                                     }
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: list of :class:`VRRP`
         """
 
         url = '/vrrp_subnets/projects/{}'.format(project_id)
-        return self._list(url, 'vrrp_subnets', body=vrrp)
+        return self._list(url, 'vrrp_subnets', body=vrrp,
+                          return_raw=return_raw)
 
-    def show(self, vrrp_id):
+    def show(self, vrrp_id, return_raw=False):
         """Show detailed vrrp information.
 
         :param string vrrp_id: VRRP id.
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :rtype: :class:`VRRP`
         """
-        return self._get('/vrrp_subnets/{}'.format(vrrp_id), 'vrrp_subnet')
+        return self._get('/vrrp_subnets/{}'.format(vrrp_id), 'vrrp_subnet',
+                         return_raw=return_raw)
 
     def delete(self, vrrp_id):
         """Delete vrrp from domain.
