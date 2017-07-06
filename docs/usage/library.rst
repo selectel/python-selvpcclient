@@ -23,7 +23,21 @@ Create a project
 
 .. code-block:: python
 
-    >>> project = selvpc.projects.add(name="Bonnie")
+    >>> project = selvpc.projects.create("Bonnie")
+
+Also you can get raw json from manager by passing **return_raw=True** param
+It's suitable for all managers' methods that return values.
+
+.. code-block:: python
+
+    >>> project_json = selvpc.projects.create("Clyde", return_raw=True)
+    >>> project_json
+     {
+        "name": "Clyde",
+        "id": "996b3a5f12c341feb41ddf4c1980371c",
+        "url": "https://50377.selvpc.ru",
+        "enabled": True
+     }
 
 Set project quotas
 ~~~~~~~~~~~~~~~~~~
