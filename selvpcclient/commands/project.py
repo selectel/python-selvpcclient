@@ -1,6 +1,5 @@
 from selvpcclient.base import CLICommand, ListCommand, ShowCommand
-from selvpcclient.util import (confirm_action, get_item_properties,
-                               handle_http_error)
+from selvpcclient.util import confirm_action, handle_http_error
 
 
 class Create(ShowCommand):

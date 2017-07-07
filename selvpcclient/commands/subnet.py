@@ -1,6 +1,6 @@
 from selvpcclient.base import CLICommand, ListCommand, ShowCommand
 from selvpcclient.formatters import format_servers
-from selvpcclient.util import (confirm_action, get_item_properties,
+from selvpcclient.util import (confirm_action,
                                handle_http_error,
                                add_resource_filter_arguments)
 
