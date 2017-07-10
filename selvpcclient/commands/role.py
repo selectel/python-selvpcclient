@@ -3,7 +3,7 @@ from selvpcclient.util import (confirm_action, get_item_properties,
                                handle_http_error)
 
 
-class Add(ShowCommand):
+class Create(ShowCommand):
     """Create new role"""
 
     columns = ['project_id', 'user_id']

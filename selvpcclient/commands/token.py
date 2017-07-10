@@ -2,7 +2,7 @@ from selvpcclient.base import ShowCommand
 from selvpcclient.util import get_item_properties, handle_http_error
 
 
-class Add(ShowCommand):
+class Create(ShowCommand):
     """Create new token"""
 
     columns = ['id']
