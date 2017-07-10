@@ -13,3 +13,14 @@ def test_get():
     manager = CapabilitiesManager(client)
 
     assert manager.get() is not None
+
+
+@responses.activate
+def test_get_raw():
+    responses.add(responses.GET, 'http://api/v2/capabilities',
+                  json=answers.CAPABILITIES_LIST)
+
+    manager = CapabilitiesManager(client)
+
+    assert manager.get(return_raw=True) == \
+           answers.CAPABILITIES_LIST["capabilities"]

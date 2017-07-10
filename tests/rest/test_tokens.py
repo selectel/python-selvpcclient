@@ -15,3 +15,15 @@ def test_add():
     token = manager.create(project_id=322)
 
     assert token is not None
+
+
+@responses.activate
+def test_add_raw():
+    responses.add(responses.POST, 'http://api/v2/tokens',
+                  json=answers.TOKENS_CREATE)
+
+    manager = TokensManager(client)
+
+    token = manager.create(project_id=322, return_raw=True)
+
+    assert token == answers.TOKENS_CREATE["token"]

@@ -95,3 +95,14 @@ def test_floatingips_partial_resp():
 
     assert len(ips) == 2
     assert [ip._info for ip in ips] == answers.FLOATING_IPS_PARTIAL_RESULT
+
+
+@responses.activate
+def test_fips_raw_list():
+    responses.add(responses.GET, 'http://api/v2/floatingips',
+                  json=answers.FLOATINGIP_LIST)
+    manager = FloatingIPManager(client)
+
+    ips = manager.list(return_raw=True)
+
+    assert ips == answers.FLOATINGIP_LIST["floatingips"]

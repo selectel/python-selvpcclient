@@ -80,3 +80,14 @@ def test_delete_from_single_obj():
     result = vrrp.delete()
 
     assert result is None
+
+
+@responses.activate
+def test_list_raw():
+    responses.add(responses.GET, 'http://api/v2/vrrp_subnets',
+                  json=answers.VRRP_LIST)
+
+    manager = VRRPManager(client)
+
+    subnets = manager.list(return_raw=True)
+    assert subnets == answers.VRRP_LIST["vrrp_subnets"]

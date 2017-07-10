@@ -76,3 +76,15 @@ def test_quotas_partial_response():
     project_quotas = manager.update(project_id="123", quotas=params.quotas)
 
     assert project_quotas._info == answers.QUOTAS_PARTIAL_RESULT
+
+
+@responses.activate
+def test_quotas_raw_get():
+    responses.add(responses.GET, 'http://api/v2/quotas',
+                  json=answers.QUOTAS_LIST)
+
+    manager = QuotasManager(client)
+
+    quotas = manager.get_domain_quotas(return_raw=True)
+
+    assert quotas == answers.QUOTAS_LIST["quotas"]
