@@ -252,6 +252,7 @@ def process_logo_by_url(url):
 def process_theme_params(func):
     """This decorator allows to enter path to logo/url to logo
      and adds hash to color value."""
+
     def inner(*args, **kwargs):
         color = kwargs.get("color", None)
         if color and not color.startswith("#"):
@@ -270,4 +271,12 @@ def process_theme_params(func):
             else:
                 raise Exception("Invalid path/url or file")
         return func(*args, **kwargs)
+
     return inner
+
+
+def convert_to_short(logo_b64):
+    if len(logo_b64) >= 50:
+        logo_b64 = logo_b64[:15] + ' ... ' + \
+                     logo_b64[len(logo_b64) - 15:]
+    return logo_b64

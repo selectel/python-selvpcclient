@@ -5,6 +5,46 @@ from tests.util import answers
 from tests.util import params
 
 
+def test_show_theme_b64():
+    client = make_client(return_value=answers.CUSTOMIZATION_SHOW)
+    args = ['customization show', '--show-base64']
+
+    output = run_cmd(args, client, json_output=True)
+
+    assert output["color"] == "00ffee"
+    assert output["logo"] == params.LOGO_BASE64
+
+
+def test_show_no_theme_b64():
+    client = make_client(return_value=answers.CUSTOMIZATION_NO_THEME)
+    args = ['customization show', '--show-base64']
+
+    output = run_cmd(args, client, json_output=True)
+
+    assert output["color"] == ""
+    assert output["logo"] == ""
+
+
+def test_show_theme_b64_short():
+    client = make_client(return_value=answers.CUSTOMIZATION_SHOW)
+    args = ['customization show', '--show-short-base64']
+
+    output = run_cmd(args, client, json_output=True)
+
+    assert output["color"] == "00ffee"
+    assert output["logo"] == params.LOGO_BASE64_SHORTEN
+
+
+def test_show_no_theme_b64_short():
+    client = make_client(return_value=answers.CUSTOMIZATION_NO_THEME)
+    args = ['customization show', '--show-short-base64']
+
+    output = run_cmd(args, client, json_output=True)
+
+    assert output["color"] == ""
+    assert output["logo"] == ""
+
+
 def test_show_theme():
     client = make_client(return_value=answers.CUSTOMIZATION_SHOW)
     args = ['customization show']
@@ -12,7 +52,7 @@ def test_show_theme():
     output = run_cmd(args, client, json_output=True)
 
     assert output["color"] == "00ffee"
-    assert output["logo"] == params.LOGO_BASE64
+    assert output["logo"] is True
 
 
 def test_show_no_theme():
@@ -22,7 +62,7 @@ def test_show_no_theme():
     output = run_cmd(args, client, json_output=True)
 
     assert output["color"] == ""
-    assert output["logo"] == ""
+    assert output["logo"] is False
 
 
 def test_update_theme():

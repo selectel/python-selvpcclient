@@ -1,6 +1,6 @@
 from selvpcclient.base import CLICommand, ListCommand, ShowCommand
 from selvpcclient.util import (confirm_action, get_item_properties,
-                               handle_http_error)
+                               handle_http_error, convert_to_short)
 
 
 class Create(ShowCommand):
@@ -63,6 +63,16 @@ class Update(ShowCommand):
             default=False,
             action="store_true"
         )
+        parser.add_argument(
+            '--show-base64',
+            default=False,
+            action='store_true'
+        )
+        parser.add_argument(
+            '--show-short-base64',
+            default=False,
+            action='store_true'
+        )
         return parser
 
     @handle_http_error
@@ -80,6 +90,11 @@ class Update(ShowCommand):
         )
         result.logo = result["theme"]["logo"]
         result.color = result["theme"]["color"]
+
+        if parsed_args.show_short_base64:
+            result.logo = convert_to_short(result.logo)
+        elif not parsed_args.show_base64:
+            result.logo = result.logo != ""
         return self.setup_columns(result, parsed_args)
 
 
@@ -95,6 +110,16 @@ class Show(ShowCommand):
             'id',
             metavar="<project_id>"
         )
+        parser.add_argument(
+            '--show-base64',
+            default=False,
+            action='store_true'
+        )
+        parser.add_argument(
+            '--show-short-base64',
+            default=False,
+            action='store_true'
+        )
         return parser
 
     @handle_http_error
@@ -102,6 +127,11 @@ class Show(ShowCommand):
         result = self.app.context["client"].projects.show(parsed_args.id)
         result.logo = result["theme"]["logo"]
         result.color = result["theme"]["color"]
+
+        if parsed_args.show_short_base64:
+            result.logo = convert_to_short(result.logo)
+        elif not parsed_args.show_base64:
+            result.logo = result.logo != ""
         return self.setup_columns(result, parsed_args)
 
 
