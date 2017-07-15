@@ -53,7 +53,7 @@ def test_perse_headers():
 
 @pytest.mark.parametrize('json_', ["{'key': 'awesome_value'}", None])
 def test_is_json_false(json_):
-    assert try_parse_json(json_) == False
+    assert try_parse_json(json_) is False
 
 
 def test_build_url():

@@ -64,7 +64,7 @@ Manage quotas
    $ selvpc quota list
    $ selvpc quota optimize <project_id>
    $ selvpc quota show <project_id>
-   $ selvpc qouta set <project_id> --resource VALUE --region VALUE [--zone VALUE] --value VALUE
+   $ selvpc quota set <project_id> --resource VALUE --region VALUE [--zone VALUE] --value VALUE
 
 .. note::
    Key **zone** by default is empty.
@@ -90,7 +90,7 @@ Manage roles
 .. code-block:: console
 
    $ selvpc role list <project_id>
-   $ selvpc role add --project_id VALUE --user_id VALUE
+   $ selvpc role create --project_id VALUE --user_id VALUE
    $ selvpc role delete --project_id VALUE --user_id VALUE
 
 Manage licenses
