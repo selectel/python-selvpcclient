@@ -1,6 +1,7 @@
 from selvpcclient import __version__
 from selvpcclient.httpclient import HTTPClient
 from selvpcclient.resources.capabilities import CapabilitiesManager
+from selvpcclient.resources.customization import CustomizationManager
 from selvpcclient.resources.floatingips import FloatingIPManager
 from selvpcclient.resources.licenses import LicenseManager
 from selvpcclient.resources.projects import ProjectsManager
@@ -50,3 +51,4 @@ class Client:
         self.vrrp = VRRPManager(client)
         self.capabilities = CapabilitiesManager(client)
         self.tokens = TokensManager(client)
+        self.customization = CustomizationManager(client)

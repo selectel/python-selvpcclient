@@ -1,11 +1,17 @@
+import base64
 import json
 import pytest
+import responses
+
 from selvpcclient.util import (build_url,
                                sort_list_of_dicts,
                                try_parse_json,
                                update_json_error_message,
                                parse_headers,
-                               resource_filter)
+                               resource_filter,
+                               process_theme_params)
+from tests.util.params import LOGO_BASE64
+from tests.util.temp_files import get_temporary_logo, get_temporary_text_file
 
 
 def test_resource_filter():
@@ -77,3 +83,79 @@ def test_sort_list_of_dicts():
     assert result[1]["name"] == 'bbb'
     assert result[2]["name"] == 'www'
     assert result[3]["name"] == 'zzz'
+
+
+def test_process_theme_params_hex_to_color():
+    @process_theme_params
+    def function_that_takes_theme_params(logo=None, color=""):
+        assert logo is None
+        assert color == "#eeff00"
+
+    function_that_takes_theme_params(logo=None, color='eeff00')
+
+
+def test_process_theme_params_invalid_logo():
+    @process_theme_params
+    def function_that_takes_theme_params(logo=None, color=''):
+        pass
+
+    with pytest.raises(Exception):
+        function_that_takes_theme_params(logo='is \' not path or url!!!',
+                                         color='')
+
+
+def test_process_theme_params_wrong_path():
+    @process_theme_params
+    def function_that_takes_theme_params(logo=None, color=''):
+        pass
+
+    with pytest.raises(Exception):
+        function_that_takes_theme_params(logo='/wrong/path/logo.jpg',
+                                         color='')
+
+
+def test_process_theme_params_right_path():
+    with get_temporary_logo() as path_to_logo:
+        with open(path_to_logo, 'rb') as logo:
+            encoded_logo = base64.b64encode(logo.read())
+
+            @process_theme_params
+            def function_that_takes_theme_params(logo=None, color=''):
+                assert logo == encoded_logo
+                assert color == '#eeff00'
+
+        function_that_takes_theme_params(logo=path_to_logo, color='eeff00')
+
+
+def test_process_theme_params_logo_from_txt():
+    with get_temporary_text_file() as path_to_file:
+        @process_theme_params
+        def function_that_takes_theme_params(logo=None, color=''):
+            assert logo == LOGO_BASE64.encode('utf-8')
+            assert color == '#eeff00'
+
+        function_that_takes_theme_params(logo=path_to_file, color='eeff00')
+
+
+@responses.activate
+def test_process_theme_params_logo_from_url():
+    responses.add(responses.HEAD,
+                  'http://somehost.no/rand_logo.png',
+                  status=200)
+    with get_temporary_logo() as path:
+        with open(path, 'rb') as logo:
+            responses.add(responses.GET,
+                          'http://somehost.no/rand_logo.png',
+                          content_type='image/png',
+                          stream=True,
+                          body=logo.read(),
+                          status=200)
+
+    @process_theme_params
+    def function_that_takes_theme_params(logo=None, color=''):
+        assert len(responses.calls) == 2
+        assert responses.calls[0].request.url == \
+               'http://somehost.no/rand_logo.png'
+        assert logo is not None
+
+    function_that_takes_theme_params(logo='http://somehost.no/rand_logo.png')

@@ -8,6 +8,24 @@ Show capabilities
    $ selvpc capabilities show resources
    $ selvpc capabilities show subnets
 
+Manage customization
+~~~~~~~~~~~~~~~~~~~~
+.. code-block:: console
+   $ selvpc customization update [--logo VALUE] [--color COLOR]
+   $ selvpc customization show [--show-base64] [--show-short-base64]
+   $ selvpc customization delete --yes-i-really-want-to-delete
+
+.. note::
+   The key **--yes-i-really-want-to-delete** is required always.
+
+.. note::
+   The key **--show-base64** allows to show full base64 string,
+   **--show-short-base64** - short version if base64 string is longer than 50 symbols.
+
+.. note::
+   **--logo** param can be like URL to logo or local path.
+
+
 Show domain limits
 ~~~~~~~~~~~~~~~~~~
 .. code-block:: console
@@ -21,12 +39,23 @@ Manage projects
 
    $ selvpc project list
    $ selvpc project create --name VALUE
-   $ selvpc project show <project_id>
-   $ selvpc project update <project_id> --name VALUE
+   $ selvpc project show <project_id> [--show-base64] [--show-short-base64]
+   $ selvpc project update <project_id> [--name VALUE] [--logo VALUE] [--color VALUE] [--reset-logo] [--reset-color]
+   [--reset-theme] [--reset-cname] [--show-base64] [--show-short-base64]
    $ selvpc project delete <project_id> --yes-i-really-want-to-delete
 
 .. note::
    The key **--yes-i-really-want-to-delete** is required always.
+
+.. note::
+   The key **--show-base64** allows to show full base64 string,
+   **--show-short-base64** - short version if base64 string is longer than 50 symbols.
+
+.. note::
+   **--logo** param can be like URL to logo or local path.
+
+.. note::
+   **--reset-theme** flag equals to **--reset-logo** and **--reset-color** together.
 
 Manage quotas
 ~~~~~~~~~~~~~
