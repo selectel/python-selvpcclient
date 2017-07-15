@@ -5,7 +5,7 @@ from selvpcclient.util import (add_resource_filter_arguments, confirm_action,
 
 
 class Add(ListCommand):
-    """Add new floatingip IP address"""
+    """Create new floatingip IP address"""
 
     columns = ['id', 'project_id', 'region', 'floating_ip_address', 'status']
     sorting_support = True

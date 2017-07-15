@@ -6,7 +6,7 @@ from selvpcclient.util import (confirm_action, get_item_properties,
 
 
 class Add(ListCommand):
-    """Add new subnet"""
+    """Create new subnet"""
 
     columns = ['id', 'project_id', 'region', 'cidr', 'status']
 

@@ -47,15 +47,15 @@ commands = {
     'vrrp show': vrrp.Show,
     'vrrp delete': vrrp.Delete,
 
-    'user create': user.Create,
+    'user create': user.Add,
     'user update': user.Update,
     'user list': user.List,
     'user roles': user.RolesList,
     'user delete': user.Delete,
 
-    'role create': role.Create,
+    'role add': role.Add,
     'role list': role.List,
     'role delete': role.Delete,
 
-    'token create': token.Create
+    'token create': token.Add,
 }

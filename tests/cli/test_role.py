@@ -6,7 +6,7 @@ from tests.util import answers
 
 def test_role_add():
     client = make_client(return_value=answers.ROLES_ADD)
-    args = ['role create',
+    args = ['role add',
             '-p 1_7354286c9ebf464d86efc16fb56d4fa3',
             '-u 5900efc62db34decae9f2dbc04a8ce0f']
 

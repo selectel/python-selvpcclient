@@ -3,7 +3,7 @@ from selvpcclient.util import (confirm_action, get_item_properties,
                                handle_http_error)
 
 
-class Create(ShowCommand):
+class Add(ShowCommand):
     """Create new user"""
 
     columns = ['id', 'name', 'enabled']
@@ -33,7 +33,7 @@ class Create(ShowCommand):
 
 
 class Update(ShowCommand):
-    """Update user properties"""
+    """Set user properties"""
 
     columns = ['id', 'name', 'enabled']
 
