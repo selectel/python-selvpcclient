@@ -43,6 +43,7 @@ Manage projects
    $ selvpc project update <project_id> [--name VALUE] [--logo VALUE] [--color VALUE] [--reset-logo] [--reset-color]
    [--reset-theme] [--reset-cname] [--show-base64] [--show-short-base64]
    $ selvpc project delete <project_id> --yes-i-really-want-to-delete
+   $ selvpc project delete <project_id_1> <project_id_2> <project_id_3> --yes-i-really-want-to-delete
 
 .. note::
    The key **--yes-i-really-want-to-delete** is required always.
@@ -78,6 +79,7 @@ Manage users
    $ selvpc user create --name VALUE --password VALUE [--enabled VALUE]
    $ selvpc user update <user_id> --name VALUE --password VALUE --enabled VALUE
    $ selvpc user delete <user_id> --yes-i-really-want-to-delete
+   $ selvpc user delete <user_id_1> <user_id_2> <user_id_3> --yes-i-really-want-to-delete
 
 .. note::
    If you want to update some property, such as a password, you do not need to specify all fields like name or enabled. Suffice it **user_id** and **password**
@@ -101,6 +103,7 @@ Manage licenses
    $ selvpc license show <license_id>
    $ selvpc license add <project_id> --region VALUE --type VALUE [--quantity VALUE]
    $ selvpc license delete <license_id> --yes-i-really-want-to-delete
+   $ selvpc license delete <license_id_1> <license_id_2> <license_id_3> --yes-i-really-want-to-delete
 
 .. note::
    The key **--detailed** show addictional columns like a servers.
@@ -116,9 +119,10 @@ Manage floating ips
    $ selvpc floating show <floatingip_id>
    $ selvpc floating add <project_id> --region VALUE [--quantity VALUE]
    $ selvpc floating delete <floatingip_id> --yes-i-really-want-to-delete
+   $ selvpc floating delete <floatingip_id_1> <floatingip_id_2> <floatingip_id_3> --yes-i-really-want-to-delete
 
 .. note::
-   The key **--detailed** show addictional columns like a servers.
+   The key **--detailed** show additional columns like a servers.
 
 .. note::
    Key **quantity** by default is **1**
@@ -131,6 +135,7 @@ Manage subnets
    $ selvpc subnet show <subnet_id>
    $ selvpc subnet add <project_id> --region VALUE [--type VALUE] [--prefix VALUE] [--quantity VALUE]
    $ selvpc subnet delete <subnet_id> --yes-i-really-want-to-delete
+   $ selvpc subnet delete <subnet_id_1> <subnet_id_2> <subnet_id_3> --yes-i-really-want-to-delete
 
 .. note::
    The key **--detailed** show addictional columns like a network_id and servers.
@@ -142,10 +147,11 @@ Manage VRRP subnets
 ~~~~~~~~~~~~~~~~~~~
 .. code-block:: console
 
-   selvpc vrrp add --region ru-1 --region ru-2 [--type VALUE] [--prefix VALUE] [--quantity VALUE]
-   selvpc vrrp list [--project XXX] [--detailed]
-   selvpc vrrp show 9
-   selvpc vrrp delete 9 --yes-i-really-want-to-delete
+   $ selvpc vrrp add --region ru-1 --region ru-2 [--type VALUE] [--prefix VALUE] [--quantity VALUE]
+   $ selvpc vrrp list [--project XXX] [--detailed]
+   $ selvpc vrrp show <vrrp_id>
+   $ selvpc vrrp delete <vrrp_id> --yes-i-really-want-to-delete
+   $ selvpc vrrp delete <vrrp_id_1> <vrrp_id_2> <vrrp_id_3> --yes-i-really-want-to-delete
 
 .. note::
    Key **detailed** appends additional column: *servers*.

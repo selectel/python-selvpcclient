@@ -80,3 +80,16 @@ def test_floating_ips_particle_resp():
             "--quantity", "1"]
     output = run_cmd(args, client, json_output=True)
     assert output == answers.FLOATING_IPS_PARTIAL_RESULT
+
+
+def test_floating_ips_multiple_delete():
+    client = make_client(return_value=None)
+    args = ["floatingip delete",
+            "--yes-i-really-want-to-delete",
+            "15c578ea47a5466db2aeb57dc8443676",
+            "1ec578ea47a5466db2aeb57dc8443672",
+            "16c578ea47a5466db2aeb57dc8443676"]
+    try:
+        run_cmd(args, client)
+    except Exception as exp:
+        pytest.fail("Unexpected exception {}".format(exp))

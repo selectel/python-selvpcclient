@@ -61,3 +61,16 @@ def test_user_role_list():
     assert len(output) == users_count
     assert output[0]["project_id"] == '1_7354286c9ebf464d86efc16fb56d4fa3'
     assert output[1]["project_id"] == '1_7354286c9ebf464d86efc16fb56d4fa3'
+
+
+def test_user_multiple_delete():
+    client = make_client(return_value=None)
+    args = ["user delete",
+            "--yes-i-really-want-to-delete",
+            "15c578ea47a5466db2aeb57dc8443676",
+            "1ec578ea47a5466db2aeb57dc8443672",
+            "16c578ea47a5466db2aeb57dc8443676"]
+    try:
+        run_cmd(args, client)
+    except Exception as exp:
+        pytest.fail("Unexpected exception {}".format(exp))

@@ -117,3 +117,16 @@ def test_project_reset_cname():
     assert output["enabled"] is True
     assert output["custom_url"] == ""
     assert "url" in output
+
+
+def test_project_multiple_delete():
+    client = make_client(return_value=None)
+    args = ["project delete",
+            "--yes-i-really-want-to-delete",
+            "15c578ea47a5466db2aeb57dc8443676",
+            "1ec578ea47a5466db2aeb57dc8443672",
+            "16c578ea47a5466db2aeb57dc8443676"]
+    try:
+        run_cmd(args, client)
+    except Exception as exp:
+        pytest.fail("Unexpected exception {}".format(exp))

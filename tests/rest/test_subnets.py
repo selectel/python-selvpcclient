@@ -1,5 +1,7 @@
+import pytest
 import responses
 
+from selvpcclient.exceptions.base import ClientException
 from selvpcclient.resources.subnets import SubnetManager
 from tests.rest import client
 from tests.util import answers, params
@@ -108,3 +110,16 @@ def test_list_raw():
 
     subnets = manager.list(return_raw=True)
     assert subnets == answers.SUBNET_LIST["subnets"]
+
+
+@responses.activate
+def test_delete_multiple_with_raise():
+    responses.add(responses.DELETE, 'http://api/v2/subnets/100',
+                  status=204)
+    responses.add(responses.DELETE, 'http://api/v2/subnets/200',
+                  status=404)
+
+    manager = SubnetManager(client)
+
+    with pytest.raises(ClientException):
+        manager.delete_many(subnet_ids=[100, 200])

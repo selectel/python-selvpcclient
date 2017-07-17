@@ -1,5 +1,10 @@
+import logging
+
 from selvpcclient import base
 from selvpcclient.util import resource_filter
+from selvpcclient.exceptions.base import ClientException
+
+log = logging.getLogger(__name__)
 
 
 class VRRP(base.Resource):
@@ -68,3 +73,18 @@ class VRRPManager(base.Manager):
         :param string vrrp_id: VRRP id.
         """
         self._delete('/vrrp_subnets/{}'.format(vrrp_id))
+
+    def delete_many(self, vrrp_ids, raise_if_not_found=True):
+        """Delete few vrrp subnets from domain.
+
+        :param list vrrp_ids: VRRP subnet ids list
+        :param bool raise_if_not_found: Raise exception if object won't found
+        """
+        for vrrp_id in vrrp_ids:
+            try:
+                self.delete(vrrp_id)
+                log.info("VRRP subnet {} was deleted".format(vrrp_id))
+            except ClientException as err:
+                if raise_if_not_found:
+                    raise err
+                log.error("{} {}".format(err, vrrp_id))

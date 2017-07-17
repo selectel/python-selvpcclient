@@ -1,5 +1,10 @@
+import logging
+
 from selvpcclient import base
 from selvpcclient.util import resource_filter
+from selvpcclient.exceptions.base import ClientException
+
+log = logging.getLogger(__name__)
 
 
 class FloatingIP(base.Resource):
@@ -67,3 +72,18 @@ class FloatingIPManager(base.Manager):
         :param string floatingip_id: Floating ip id.
         """
         self._delete('/floatingips/{}'.format(floatingip_id))
+
+    def delete_many(self, floatingip_ids, raise_if_not_found=True):
+        """Delete few floating ips from domain.
+
+        :param list floatingip_ids: Subnet ids list
+        :param bool raise_if_not_found: Raise exception if object won't found
+        """
+        for f_id in floatingip_ids:
+            try:
+                self.delete(f_id)
+                log.info("IP {} was deleted".format(f_id))
+            except ClientException as err:
+                if raise_if_not_found:
+                    raise err
+                log.error("{} {}".format(err, f_id))

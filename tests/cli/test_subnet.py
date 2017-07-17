@@ -99,3 +99,16 @@ def test_subnets_partial_resp():
 
     output = run_cmd(args, client, json_output=True)
     assert len(output) == 1
+
+
+def test_subnets_multiple_delete():
+    client = make_client(return_value=None)
+    args = ["subnet delete",
+            "--yes-i-really-want-to-delete",
+            "15c578ea47a5466db2aeb57dc8443676",
+            "1ec578ea47a5466db2aeb57dc8443672",
+            "16c578ea47a5466db2aeb57dc8443676"]
+    try:
+        run_cmd(args, client)
+    except Exception as exp:
+        pytest.fail("Unexpected exception {}".format(exp))

@@ -1,5 +1,7 @@
+import pytest
 import responses
 
+from selvpcclient.exceptions.base import ClientException
 from selvpcclient.resources.projects import ProjectsManager
 from tests.rest import client
 from tests.util import answers, params
@@ -210,3 +212,15 @@ def test_get_raw_project_list():
     assert len(project_list_raw) > 0
     assert project_list_raw == answers.PROJECTS_LIST["projects"]
 
+
+@responses.activate
+def test_delete_multiple_with_raise():
+    responses.add(responses.DELETE, 'http://api/v2/projects/100',
+                  status=204)
+    responses.add(responses.DELETE, 'http://api/v2/projects/200',
+                  status=404)
+
+    manager = ProjectsManager(client)
+
+    with pytest.raises(ClientException):
+        manager.delete_many(project_ids=[100, 200])
