@@ -1,5 +1,6 @@
 from selvpcclient.base import ShowCommand, CLICommand
-from selvpcclient.util import handle_http_error, confirm_action, convert_to_short
+from selvpcclient.util import (handle_http_error,
+                               confirm_action, convert_to_short)
 
 
 class Update(ShowCommand):
@@ -33,7 +34,6 @@ class Update(ShowCommand):
             result.logo = convert_to_short(result.logo)
         elif not parsed_args.show_base64:
             result.logo = result.logo != ""
-
         return self.setup_columns(result, parsed_args)
 
 

@@ -283,7 +283,6 @@ class ProjectsManager(base.Manager):
             body["project"].pop("theme")
         return self._patch('/projects/{}'.format(project_id), body, 'project')
 
-
     def delete(self, project_id):
         """Delete Project and all it's objects.
 
