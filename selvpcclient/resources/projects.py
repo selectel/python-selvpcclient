@@ -28,9 +28,12 @@ class Project(base.Resource):
 
     def update(self, name=None, cname=None, color=None,
                logo=None, reset_cname=False, reset_color=False,
-               reset_logo=False, reset_theme=False):
+               reset_logo=False, reset_theme=False,
+               return_raw=False):
         """Update current project properties.
 
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :param bool reset_theme: Reset logo and color
         :param bool reset_logo: Reset logo
         :param bool reset_color: Reset color
@@ -49,7 +52,8 @@ class Project(base.Resource):
                                    reset_cname=reset_cname,
                                    reset_color=reset_color,
                                    reset_logo=reset_logo,
-                                   reset_theme=reset_theme)
+                                   reset_theme=reset_theme,
+                                   return_raw=return_raw)
 
     def get_roles(self, return_raw=False):
         """List all roles for the project.
@@ -254,9 +258,12 @@ class ProjectsManager(base.Manager):
     @process_theme_params
     def update(self, project_id, name=None, cname=None,
                color=None, logo=None, reset_cname=False,
-               reset_color=False, reset_logo=False, reset_theme=False):
+               reset_color=False, reset_logo=False, reset_theme=False,
+               return_raw=False):
         """Update Project's properties.
 
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
         :param bool reset_theme: Reset logo and color
         :param bool reset_logo: Reset logo
         :param bool reset_color: Reset color
@@ -287,7 +294,8 @@ class ProjectsManager(base.Manager):
             body["project"]["theme"].update({"color": "", "logo": ""})
         if not body["project"]["theme"]:
             body["project"].pop("theme")
-        return self._patch('/projects/{}'.format(project_id), body, 'project')
+        return self._patch('/projects/{}'.format(project_id), body, 'project',
+                           return_raw=return_raw)
 
     def delete(self, project_id):
         """Delete Project and all it's objects.
