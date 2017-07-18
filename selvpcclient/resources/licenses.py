@@ -1,5 +1,10 @@
+import logging
+
 from selvpcclient import base
 from selvpcclient.util import resource_filter
+from selvpcclient.exceptions.base import ClientException
+
+log = logging.getLogger(__name__)
 
 
 class License(base.Resource):
@@ -71,3 +76,18 @@ class LicenseManager(base.Manager):
         :param string license_id: License id.
         """
         self._delete('/licenses/{}'.format(license_id))
+
+    def delete_many(self, license_ids, raise_if_not_found=True):
+        """Delete few licenses from domain.
+
+        :param list license_ids: Subnet ids list
+        :param bool raise_if_not_found: Raise exception if object won't found
+        """
+        for license_id in license_ids:
+            try:
+                self.delete(license_id)
+                log.info("License {} was deleted".format(license_id))
+            except ClientException as err:
+                if raise_if_not_found:
+                    raise err
+                log.error("{} {}".format(err, license_id))

@@ -90,6 +90,22 @@ Add Windows license
     >>> licenses = selvpc.licenses.add(project.id, licenses=licenses)
 
 
+Delete objects
+~~~~~~~~~~~~~~
+It's possible to delete few object at once. Key **raise_if_not_found** will raise an exception
+and deleting will be break. (by default **raise_if_not_found**=True)
+
+.. code-block:: python
+
+    >> selvpc.projects.delete_many(project_ids=["58e86b871f474fe2bb2874f9df1a0938",
+                                                "58e86b871f474fe2bb2874f9df1a0939",
+                                                "58e86b871f474fe2bb2874f9df1a0910"],
+                                                raise_if_not_found=False)
+
+      Project 58e86b871f474fe2bb2874f9df1a0938 was deleted
+      Project 58e86b871f474fe2bb2874f9df1a0939 was deleted
+      Project not found 58e86b871f474fe2bb2874f9df1a0910
+
 All available managers
 ----------------------
 

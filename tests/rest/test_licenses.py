@@ -1,5 +1,7 @@
+import pytest
 import responses
 
+from selvpcclient.exceptions.base import ClientException
 from selvpcclient.resources.licenses import LicenseManager
 from tests.rest import client
 from tests.util import answers, params
@@ -103,3 +105,16 @@ def test_list():
     licenses = manager.list(return_raw=True)
 
     assert licenses == answers.LICENSES_LIST["licenses"]
+
+
+@responses.activate
+def test_delete_multiple_with_raise():
+    responses.add(responses.DELETE, 'http://api/v2/licenses/100',
+                  status=204)
+    responses.add(responses.DELETE, 'http://api/v2/licenses/200',
+                  status=404)
+
+    manager = LicenseManager(client)
+
+    with pytest.raises(ClientException):
+        manager.delete_many(license_ids=[100, 200])

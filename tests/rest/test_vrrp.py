@@ -1,5 +1,7 @@
+import pytest
 import responses
 
+from selvpcclient.exceptions.base import ClientException
 from selvpcclient.resources.vrrp import VRRPManager
 from tests.rest import client
 from tests.util import answers, params
@@ -91,3 +93,16 @@ def test_list_raw():
 
     subnets = manager.list(return_raw=True)
     assert subnets == answers.VRRP_LIST["vrrp_subnets"]
+
+
+@responses.activate
+def test_delete_multiple_with_raise():
+    responses.add(responses.DELETE, 'http://api/v2/vrrp_subnets/100',
+                  status=204)
+    responses.add(responses.DELETE, 'http://api/v2/vrrp_subnets/200',
+                  status=404)
+
+    manager = VRRPManager(client)
+
+    with pytest.raises(ClientException):
+        manager.delete_many(vrrp_ids=[100, 200])
