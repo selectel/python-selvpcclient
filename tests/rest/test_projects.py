@@ -52,6 +52,18 @@ def test_set():
 
 
 @responses.activate
+def test_set_return_raw():
+    responses.add(responses.PATCH, 'http://api/v2/projects/666',
+                  json=answers.PROJECTS_SET)
+    manager = ProjectsManager(client)
+
+    updated_project = manager.update(project_id='666', name="Bonnie",
+                                     return_raw=True)
+
+    assert updated_project == answers.PROJECTS_SET['project']
+
+
+@responses.activate
 def test_delete():
     responses.add(responses.DELETE, 'http://api/v2/projects/204', status=204)
     manager = ProjectsManager(client)
