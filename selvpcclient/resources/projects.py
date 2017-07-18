@@ -1,4 +1,7 @@
+import logging
+
 from selvpcclient import base
+from selvpcclient.exceptions.base import ClientException
 from selvpcclient.resources.floatingips import FloatingIPManager
 from selvpcclient.resources.licenses import LicenseManager
 from selvpcclient.resources.quotas import QuotasManager
@@ -6,6 +9,9 @@ from selvpcclient.resources.roles import RolesManager
 from selvpcclient.resources.subnets import SubnetManager
 from selvpcclient.resources.tokens import TokensManager
 from selvpcclient.util import process_theme_params
+
+
+log = logging.getLogger(__name__)
 
 
 class Project(base.Resource):
@@ -288,3 +294,19 @@ class ProjectsManager(base.Manager):
 
         :param string project_id: Project id."""
         self._delete('/projects/{}'.format(project_id))
+
+    def delete_many(self, project_ids, raise_if_not_found=True):
+        """Delete few projects from domain.
+
+        :param list project_ids: Project ids list
+        :param bool raise_if_not_found: Raise exception if object won't found
+        """
+
+        for project_id in project_ids:
+            try:
+                self.delete(project_id)
+                log.info("Project {} was deleted".format(project_id))
+            except ClientException as err:
+                if raise_if_not_found:
+                    raise err
+                log.error("{} {}".format(err, project_id))

@@ -142,7 +142,8 @@ class Delete(CLICommand):
         parser = super(CLICommand, self).get_parser(prog_name)
         parser.add_argument(
             'id',
-            metavar="<project_id>"
+            metavar="<project_id>",
+            nargs='+'
         )
         parser.add_argument(
             '--yes-i-really-want-to-delete',
@@ -151,11 +152,12 @@ class Delete(CLICommand):
         )
         return parser
 
-    @handle_http_error
     @confirm_action("delete")
     def take_action(self, parsed_args):
-        self.app.context["client"].projects.delete(parsed_args.id)
-        self.logger.info("Project {} was deleted".format(parsed_args.id))
+        self.app.context["client"].projects.delete_many(
+            parsed_args.id,
+            raise_if_not_found=False
+        )
 
 
 class List(ListCommand):

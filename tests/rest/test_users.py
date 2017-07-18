@@ -1,5 +1,7 @@
+import pytest
 import responses
 
+from selvpcclient.exceptions.base import ClientException
 from selvpcclient.resources.users import UsersManager
 from tests.rest import client
 from tests.util import answers
@@ -179,3 +181,16 @@ def test_list_raw():
     users = manager.list(return_raw=True)
 
     assert users == answers.USERS_LIST["users"]
+
+
+@responses.activate
+def test_delete_multiple_with_raise():
+    responses.add(responses.DELETE, 'http://api/v2/users/100',
+                  status=204)
+    responses.add(responses.DELETE, 'http://api/v2/users/200',
+                  status=404)
+
+    manager = UsersManager(client)
+
+    with pytest.raises(ClientException):
+        manager.delete_many(user_ids=[100, 200])

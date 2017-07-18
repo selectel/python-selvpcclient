@@ -58,3 +58,13 @@ def test_vrrp_list_with_filters():
             "--project", "xxxxx68796e34858befb8fa2a8b1e12a"]
     output = run_cmd(args, client, json_output=True)
     assert len(output) == 0
+
+
+def test_vrrp_multiple_delete():
+    client = make_client(return_value=None)
+    args = ["vrrp delete",
+            "--yes-i-really-want-to-delete",
+            "15c578ea47a5466db2aeb57dc8443676",
+            "1ec578ea47a5466db2aeb57dc8443672",
+            "16c578ea47a5466db2aeb57dc8443676"]
+    run_cmd(args, client)

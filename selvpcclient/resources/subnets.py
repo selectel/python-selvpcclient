@@ -1,5 +1,10 @@
+import logging
+
 from selvpcclient import base
 from selvpcclient.util import resource_filter
+from selvpcclient.exceptions.base import ClientException
+
+log = logging.getLogger(__name__)
 
 
 class Subnet(base.Resource):
@@ -64,3 +69,19 @@ class SubnetManager(base.Manager):
     def delete(self, subnet_id):
         """Delete subnet from domain."""
         self._delete('/subnets/{}'.format(subnet_id))
+
+    def delete_many(self, subnet_ids, raise_if_not_found=True):
+        """Delete few subnets from domain.
+
+        :param list subnet_ids: Subnet ids list
+        :param bool raise_if_not_found: Raise exception if object won't found
+        """
+
+        for subnet_id in subnet_ids:
+            try:
+                self.delete(subnet_id)
+                log.info("Subnet {} was deleted".format(subnet_id))
+            except ClientException as err:
+                if raise_if_not_found:
+                    raise err
+                log.error("{} {}".format(err, subnet_id))

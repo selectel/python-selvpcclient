@@ -1,5 +1,10 @@
+import logging
+
 from selvpcclient import base
 from selvpcclient.resources.roles import RolesManager
+from selvpcclient.exceptions.base import ClientException
+
+log = logging.getLogger(__name__)
 
 
 class User(base.Resource):
@@ -155,3 +160,18 @@ class UsersManager(base.Manager):
         :rtype: None
         """
         self._delete('/users/{}'.format(user_id))
+
+    def delete_many(self, user_ids, raise_if_not_found=True):
+        """Delete few users from domain.
+
+        :param list user_ids: User ids list
+        :param bool raise_if_not_found: Raise exception if object won't found
+        """
+        for user_id in user_ids:
+            try:
+                self.delete(user_id)
+                log.info("User {} was deleted".format(user_id))
+            except ClientException as err:
+                if raise_if_not_found:
+                    raise err
+                log.error("{} {}".format(err, user_id))

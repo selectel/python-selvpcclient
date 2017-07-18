@@ -1,5 +1,7 @@
 import responses
+import pytest
 
+from selvpcclient.exceptions.base import ClientException
 from selvpcclient.resources.floatingips import FloatingIPManager
 from tests.rest import client
 from tests.util import answers, params
@@ -106,3 +108,16 @@ def test_fips_raw_list():
     ips = manager.list(return_raw=True)
 
     assert ips == answers.FLOATINGIP_LIST["floatingips"]
+
+
+@responses.activate
+def test_delete_multiple_with_raise():
+    responses.add(responses.DELETE, 'http://api/v2/floatingips/100',
+                  status=204)
+    responses.add(responses.DELETE, 'http://api/v2/floatingips/200',
+                  status=404)
+
+    manager = FloatingIPManager(client)
+
+    with pytest.raises(ClientException):
+        manager.delete_many(floatingip_ids=[100, 200])
