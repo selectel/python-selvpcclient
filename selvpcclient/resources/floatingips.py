@@ -79,11 +79,11 @@ class FloatingIPManager(base.Manager):
         :param list floatingip_ids: Subnet ids list
         :param bool raise_if_not_found: Raise exception if object won't found
         """
-        for f_id in floatingip_ids:
+        for floatingip_id in floatingip_ids:
             try:
-                self.delete(f_id)
-                log.info("IP {} was deleted".format(f_id))
+                self.delete(floatingip_id)
+                log.info("IP {} was deleted".format(floatingip_id))
             except ClientException as err:
                 if raise_if_not_found:
                     raise err
-                log.error("{} {}".format(err, f_id))
+                log.error("{} {}".format(err, floatingip_id))

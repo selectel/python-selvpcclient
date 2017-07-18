@@ -86,16 +86,12 @@ class Delete(CLICommand):
         )
         return parser
 
-    @handle_http_error
     @confirm_action("delete")
     def take_action(self, parsed_args):
-        if len(parsed_args.id) > 1:
-            self.app.context["client"].licenses.delete_many(
-                parsed_args.id,
-                raise_if_not_found=False
-            )
-        else:
-            self.app.context["client"].licenses.delete(parsed_args.id[0])
+        self.app.context["client"].licenses.delete_many(
+            parsed_args.id,
+            raise_if_not_found=False
+        )
 
 
 class List(ListCommand):

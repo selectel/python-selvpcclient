@@ -106,7 +106,4 @@ def test_licenses_multiple_delete():
             "15c578ea47a5466db2aeb57dc8443676",
             "1ec578ea47a5466db2aeb57dc8443672",
             "16c578ea47a5466db2aeb57dc8443676"]
-    try:
-        run_cmd(args, client)
-    except Exception as exp:
-        pytest.fail("Unexpected exception {}".format(exp))
+    run_cmd(args, client)

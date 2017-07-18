@@ -302,11 +302,11 @@ class ProjectsManager(base.Manager):
         :param bool raise_if_not_found: Raise exception if object won't found
         """
 
-        for proj_id in project_ids:
+        for project_id in project_ids:
             try:
-                self.delete(proj_id)
-                log.info("Project {} was deleted".format(proj_id))
+                self.delete(project_id)
+                log.info("Project {} was deleted".format(project_id))
             except ClientException as err:
                 if raise_if_not_found:
                     raise err
-                log.error("{} {}".format(err, proj_id))
+                log.error("{} {}".format(err, project_id))

@@ -77,11 +77,11 @@ class SubnetManager(base.Manager):
         :param bool raise_if_not_found: Raise exception if object won't found
         """
 
-        for sub_id in subnet_ids:
+        for subnet_id in subnet_ids:
             try:
-                self.delete(sub_id)
-                log.info("Subnet {} was deleted".format(sub_id))
+                self.delete(subnet_id)
+                log.info("Subnet {} was deleted".format(subnet_id))
             except ClientException as err:
                 if raise_if_not_found:
                     raise err
-                log.error("{} {}".format(err, sub_id))
+                log.error("{} {}".format(err, subnet_id))

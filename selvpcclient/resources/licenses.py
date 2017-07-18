@@ -83,11 +83,11 @@ class LicenseManager(base.Manager):
         :param list license_ids: Subnet ids list
         :param bool raise_if_not_found: Raise exception if object won't found
         """
-        for lic_id in license_ids:
+        for license_id in license_ids:
             try:
-                self.delete(lic_id)
-                log.info("License {} was deleted".format(lic_id))
+                self.delete(license_id)
+                log.info("License {} was deleted".format(license_id))
             except ClientException as err:
                 if raise_if_not_found:
                     raise err
-                log.error("{} {}".format(err, lic_id))
+                log.error("{} {}".format(err, license_id))
