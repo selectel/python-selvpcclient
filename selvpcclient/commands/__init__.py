@@ -1,6 +1,6 @@
 from selvpcclient.commands import (capabilities, customization, floatingips,
-                                   license, limit, project, quotas, role,
-                                   subnet, token, user, vrrp)
+                                   license, limit, keypair, project, quotas,
+                                   role, subnet, token, user, vrrp)
 
 commands = {
     'capabilities show licenses': capabilities.Licenses,
@@ -57,5 +57,9 @@ commands = {
     'role list': role.List,
     'role delete': role.Delete,
 
-    'token create': token.Create
+    'token create': token.Create,
+
+    'keypair add': keypair.Add,
+    'keypair list': keypair.List,
+    'keypair delete': keypair.Delete,
 }

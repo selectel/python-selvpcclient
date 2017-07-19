@@ -172,3 +172,10 @@ Manage Tokens
 .. automodule:: selvpcclient.resources.tokens
     :members:
     :show-inheritance:
+
+Manage Keypairs
+~~~~~~~~~~~~~~~
+
+.. automodule:: selvpcclient.resources.keypairs
+    :members:
+    :show-inheritance:

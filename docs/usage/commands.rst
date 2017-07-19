@@ -161,3 +161,12 @@ Manage tokens
 .. code-block:: console
 
    $ selvpc token create <project_id>
+
+
+Manage keypairs
+~~~~~~~~~~~~~~~
+.. code-block:: console
+
+   $ selvpc keypair list [--region REGION]
+   $ selvpc keypair add --user USER_ID --name KEY_NAME --key PATH_TO_FILE / PLAIN_TEXT_KEY
+   $ selvpc keypair delete <keypair_name_1> ... <keypair_name_n> --user USER_ID --yes-i-really-want-to-delete

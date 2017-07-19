@@ -1551,3 +1551,35 @@ SUBNETS_PARTIAL_RESULT = [
         "id": 420
     }
 ]
+
+KEYPAIR_LIST = {
+    "keypairs": [
+        {
+            "name": "User_1",
+            "public_key": "ssh-rsa ... user@name",
+            "region": "ru-1",
+            "user_id": "88ad5569d8c64f828ac3d2efa4e552dd"
+        },
+        {
+            "name": "User_2",
+            "public_key": "ssh-rsa ... user@name",
+            "region": "ru-2",
+            "user_id": "88ad5569d8c64f828ac3d2efa4e552dd"
+        }
+    ]
+}
+
+KEYPAIR_ADD = {
+    "keypair": [
+        {
+            "name": "MOSCOW_KEY",
+            "region": "ru-1",
+            "user_id": "88ad5569d8c64f828ac3d2efa4e552dd"
+        },
+        {
+            "name": "MOSCOW_KEY",
+            "region": "ru-2",
+            "user_id": "88ad5569d8c64f828ac3d2efa4e552dd"
+        }
+    ]
+}

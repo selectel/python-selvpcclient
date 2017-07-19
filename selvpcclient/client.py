@@ -3,6 +3,7 @@ from selvpcclient.httpclient import HTTPClient
 from selvpcclient.resources.capabilities import CapabilitiesManager
 from selvpcclient.resources.customization import CustomizationManager
 from selvpcclient.resources.floatingips import FloatingIPManager
+from selvpcclient.resources.keypairs import KeyPairManager
 from selvpcclient.resources.licenses import LicenseManager
 from selvpcclient.resources.projects import ProjectsManager
 from selvpcclient.resources.quotas import QuotasManager
@@ -53,3 +54,4 @@ class Client:
         self.capabilities = CapabilitiesManager(client)
         self.tokens = TokensManager(client)
         self.customization = CustomizationManager(client)
+        self.keypairs = KeyPairManager(client)

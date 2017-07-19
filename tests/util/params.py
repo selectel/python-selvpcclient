@@ -83,3 +83,12 @@ vrrp = {
         ]
     }
 }
+
+keypair = {
+    "keypair": {
+        "user_id": "b832ef...94469d",
+        "name": "my_key_name",
+        "public_key": "ssh ... name@name"
+    }
+
+}

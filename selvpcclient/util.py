@@ -68,15 +68,16 @@ def resource_filter(func):
     return wrap
 
 
-def add_resource_filter_arguments(parser, add_region=True):
-    parser.add_argument(
-        '-p',
-        '--project',
-        dest="project_id",
-        required=False,
-        default=None,
-        type=str,
-    )
+def add_resource_filter_arguments(parser, add_region=True, add_project=True):
+    if add_project:
+        parser.add_argument(
+            '-p',
+            '--project',
+            dest="project_id",
+            required=False,
+            default=None,
+            type=str,
+        )
     if add_region:
         parser.add_argument(
             '-r',
@@ -270,6 +271,21 @@ def process_theme_params(func):
                 kwargs["logo"] = process_logo_by_url(path)
             else:
                 raise Exception("Invalid path/url or file")
+        return func(*args, **kwargs)
+
+    return inner
+
+
+def process_pair_params(func):
+    """This decorator allows to enter path to ~/.ssh/id_rsa.pub or provide
+    id_rsa.pub as plain-text.
+    """
+
+    def inner(*args, **kwargs):
+        path = kwargs["keypair"]["keypair"]["public_key"]
+        if os.path.isfile(path):
+            with open(path, "r") as sr:
+                kwargs["keypair"]["keypair"]["public_key"] = sr.read().rstrip()
         return func(*args, **kwargs)
 
     return inner
