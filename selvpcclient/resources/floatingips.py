@@ -11,7 +11,7 @@ class FloatingIP(base.Resource):
     """Represents a floating ip."""
 
     def delete(self):
-        """Delete current floatingip from domain."""
+        """Delete current floating ip from domain."""
         self.manager.delete(self.id)
 
 
@@ -21,7 +21,7 @@ class FloatingIPManager(base.Manager):
 
     @resource_filter
     def list(self, detailed=False, return_raw=False):
-        """Get list of all floatingips in current domain.
+        """Get list of all floating ip's in current domain.
 
         :param bool detailed: Include info about servers. (optional)
         :param return_raw: flag to force returning raw JSON instead of
@@ -32,7 +32,7 @@ class FloatingIPManager(base.Manager):
                           'floatingips', return_raw=return_raw)
 
     def add(self, project_id, floatingips, return_raw=False):
-        """Create floatingips in project.
+        """Create floating ip's in project.
 
         :param string project_id: Project id.
         :param dict floatingips: Dict with key `floatingips` and value as array
@@ -56,9 +56,9 @@ class FloatingIPManager(base.Manager):
                           return_raw=return_raw)
 
     def show(self, floatingip_id, return_raw=False):
-        """ Show detailed floatingip information.
+        """ Show detailed floating ip information.
 
-        :param string floatingip_id: Floatingip id.
+        :param string floatingip_id: Floating ip id.
         :param return_raw: flag to force returning raw JSON instead of
                 Python object of self.resource_class
         :rtype: :class:`FloatingIP`
@@ -74,9 +74,9 @@ class FloatingIPManager(base.Manager):
         self._delete('/floatingips/{}'.format(floatingip_id))
 
     def delete_many(self, floatingip_ids, raise_if_not_found=True):
-        """Delete few floating ips from domain.
+        """Delete few floating ip's from domain.
 
-        :param list floatingip_ids: Subnet ids list
+        :param list floatingip_ids: Subnet id's list
         :param bool raise_if_not_found: Raise exception if object won't found
         """
         for floatingip_id in floatingip_ids:

@@ -164,7 +164,7 @@ class UsersManager(base.Manager):
     def delete_many(self, user_ids, raise_if_not_found=True):
         """Delete few users from domain.
 
-        :param list user_ids: User ids list
+        :param list user_ids: User id's list
         :param bool raise_if_not_found: Raise exception if object won't found
         """
         for user_id in user_ids:

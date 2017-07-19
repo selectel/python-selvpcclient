@@ -73,7 +73,7 @@ class SubnetManager(base.Manager):
     def delete_many(self, subnet_ids, raise_if_not_found=True):
         """Delete few subnets from domain.
 
-        :param list subnet_ids: Subnet ids list
+        :param list subnet_ids: Subnet id's list
         :param bool raise_if_not_found: Raise exception if object won't found
         """
 

@@ -80,7 +80,7 @@ class LicenseManager(base.Manager):
     def delete_many(self, license_ids, raise_if_not_found=True):
         """Delete few licenses from domain.
 
-        :param list license_ids: Subnet ids list
+        :param list license_ids: Subnet id's list
         :param bool raise_if_not_found: Raise exception if object won't found
         """
         for license_id in license_ids:
