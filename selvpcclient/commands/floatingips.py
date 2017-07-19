@@ -5,7 +5,7 @@ from selvpcclient.util import (add_resource_filter_arguments, confirm_action,
 
 
 class Add(ListCommand):
-    """Add new floatingip IP address"""
+    """Add new floating IP"""
 
     columns = ['id', 'project_id', 'region', 'floating_ip_address', 'status']
     sorting_support = True
@@ -44,7 +44,7 @@ class Add(ListCommand):
 
 
 class Show(ListCommand):
-    """Show detailed floatingip information"""
+    """Show floating IP information"""
 
     columns = [
         'id', 'project_id', 'region', 'floating_ip_address', 'status',
@@ -67,7 +67,7 @@ class Show(ListCommand):
 
 
 class Delete(CLICommand):
-    """Delete floatingip IP"""
+    """Delete floating IP"""
 
     def get_parser(self, prog_name):
         parser = super(CLICommand, self).get_parser(prog_name)
@@ -92,7 +92,7 @@ class Delete(CLICommand):
 
 
 class List(ListCommand):
-    """List floatingip IP"""
+    """List floating IPs"""
 
     columns = ['id', 'project_id', 'region', 'floating_ip_address', 'status']
     sorting_support = True
