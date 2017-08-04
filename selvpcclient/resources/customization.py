@@ -18,7 +18,7 @@ class Customization(base.Resource):
         """Set theme parameters.
 
         :param string color: Panel color (e.x: 00ffee)
-        :param string logo: Path to logo or base64 string
+        :param string logo: Path to logo or URL
         :param return_raw: flag to force returning raw JSON instead of
                 Python object of self.resource_class
         :rtype: :class 'Customization' with updated fields
@@ -49,7 +49,7 @@ class CustomizationManager(base.Manager):
         """Set theme parameters.
 
         :param string color: Panel color (e.x: 00ffee)
-        :param string logo: Path to logo or base64 string
+        :param string logo: Path to logo or URL
         :param return_raw: flag to force returning raw JSON instead of
                 Python object of self.resource_class
         :rtype: :class 'Customization' with updated fields

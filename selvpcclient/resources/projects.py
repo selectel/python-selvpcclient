@@ -38,7 +38,7 @@ class Project(base.Resource):
         :param bool reset_logo: Reset logo
         :param bool reset_color: Reset color
         :param bool reset_cname: Reset CNAME
-        :param string logo: Logo for project panel
+        :param string logo: Path to logo or URL
         :param string color: Color for project panel
         :param string cname: New CNAME for project
         :param string name: New name for project.
@@ -268,7 +268,7 @@ class ProjectsManager(base.Manager):
         :param bool reset_logo: Reset logo
         :param bool reset_color: Reset color
         :param bool reset_cname: Reset CNAME
-        :param string logo: Logo for project panel
+        :param string logo: Path to logo or URL
         :param string color: Color for project panel
         :param string cname: New CNAME for project
         :param string project_id: Project id.
@@ -306,7 +306,7 @@ class ProjectsManager(base.Manager):
     def delete_many(self, project_ids, raise_if_not_found=True):
         """Delete few projects from domain.
 
-        :param list project_ids: Project ids list
+        :param list project_ids: Project id's list
         :param bool raise_if_not_found: Raise exception if object won't found
         """
 

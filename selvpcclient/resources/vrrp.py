@@ -77,7 +77,7 @@ class VRRPManager(base.Manager):
     def delete_many(self, vrrp_ids, raise_if_not_found=True):
         """Delete few vrrp subnets from domain.
 
-        :param list vrrp_ids: VRRP subnet ids list
+        :param list vrrp_ids: VRRP subnet id's list
         :param bool raise_if_not_found: Raise exception if object won't found
         """
         for vrrp_id in vrrp_ids:
