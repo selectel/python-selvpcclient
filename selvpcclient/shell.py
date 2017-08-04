@@ -3,6 +3,7 @@
 import os
 import os.path
 import sys
+import logging
 
 from cliff.app import App
 from cliff.commandmanager import CommandManager
@@ -11,6 +12,8 @@ from selvpcclient import __version__
 from selvpcclient.client import Client, setup_http_client
 from selvpcclient.commands import commands
 from selvpcclient.util import parse_headers
+
+logger = logging.getLogger(__name__)
 
 
 class CLI(App):
@@ -29,7 +32,6 @@ class CLI(App):
                                                       argparse_kwargs)
         parser.add_argument(
             '--url',
-            required="SEL_URL" not in os.environ,
             default=os.environ.get('SEL_URL', None)
         )
         parser.add_argument(
@@ -53,6 +55,13 @@ class CLI(App):
         super(CLI, self).configure_logging()
 
     def prepare_to_run_command(self, cmd):
+        if cmd.cmd_name == 'complete':
+            return
+
+        if not self.options.url:
+            logger.error("argument --url is required")
+            sys.exit(1)
+
         headers = None
         if self.options.header:
             headers = parse_headers(self.options.header)
