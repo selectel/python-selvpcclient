@@ -24,7 +24,9 @@ class HTTPClient:
             response.raise_for_status()
         except requests.exceptions.MissingSchema as err:
             raise err
-        except requests.RequestException:
+        except requests.exceptions.ConnectionError as err:
+            raise err
+        except requests.exceptions.RequestException as err:
             raise ClientException(
                 status_code=response.status_code,
                 message=get_http_exception(
@@ -32,9 +34,9 @@ class HTTPClient:
                     content=update_json_error_message(response.text))
             )
         logger.debug("RESP: %(code)s %(headers)s %(body)s",
-                  {'code': response.status_code,
-                   'headers': response.headers,
-                   'body': response.text})
+                     {'code': response.status_code,
+                      'headers': response.headers,
+                      'body': response.text})
         return response
 
     def get(self, path, **kwargs):
