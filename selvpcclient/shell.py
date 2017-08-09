@@ -55,7 +55,8 @@ class CLI(App):
         super(CLI, self).configure_logging()
 
     def prepare_to_run_command(self, cmd):
-        if cmd.cmd_name == 'complete':
+        # NOTE: cliff earlier 2.8 doesn't fill "internal" commands.
+        if not cmd.cmd_name or cmd.cmd_name == 'complete':
             return
 
         if not self.options.url:
