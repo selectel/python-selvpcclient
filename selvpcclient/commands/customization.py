@@ -84,4 +84,4 @@ class Delete(CLICommand):
     @confirm_action("delete")
     def take_action(self, parsed_args):
         self.app.context["client"].customization.delete()
-        self.logger.info("Theme was deleted")
+        self.logger.info("The theme has been deleted")
