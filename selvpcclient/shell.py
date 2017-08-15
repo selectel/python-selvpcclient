@@ -47,6 +47,15 @@ class CLI(App):
             '--header',
             action='append'
         )
+        parser.add_argument(
+            '--http-timeout',
+            dest='timeout',
+            default=60,
+            type=float,
+            metavar='<seconds>',
+            help='Timeout in seconds to wait for an HTTP response. '
+                 'Default is 60 seconds'
+        )
         return parser
 
     def configure_logging(self):
@@ -71,7 +80,8 @@ class CLI(App):
             api_url=self.options.url,
             api_version=self.options.api_version,
             api_token=self.options.token,
-            custom_headers=headers
+            custom_headers=headers,
+            timeout=self.options.timeout,
         )
         self.context = dict(client=Client(client=http_client))
 

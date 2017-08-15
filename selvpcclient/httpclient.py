@@ -11,17 +11,22 @@ logger = logging.getLogger(__name__)
 
 
 class HTTPClient:
-    def __init__(self, base_url, headers):
+    def __init__(self, base_url, headers, timeout=60):
         self.base_url = base_url
         self.headers = headers
+        self.timeout = timeout
 
     def request(self, method, url, **kwargs):
+        if 'timeout' not in kwargs:
+            kwargs['timeout'] = self.timeout
         kwargs.update(headers=self.headers)
         logger.debug("REQ: %s" % make_curl(url, method, copy.deepcopy(kwargs)))
         response = None
         try:
             response = requests.request(method, url, **kwargs)
             response.raise_for_status()
+        except requests.exceptions.Timeout as err:
+            raise err
         except requests.exceptions.MissingSchema as err:
             raise err
         except requests.exceptions.ConnectionError as err:

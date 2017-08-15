@@ -14,13 +14,14 @@ from selvpcclient.resources.vrrp import VRRPManager
 
 
 def setup_http_client(api_url, api_token=None, api_version=2,
-                      custom_headers=None):
+                      custom_headers=None, timeout=60):
     """Initialize a new HTTPClient by provided arguments.
 
     :param string api_url: A user-supplied endpoint URL for the service.
     :param string api_token: Selectel VPC API token.
     :param string api_version: Selectel VPC API version. (default 2)
     :param dict custom_headers: Custom headers for each request. (optional)
+    :param int timeout: Custom timeout value for requests. (default 60 seconds)
     :rtype: :class:`HTTPClient`
     """
     headers = {
@@ -34,7 +35,7 @@ def setup_http_client(api_url, api_token=None, api_version=2,
     if custom_headers:
         headers.update(custom_headers)
     url = "{}/v{}".format(api_url.rstrip('/'), api_version)
-    return HTTPClient(base_url=url, headers=headers)
+    return HTTPClient(base_url=url, headers=headers, timeout=timeout)
 
 
 class Client:
