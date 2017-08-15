@@ -72,7 +72,7 @@ def test_floatingip_list_with_filters():
     assert len(output) == 0
 
 
-def test_floating_ips_particle_resp():
+def test_floating_ips_partial_resp():
     client = make_client(return_value=answers.FLOATING_IPS_PARTIAL)
     args = ["floatingip add",
             "a2e6dd715ca24681b9b335d247b83d16",

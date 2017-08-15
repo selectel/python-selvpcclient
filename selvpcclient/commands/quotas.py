@@ -1,6 +1,6 @@
 import sys
 
-from selvpcclient.base import ListCommand, ParticleResponse
+from selvpcclient.base import ListCommand, PartialResponse
 from selvpcclient.formatters import join_by_key, reformat_quotas_with_usages
 from selvpcclient.util import handle_http_error
 
@@ -80,7 +80,7 @@ class Update(ListCommand):
         result = self.app.context["client"].quotas.update(
             parsed_args.project_id, quotas
         )
-        if isinstance(result, ParticleResponse):
+        if isinstance(result, PartialResponse):
             result._info = result._info["quotas"]
         val = {parsed_args.project_id: result._info}
         return self.setup_columns(

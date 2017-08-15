@@ -11,8 +11,8 @@ from selvpcclient.util import get_item_properties, process_partial_quotas
 log = logging.getLogger(__name__)
 
 
-class ParticleResponse(object):
-    """Class represents a particle response for created objects (floating ips,
+class PartialResponse(object):
+    """Class represents a partial response for created objects (floating ips,
     subnets, quotas and etc)."""
 
     def __init__(self, manager, ok, fail):
@@ -80,9 +80,9 @@ class Manager(object):
                                                   len(data["fail"]),
                                                   response_key,
                                                   data["fail"]))
-            return ParticleResponse(manager=self,
-                                    ok=data["ok"],
-                                    fail=data["fail"])
+            return PartialResponse(manager=self,
+                                   ok=data["ok"],
+                                   fail=data["fail"])
         return [obj_class(self, res) for res in data if res]
 
     def _get(self, url, response_key, return_raw=False, **kwargs):
@@ -143,9 +143,9 @@ class Manager(object):
                                                       len(data["fail"]),
                                                       response_key,
                                                       data["fail"]))
-                return ParticleResponse(manager=self,
-                                        ok=data["ok"],
-                                        fail=data["fail"])
+                return PartialResponse(manager=self,
+                                       ok=data["ok"],
+                                       fail=data["fail"])
             return self.resource_class(self, data)
         else:
             return self.resource_class(self, resp.json())
