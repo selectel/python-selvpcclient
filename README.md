@@ -11,6 +11,7 @@ This is a client for the Selectel VPC API. There is a Python API
 - [PyPi](https://pypi.org/project/python-selvpcclient)
 - [GitHub](https://github.com/selectel/python-selvpcclient)
 - [Bugs](https://github.com/selectel/python-selvpcclient/issues) - issue tracking
+- (ru) [Library overview](https://blog.selectel.ru/python-selvpcclient)
 
 ## Installing from PyPI
 
