@@ -58,7 +58,7 @@ class Delete(CLICommand):
         self.app.context["client"].roles.delete_user_role_from_project(
             parsed_args.project, parsed_args.user
         )
-        self.logger.info("User {} was deleted from {}".format(
+        self.logger.info("User {} has been deleted from {}".format(
             parsed_args.user, parsed_args.project)
         )
 

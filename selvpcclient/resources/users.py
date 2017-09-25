@@ -170,7 +170,7 @@ class UsersManager(base.Manager):
         for user_id in user_ids:
             try:
                 self.delete(user_id)
-                log.info("User {} was deleted".format(user_id))
+                log.info("User {} has been deleted".format(user_id))
             except ClientException as err:
                 if raise_if_not_found:
                     raise err

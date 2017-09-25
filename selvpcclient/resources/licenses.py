@@ -86,7 +86,7 @@ class LicenseManager(base.Manager):
         for license_id in license_ids:
             try:
                 self.delete(license_id)
-                log.info("License {} was deleted".format(license_id))
+                log.info("License {} has been deleted".format(license_id))
             except ClientException as err:
                 if raise_if_not_found:
                     raise err

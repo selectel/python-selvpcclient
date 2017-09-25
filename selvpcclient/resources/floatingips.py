@@ -82,7 +82,7 @@ class FloatingIPManager(base.Manager):
         for floatingip_id in floatingip_ids:
             try:
                 self.delete(floatingip_id)
-                log.info("IP {} was deleted".format(floatingip_id))
+                log.info("IP {} has been deleted".format(floatingip_id))
             except ClientException as err:
                 if raise_if_not_found:
                     raise err

@@ -102,8 +102,8 @@ and deleting will be break. (by default **raise_if_not_found**=True)
                                                 "58e86b871f474fe2bb2874f9df1a0910"],
                                                 raise_if_not_found=False)
 
-      Project 58e86b871f474fe2bb2874f9df1a0938 was deleted
-      Project 58e86b871f474fe2bb2874f9df1a0939 was deleted
+      Project 58e86b871f474fe2bb2874f9df1a0938 has been deleted
+      Project 58e86b871f474fe2bb2874f9df1a0939 has been deleted
       Project not found 58e86b871f474fe2bb2874f9df1a0910
 
 All available managers
