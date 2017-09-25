@@ -65,7 +65,7 @@ class CLI(App):
 
     def prepare_to_run_command(self, cmd):
         # NOTE: cliff earlier 2.8 doesn't fill "internal" commands.
-        if not cmd.cmd_name or cmd.cmd_name == 'complete':
+        if not cmd.cmd_name or cmd.cmd_name in ['complete', 'help']:
             return
 
         if not self.options.url:
