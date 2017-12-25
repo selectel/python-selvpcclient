@@ -39,7 +39,8 @@ class KeyPairManager(base.Manager):
                                     "keypair": {
                                         "user_id": "b832ef...94469d",
                                         "name": "my_key_name",
-                                        "public_key": "ssh ... name@name"
+                                        "public_key": "ssh ... name@name",
+                                        "regions": ["ru-1", "ru-2"]
                                     }
                                 }
         :param return_raw: flag to force returning raw JSON instead of

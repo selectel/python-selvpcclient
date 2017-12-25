@@ -38,6 +38,21 @@ def test_keypair_add():
     assert len(output) == 2
 
 
+def test_keypair_add_in_region():
+    client = make_client(return_value=answers.KEYPAIR_ADD)
+
+    args = ["keypair add",
+            "--user", "88ad5569d8c64f828ac3d2efa4e552dd",
+            "--name", "MOSCOW_KEY",
+            "--key", "ssh-rsa ssh-rsa ... user@name",
+            "--region", "ru-1",
+            "--region", "ru-2"]
+
+    output = run_cmd(args, client, json_output=True)
+
+    assert len(output) == 2
+
+
 def test_keypair_delete_without_accept():
     client = make_client(return_value=None)
     args = ["keypair delete", "MOSCOW_KEY",

@@ -28,6 +28,12 @@ class Add(ListCommand):
             metavar="KEY_NAME",
             required=True,
         )
+        parser.add_argument(
+            '--region',
+            metavar="REGION",
+            dest="regions",
+            action='append',
+        )
         return parser
 
     @handle_http_error
@@ -39,6 +45,8 @@ class Add(ListCommand):
                 "name": parsed_args.name,
             }
         }
+        if parsed_args.regions:
+            body["keypair"]["regions"] = parsed_args.regions
         result = self.app.context["client"].keypairs.add(keypair=body)
         return self.setup_columns(result, parsed_args)
 
