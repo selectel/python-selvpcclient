@@ -85,8 +85,11 @@ class Delete(CLICommand):
 
 class List(ListCommand):
     """List of keypairs in all regions"""
-    columns = ['region', 'user_id', 'name']
     sorting_support = True
+    columns = ['name', 'user_id', 'regions']
+    _formatters = {
+        "regions": lambda line: "\n".join(line["regions"])
+    }
 
     def get_parser(self, prog_name):
         parser = super(ListCommand, self).get_parser(prog_name)
@@ -105,9 +108,7 @@ class List(ListCommand):
 
     @handle_http_error
     def take_action(self, parsed_args):
-        result = self.app.context["client"].keypairs.list(
-            region=parsed_args.region,
-        )
+        result = self.app.context["client"].keypairs.list()
         if parsed_args.show_key or parsed_args.show_short_key:
             self.columns.append("public_key")
         if parsed_args.show_short_key and not parsed_args.show_key:
