@@ -154,8 +154,8 @@ def test_process_theme_params_logo_from_url():
     @process_theme_params
     def function_that_takes_theme_params(logo=None, color=''):
         assert len(responses.calls) == 2
-        assert responses.calls[0].request.url == \
-               'http://somehost.no/rand_logo.png'
+        assert (responses.calls[0].request.url ==
+                'http://somehost.no/rand_logo.png')
         assert logo is not None
 
     function_that_takes_theme_params(logo='http://somehost.no/rand_logo.png')

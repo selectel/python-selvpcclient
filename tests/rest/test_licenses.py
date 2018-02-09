@@ -97,7 +97,7 @@ def test_licenses_partial_resp():
 
 
 @responses.activate
-def test_list():
+def test_raw_list():
     responses.add(responses.GET, 'http://api/v2/licenses',
                   json=answers.LICENSES_LIST)
     manager = LicenseManager(client)

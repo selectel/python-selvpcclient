@@ -93,7 +93,8 @@ def test_get_quotas_from_single_obj():
     responses.add(responses.GET, 'http://api/v2/projects',
                   json=answers.PROJECTS_LIST)
     responses.add(responses.GET,
-                  'http://api/v2/quotas/projects/15c578ea47a5466db2aeb57dc8443676',
+                  'http://api/v2/quotas/projects/'
+                  '15c578ea47a5466db2aeb57dc8443676',
                   json=answers.QUOTAS_SHOW)
     project = ProjectsManager(client).list()[0]
 
@@ -164,7 +165,8 @@ def test_show_from_single_obj():
     responses.add(responses.GET, 'http://api/v2/projects',
                   json=answers.PROJECTS_LIST)
     responses.add(responses.GET,
-                  'http://api/v2/quotas/projects/15c578ea47a5466db2aeb57dc8443676',
+                  'http://api/v2/quotas/projects/'
+                  '15c578ea47a5466db2aeb57dc8443676',
                   json=answers.QUOTAS_SHOW)
     manager = ProjectsManager(client)
     project = manager.list()[0]

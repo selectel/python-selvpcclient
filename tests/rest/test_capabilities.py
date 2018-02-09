@@ -22,5 +22,5 @@ def test_get_raw():
 
     manager = CapabilitiesManager(client)
 
-    assert manager.get(return_raw=True) == \
-           answers.CAPABILITIES_LIST["capabilities"]
+    assert (manager.get(return_raw=True) ==
+            answers.CAPABILITIES_LIST["capabilities"])

@@ -38,15 +38,15 @@ def handle_http_error(func):
 
 def resource_filter(func):
     """This decorator allows to you filter answer from RESOURCE.list() by
-    project_id and region. 
+    project_id and region.
     Both params are optional and may be used separately.
-    
+
     Example:
         selvpc --debug floatingip list
         selvpc --debug floatingip list --project=UUID
         selvpc --debug floatingip list --region=REGION
         selvpc --debug floatingip list --project=UUID --region=REGION
-        
+
         client.subnets.list(project=UUID)
         client.subnets.list(region=REGION)
         client.subnets.list(project=UUID, region=REGION)
@@ -182,7 +182,7 @@ def update_json_error_message(content):
         try:
             message = json.loads(content)['error']
             return message.capitalize().replace('_', ' ')
-        except:
+        except Exception:
             return content
 
 
@@ -197,7 +197,7 @@ def try_parse_json(json_):
 
     try:
         return json.loads(json_)
-    except ValueError as e:
+    except ValueError:
         return False
 
 
@@ -293,6 +293,5 @@ def process_pair_params(func):
 
 def convert_to_short(logo_b64):
     if len(logo_b64) >= 50:
-        logo_b64 = logo_b64[:15] + ' ... ' + \
-                     logo_b64[len(logo_b64) - 15:]
+        logo_b64 = logo_b64[:15] + ' ... ' + logo_b64[len(logo_b64) - 15:]
     return logo_b64

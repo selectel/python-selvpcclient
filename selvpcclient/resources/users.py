@@ -68,8 +68,6 @@ class User(base.Resource):
         """Remove current user from project.
 
         :param str project_id: Project id, where user will be removed.
-        :param return_raw: flag to force returning raw JSON instead of
-                Python object of self.resource_class
         :rtype: None
         """
         self.manager.roles_manager.delete_user_role_from_project(

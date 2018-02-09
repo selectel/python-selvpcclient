@@ -1,4 +1,3 @@
-import pytest
 import responses
 
 from tests.util import answers
