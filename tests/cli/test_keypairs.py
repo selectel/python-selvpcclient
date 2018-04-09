@@ -14,17 +14,6 @@ def test_keypair_list():
     assert len(output) == 2
 
 
-def test_keypair_list_filtered():
-    client = make_client(return_value=answers.KEYPAIR_LIST)
-
-    args = ["keypair list",
-            "--region", "ru-2"]
-
-    output = run_cmd(args, client, json_output=True)
-
-    assert len(output) == 1
-
-
 def test_keypair_add():
     client = make_client(return_value=answers.KEYPAIR_ADD)
 

@@ -19,7 +19,6 @@ class KeyPairManager(base.Manager):
     """Manager class for manipulating keypairs."""
     resource_class = KeyPair
 
-    @resource_filter
     def list(self, return_raw=False):
         """Get list of all keypairs for domain.
 

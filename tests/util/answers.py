@@ -1557,13 +1557,17 @@ KEYPAIR_LIST = {
         {
             "name": "User_1",
             "public_key": "ssh-rsa ... user@name",
-            "region": "ru-1",
+            "regions": [
+                "ru-1"
+            ],
             "user_id": "88ad5569d8c64f828ac3d2efa4e552dd"
         },
         {
             "name": "User_2",
             "public_key": "ssh-rsa ... user@name",
-            "region": "ru-2",
+            "regions": [
+                "ru-2"
+            ],
             "user_id": "88ad5569d8c64f828ac3d2efa4e552dd"
         }
     ]

@@ -19,21 +19,6 @@ def test_list():
 
 
 @responses.activate
-def test_list_with_filters():
-    responses.add(responses.GET, 'http://api/v2/keypairs',
-                  json=answers.KEYPAIR_LIST)
-
-    manager = KeyPairManager(client)
-
-    pairs = manager.list(region="ru-2")
-    assert len(pairs) == 1
-    assert pairs[0]["region"] == "ru-2"
-
-    ips = manager.list(region="ru-3")
-    assert len(ips) == 0
-
-
-@responses.activate
 def test_add():
     responses.add(responses.POST, 'http://api/v2/keypairs',
                   json=answers.KEYPAIR_ADD)
