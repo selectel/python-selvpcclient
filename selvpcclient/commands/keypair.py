@@ -112,7 +112,6 @@ class List(ListCommand):
         if parsed_args.show_key or parsed_args.show_short_key:
             self.columns.append("public_key")
         if parsed_args.show_short_key and not parsed_args.show_key:
-            self._formatters = {
-                "public_key": lambda line: '...' + line["public_key"][-30:]
-            }
+            self._formatters["public_key"] = \
+                lambda line: '...' + line["public_key"][-30:]
         return self.setup_columns(result, parsed_args)
