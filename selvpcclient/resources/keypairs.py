@@ -2,7 +2,7 @@ import logging
 
 from selvpcclient import base
 from selvpcclient.exceptions.base import ClientException
-from selvpcclient.util import process_pair_params, resource_filter
+from selvpcclient.util import process_pair_params
 
 log = logging.getLogger(__name__)
 
@@ -64,7 +64,8 @@ class KeyPairManager(base.Manager):
         for name in key_names:
             try:
                 self.delete(user_id, name)
-                log.info("Keypair {} has been deleted for {}".format(name, user_id))
+                log.info("Keypair {} has been deleted for {}".format(name,
+                                                                     user_id))
             except ClientException as err:
                 if raise_if_not_found:
                     raise err
