@@ -90,6 +90,12 @@ class QuotasManager(base.Manager):
         body = {"quotas": {}}
         quotas = self.get_project_quotas(project_id)._info
         for resource, quotas_ in quotas.items():
+            # dynamic resource, can't be set manually
+            # see issue for details:
+            # https://github.com/selectel/python-selvpcclient/issues/18
+            if resource == "volume_gigabytes_iso":
+                continue
+
             for quota in quotas_:
                 if quota["value"] == 0 or quota["value"] == quota["used"]:
                     continue
