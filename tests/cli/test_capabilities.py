@@ -13,7 +13,7 @@ def test_capabilities_show_licenses():
     assert licenses[0]['type'] == 'license_windows_2012_standard'
 
 
-def test_apabilities_show_regions():
+def test_capabilities_show_regions():
     count_of_regions = 2
     client = make_client(return_value=answers.CAPABILITIES_LIST)
     args = ['capabilities show regions']
