@@ -1197,6 +1197,7 @@ CAPABILITIES_LIST = {
                         "description": "Berzarina-1 (ru-2a)",
                         "enabled": True,
                         "is_default": True,
+                        "is_private": False,
                         "name": "ru-2a"
                     }
                 ]
@@ -1210,12 +1211,14 @@ CAPABILITIES_LIST = {
                         "description": "Dubrovka-1 (ru-1a)",
                         "enabled": True,
                         "is_default": False,
+                        "is_private": False,
                         "name": "ru-1a"
                     },
                     {
                         "description": "Dubrovka-2 (ru-1b)",
                         "enabled": True,
                         "is_default": True,
+                        "is_private": False,
                         "name": "ru-1b"
                     }
                 ]

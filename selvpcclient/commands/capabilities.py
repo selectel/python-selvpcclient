@@ -21,7 +21,7 @@ class Regions(ListCommand):
 
     columns = ['region', 'region_description', 'is_region_default',
                'zone', 'zone_description', 'is_zone_default',
-               'is_zone_enabled']
+               'is_zone_enabled', 'is_zone_private']
     sorting_support = True
 
     def reformat_regions_info(self, regions):
@@ -36,6 +36,7 @@ class Regions(ListCommand):
                     "zone_description": zone["description"],
                     "is_zone_enabled": zone["enabled"],
                     "is_zone_default": zone["is_default"],
+                    "is_zone_private": zone["is_private"],
                 })
         return result
 
