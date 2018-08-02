@@ -5,13 +5,6 @@ def format_servers(val):
     return "\n".join([s["id"] for s in val["servers"]])
 
 
-def format_regions(regions):
-    return "\n".join([
-        "{} {} {} {}".format(z["name"], z["description"], z["is_default"],
-                             z["enabled"]) for z in regions["zones"]
-    ])
-
-
 def join_by_key(key):
     def formatter(val):
         return "\n".join(val[key])

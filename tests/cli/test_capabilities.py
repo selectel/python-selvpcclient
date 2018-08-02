@@ -14,13 +14,13 @@ def test_capabilities_show_licenses():
 
 
 def test_capabilities_show_regions():
-    count_of_regions = 2
+    count_of_zones = 3
     client = make_client(return_value=answers.CAPABILITIES_LIST)
     args = ['capabilities show regions']
 
     regions = run_cmd(args, client, json_output=True)
 
-    assert len(regions) == count_of_regions
+    assert len(regions) == count_of_zones
 
 
 def test_capabilities_show_resources():
