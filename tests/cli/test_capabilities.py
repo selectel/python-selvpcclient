@@ -18,9 +18,9 @@ def test_capabilities_show_regions():
     client = make_client(return_value=answers.CAPABILITIES_LIST)
     args = ['capabilities show regions']
 
-    licenses = run_cmd(args, client, json_output=True)
+    regions = run_cmd(args, client, json_output=True)
 
-    assert len(licenses) == count_of_regions
+    assert len(regions) == count_of_regions
 
 
 def test_capabilities_show_resources():
@@ -28,9 +28,9 @@ def test_capabilities_show_resources():
     client = make_client(return_value=answers.CAPABILITIES_LIST)
     args = ['capabilities show resources']
 
-    licenses = run_cmd(args, client, json_output=True)
+    resources = run_cmd(args, client, json_output=True)
 
-    assert len(licenses) == count_of_resources
+    assert len(resources) == count_of_resources
 
 
 def test_capabilities_show_subnets():
@@ -38,12 +38,12 @@ def test_capabilities_show_subnets():
     client = make_client(return_value=answers.CAPABILITIES_LIST)
     args = ['capabilities show subnets']
 
-    licenses = run_cmd(args, client, json_output=True)
+    subnets = run_cmd(args, client, json_output=True)
 
-    assert len(licenses) == count_of_subnets
-    assert licenses[0]['type'] == 'ipv4'
-    assert licenses[0]['prefix_length'] == '29'
-    assert 'availability' in licenses[0]
+    assert len(subnets) == count_of_subnets
+    assert subnets[0]['type'] == 'ipv4'
+    assert subnets[0]['prefix_length'] == '29'
+    assert 'availability' in subnets[0]
 
 
 def test_capabilities_show_traffic():
@@ -51,6 +51,6 @@ def test_capabilities_show_traffic():
     client = make_client(return_value=answers.CAPABILITIES_LIST)
     args = ['capabilities show traffic']
 
-    licenses = run_cmd(args, client, json_output=True)
+    traffic = run_cmd(args, client, json_output=True)
 
-    assert len(licenses) == count_of_granularities
+    assert len(traffic) == count_of_granularities
