@@ -16,6 +16,19 @@ def test_project_create():
     assert "url" in output
 
 
+def test_project_create_with_auto_quotas():
+    client = make_client(return_value=answers.PROJECTS_CREATE_WITH_AUTO_QUOTAS)
+    args = ['project create', '--name', 'project1', '--auto-quotas']
+
+    output = run_cmd(args, client, json_output=True)
+
+    assert output["name"] == 'project1'
+    assert output["id"] == '15c578ea47a5466db2aeb57dc8443676'
+    assert output["enabled"] is True
+    assert "url" in output
+    assert "quotas" not in output
+
+
 def test_project_update():
     client = make_client(return_value=answers.PROJECTS_SET)
     args = ['project update',

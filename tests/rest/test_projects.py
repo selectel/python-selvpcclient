@@ -30,6 +30,17 @@ def test_add():
 
 
 @responses.activate
+def test_add_with_auto_quotas():
+    responses.add(responses.POST, 'http://api/v2/projects',
+                  json=answers.PROJECTS_CREATE_WITH_AUTO_QUOTAS)
+    manager = ProjectsManager(client)
+
+    project = manager.create(name="Kylie", auto_quotas=True)
+
+    assert project is not None
+
+
+@responses.activate
 def test_show():
     responses.add(responses.GET, 'http://api/v2/projects/666',
                   json=answers.PROJECTS_SHOW)

@@ -212,7 +212,7 @@ class ProjectsManager(base.Manager):
         """
         return self._list('/projects', 'projects', return_raw=return_raw)
 
-    def create(self, name, quotas=None, return_raw=False):
+    def create(self, name, quotas=None, auto_quotas=False, return_raw=False):
         """Create new project and optionally set quotas on it.
 
         :param string name: Name of project.
@@ -237,9 +237,10 @@ class ProjectsManager(base.Manager):
                                         ]
                                     }
                                 }
+        :param bool auto_quotas: Automatically set quotas for a project
         :rtype: list of :class:`Project`.
         """
-        body = {"project": {"name": name}}
+        body = {"project": {"name": name, "auto_quotas": auto_quotas}}
         if quotas:
             body["project"]["quotas"] = quotas
         return self._post('/projects', body, 'project', return_raw=return_raw)

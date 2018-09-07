@@ -36,6 +36,25 @@ PROJECTS_CREATE = {
     }
 }
 
+PROJECTS_CREATE_WITH_AUTO_QUOTAS = {
+    'project': {
+        "id": "15c578ea47a5466db2aeb57dc8443676",
+        "name": "project1",
+        "url": "http://11111.selvpc.ru",
+        "enabled": True,
+        "quotas": {
+            "compute_cores": [
+                {
+                    "region": "ru-1",
+                    "used": 0,
+                    "zone": "ru-1a",
+                    "value": 10,
+                },
+            ],
+        },
+    }
+}
+
 PROJECTS_SET = {
     'project': {
         "id": "15c578ea47a5466db2aeb57dc8443676",
