@@ -37,6 +37,23 @@ subnets = {
     ]
 }
 
+cross_region_subnets = {
+    "cross_region_subnets": [
+        {
+            "quantity": 2,
+            "regions": [
+                {
+                    "region": "ru-1",
+                },
+                {
+                    "region": "ru-2",
+                },
+            ],
+            "cidr": "192.168.200.0/24",
+        },
+    ],
+}
+
 quotas = {
     "compute_cores": [
         {
