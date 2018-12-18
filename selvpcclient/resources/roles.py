@@ -25,6 +25,15 @@ class RolesManager(base.Manager):
         return self._list('/roles/users/{}'.format(user_id), 'roles',
                           return_raw=return_raw)
 
+    def get_domain_roles(self, return_raw=False):
+        """List all roles for all projects in the domain.
+
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
+        :rtype: list of :class:`Role`
+        """
+        return self._list('/roles', 'roles', return_raw=return_raw)
+
     def get_project_roles(self, project_id, return_raw=False):
         """List all roles for the project.
 

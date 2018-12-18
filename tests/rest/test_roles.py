@@ -43,6 +43,18 @@ def test_get_project_roles():
 
 
 @responses.activate
+def test_get_domain_roles():
+    responses.add(responses.GET, 'http://api/v2/roles',
+                  json=answers.PROJECTS_SHOW_ROLES)
+
+    manager = RolesManager(client)
+
+    result = manager.get_domain_roles()
+
+    assert len(result) > 0
+
+
+@responses.activate
 def test_create_user_role_in_project():
     responses.add(responses.POST, 'http://api/v2/roles/projects/123/users/666',
                   json=answers.ROLES_ADD)

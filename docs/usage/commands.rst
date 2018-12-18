@@ -89,7 +89,8 @@ Manage roles
 ~~~~~~~~~~~~
 .. code-block:: console
 
-   $ selvpc role list <project_id>
+   $ selvpc role list --all
+   $ selvpc role list --project <project_id>
    $ selvpc role create --project_id VALUE --user_id VALUE
    $ selvpc role delete --project_id VALUE --user_id VALUE
 

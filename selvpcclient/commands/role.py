@@ -71,14 +71,32 @@ class List(ListCommand):
     def get_parser(self, prog_name):
         parser = super(ListCommand, self).get_parser(prog_name)
         parser.add_argument(
-            'project_id',
-            metavar="<project_id>"
+            '--project',
+            dest='project_id',
+            metavar="<project_id>",
+            help="List of roles for provided project"
+        )
+        parser.add_argument(
+            '--all',
+            default=False,
+            action='store_true',
+            help="List of all roles for all projects in the domain"
         )
         return parser
 
     @handle_http_error
     def take_action(self, parsed_args):
-        result = self.app.context["client"].roles.get_project_roles(
-            parsed_args.project_id
-        )
+        if not parsed_args.project_id and not parsed_args.all:
+            raise Exception("--project=UUID or --all argument is required")
+
+        if parsed_args.project_id:
+            result = self.app.context["client"].roles.get_project_roles(
+                parsed_args.project_id
+            )
+            # NOTE: avoid a situation when both options were provided
+            parsed_args.all = False
+
+        if parsed_args.all:
+            result = self.app.context["client"].roles.get_domain_roles()
+
         return self.setup_columns(result, parsed_args)
