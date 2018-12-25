@@ -39,7 +39,7 @@ The example below retrieves subnets added into project.
 
 .. code-block:: console
 
-    $ selvpc subnet list --project xxxx3dc1894748b193031ae1bccf508a                                                                                                           01:04:15
+    $ selvpc subnet list --project xxxx3dc1894748b193031ae1bccf508a
     +-----+----------------------------------+--------+----------------+--------+
     |  id | project_id                       | region | cidr           | status |
     +-----+----------------------------------+--------+----------------+--------+
@@ -52,7 +52,7 @@ locates on ru-2 region
 
 .. code-block:: console
 
-    $ selvpc license list --project xxxx3dc1894748b193031ae1bccf508a --region ru-1                                                                                                                                       01:05:24
+    $ selvpc license list --project xxxx3dc1894748b193031ae1bccf508a --region ru-1
     +-------+----------------------------------+--------+-------------------------------+--------+
     |    id | project_id                       | region | type                          | status |
     +-------+----------------------------------+--------+-------------------------------+--------+
@@ -68,7 +68,7 @@ the order of ``-c`` options.
 
 .. code-block:: console
 
-    $ selvpc license list -c id                                                                                                                                               01:05:32
+    $ selvpc license list -c id
     +-------+
     |    id |
     +-------+
