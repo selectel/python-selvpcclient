@@ -14,7 +14,7 @@ def test_token_create():
 
 def test_domain_token_create():
     client = make_client(return_value=answers.TOKENS_CREATE)
-    args = ['token create', '--domain', 'domain_name']
+    args = ['token create', '--account', 'account_name']
 
     output = run_cmd(args, client, json_output=True)
 

@@ -3,7 +3,7 @@ from selvpcclient.util import handle_http_error
 
 
 class Create(ShowCommand):
-    """Create new token. Provide domain name for domain-scoped token
+    """Create new token. Provide account name for account-scoped token
     or project id for project-scoped."""
 
     columns = ['id']
@@ -15,8 +15,8 @@ class Create(ShowCommand):
             dest='project_id'
         )
         parser.add_argument(
-            '--domain',
-            dest='domain_name',
+            '--account',
+            dest='account_name',
         )
         return parser
 
@@ -24,6 +24,6 @@ class Create(ShowCommand):
     def take_action(self, parsed_args):
         result = self.app.context["client"].tokens.create(
             parsed_args.project_id,
-            parsed_args.domain_name
+            parsed_args.account_name
         )
         return self.setup_columns(result, parsed_args)

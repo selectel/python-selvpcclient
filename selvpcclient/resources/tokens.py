@@ -9,7 +9,7 @@ class TokensManager(base.Manager):
     """Manager class for manipulating token."""
     resource_class = Token
 
-    def create(self, project_id=None, domain_name=None, return_raw=False):
+    def create(self, project_id=None, account_name=None, return_raw=False):
         """Create reseller token for project.
 
         :param string project_id: Project_id.
@@ -20,6 +20,6 @@ class TokensManager(base.Manager):
         body = {'token': {}}
         if project_id:
             body['token']['project_id'] = project_id
-        if domain_name:
-            body['token']['domain_name'] = domain_name
+        if account_name:
+            body['token']['account_name'] = account_name
         return self._post('/tokens', body, 'token', return_raw=return_raw)
