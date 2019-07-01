@@ -20,6 +20,18 @@ def test_list():
 
 
 @responses.activate
+def test_show():
+    responses.add(responses.GET, 'http://api/v2/users/666',
+                  json=answers.USERS_SHOW)
+
+    manager = UsersManager(client)
+
+    user = manager.show(user_id=666)
+
+    assert user is not None
+
+
+@responses.activate
 def test_add():
     responses.add(responses.POST, 'http://api/v2/users',
                   json=answers.USERS_CREATE)

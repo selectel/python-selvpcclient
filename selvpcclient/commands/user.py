@@ -99,6 +99,22 @@ class List(ListCommand):
         return self.setup_columns(result, parsed_args)
 
 
+class Show(ShowCommand):
+    """Show detailed user information"""
+
+    columns = ['id', 'name', 'enabled']
+
+    def get_parser(self, prog_name):
+        parser = super(ShowCommand, self).get_parser(prog_name)
+        parser.add_argument('id', metavar="<user_id>")
+        return parser
+
+    @handle_http_error
+    def take_action(self, parsed_args):
+        result = self.app.context["client"].users.show(parsed_args.id)
+        return self.setup_columns(result, parsed_args)
+
+
 class RolesList(ListCommand):
     """List user-role assignments"""
 

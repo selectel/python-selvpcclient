@@ -51,6 +51,25 @@ def test_user_list():
     assert output[1]["id"] == '1d3161d317ba4641a3190b4848382216'
 
 
+def test_show_nonexistent_user():
+    client = make_client(return_value=answers.USERS_EMPTY)
+    args = ['user show', 'nonexistent_user']
+
+    with pytest.raises(SystemExit):
+        run_cmd(args, client)
+
+
+def test_show_user():
+    client = make_client(return_value=answers.USERS_SHOW)
+    args = ['user show', 'f9fd1d3167ba4641a3190b4848382216']
+
+    output = run_cmd(args, client, json_output=True)
+
+    assert output["id"] == 'f9fd1d3167ba4641a3190b4848382216'
+    assert output["name"] == 'user'
+    assert output["enabled"] is True
+
+
 def test_user_role_list():
     users_count = 2
     client = make_client(return_value=answers.USERS_ROLE_SHOW)

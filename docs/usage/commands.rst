@@ -74,6 +74,7 @@ Manage users
 .. code-block:: console
 
    $ selvpc user list
+   $ selvpc user show <user_id>
    $ selvpc user roles <user_id>
    $ selvpc user create --name VALUE --password VALUE [--enabled VALUE]
    $ selvpc user update <user_id> --name VALUE --password VALUE --enabled VALUE

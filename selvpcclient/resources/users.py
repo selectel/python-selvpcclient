@@ -107,6 +107,17 @@ class UsersManager(base.Manager):
         """
         return self._list('/users', 'users', return_raw=return_raw)
 
+    def show(self, user_id, return_raw=False):
+        """Show detailed info about specific user in current domain.
+
+        :param id: User ID.
+        :param return_raw: flag to force returning raw JSON instead of
+                Python object of self.resource_class
+        :rtype: :class:`User`
+        """
+        url = '/users/{}'.format(user_id)
+        return self._get(url, 'user', return_raw=return_raw)
+
     def create(self, name, password, enabled, return_raw=False):
         """Create new user in current domain.
 

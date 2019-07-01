@@ -56,6 +56,7 @@ commands = {
     'user create': user.Create,
     'user update': user.Update,
     'user list': user.List,
+    'user show': user.Show,
     'user roles': user.RolesList,
     'user delete': user.Delete,
 

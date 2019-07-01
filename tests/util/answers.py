@@ -906,7 +906,14 @@ USERS_ROLE_SHOW = {
     }]
 }
 
+USERS_EMPTY = {
+  "field": "user_id",
+  "error": "invalid_id"
+}
+
 USERS_SET = USERS_CREATE
+
+USERS_SHOW = USERS_CREATE
 
 TOKENS_CREATE = {
     'token': {
