@@ -74,12 +74,12 @@ class Manager(object):
         if obj_class is None:
             obj_class = self.resource_class
         if "ok" in data:
-            log.warning("207 Multi-Status: {}/{} {} has been created. "
-                        "More details: {}".format(len(data["ok"]),
-                                                  len(data["ok"]) +
-                                                  len(data["fail"]),
-                                                  response_key,
-                                                  data["fail"]))
+            log.warning("207 Multi-Status: %s/%s %s has been created. "
+                        "More details: %s",
+                        len(data["ok"]),
+                        len(data["ok"]) + len(data["fail"]),
+                        response_key,
+                        data["fail"])
             return PartialResponse(manager=self,
                                    ok=data["ok"],
                                    fail=data["fail"])
@@ -137,12 +137,12 @@ class Manager(object):
         if response_key:
             data = resp.json()[response_key]
             if "ok" in data:
-                log.warning("207 Multi-Status: {}/{} {} has been created. "
-                            "More details: {}".format(len(data["ok"]),
-                                                      len(data["ok"]) +
-                                                      len(data["fail"]),
-                                                      response_key,
-                                                      data["fail"]))
+                log.warning("207 Multi-Status: %s/%s %s has been created. "
+                            "More details: %s",
+                            len(data["ok"]),
+                            len(data["ok"]) + len(data["fail"]),
+                            response_key,
+                            data["fail"])
                 return PartialResponse(manager=self,
                                        ok=data["ok"],
                                        fail=data["fail"])

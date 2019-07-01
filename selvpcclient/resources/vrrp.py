@@ -83,8 +83,8 @@ class VRRPManager(base.Manager):
         for vrrp_id in vrrp_ids:
             try:
                 self.delete(vrrp_id)
-                log.info("VRRP subnet {} has been deleted".format(vrrp_id))
+                log.info("VRRP subnet %s has been deleted", vrrp_id)
             except ClientException as err:
                 if raise_if_not_found:
                     raise err
-                log.error("{} {}".format(err, vrrp_id))
+                log.error("%s %s", err, vrrp_id)

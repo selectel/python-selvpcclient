@@ -99,7 +99,7 @@ def confirm_action(action):
 
             accept = getattr(args[1], "yes_i_really_want_to_" + action)
             if not accept:
-                log.warning("Confirm action by --yes-i-really-want-to-" +
+                log.warning("Confirm action by --yes-i-really-want-to-%s",
                             action)
                 sys.exit(-1)
 

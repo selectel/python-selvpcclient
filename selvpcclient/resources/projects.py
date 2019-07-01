@@ -314,8 +314,8 @@ class ProjectsManager(base.Manager):
         for project_id in project_ids:
             try:
                 self.delete(project_id)
-                log.info("Project {} has been deleted".format(project_id))
+                log.info("Project %s has been deleted", project_id)
             except ClientException as err:
                 if raise_if_not_found:
                     raise err
-                log.error("{} {}".format(err, project_id))
+                log.error("%s %s", err, project_id)

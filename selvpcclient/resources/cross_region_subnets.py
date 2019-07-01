@@ -88,9 +88,9 @@ class CrossRegionSubnetManager(base.Manager):
         for cross_region_subnet_id in cross_region_subnet_ids:
             try:
                 self.delete(cross_region_subnet_id)
-                log.info("Cross-region subnet {} has been deleted".format(
-                    cross_region_subnet_id))
+                log.info("Cross-region subnet %s has been deleted",
+                         cross_region_subnet_id)
             except ClientException as err:
-                log.error("{} {}".format(err, cross_region_subnet_id))
+                log.error("%s %s", err, cross_region_subnet_id)
                 if raise_if_not_found:
                     raise err

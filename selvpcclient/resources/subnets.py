@@ -80,8 +80,8 @@ class SubnetManager(base.Manager):
         for subnet_id in subnet_ids:
             try:
                 self.delete(subnet_id)
-                log.info("Subnet {} has been deleted".format(subnet_id))
+                log.info("Subnet %s has been deleted", subnet_id)
             except ClientException as err:
                 if raise_if_not_found:
                     raise err
-                log.error("{} {}".format(err, subnet_id))
+                log.error("%s %s", err, subnet_id)

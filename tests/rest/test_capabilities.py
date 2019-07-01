@@ -21,6 +21,6 @@ def test_get_raw():
                   json=answers.CAPABILITIES_LIST)
 
     manager = CapabilitiesManager(client)
+    capabilities = manager.get(return_raw=True)
 
-    assert (manager.get(return_raw=True) ==
-            answers.CAPABILITIES_LIST["capabilities"])
+    assert capabilities == answers.CAPABILITIES_LIST["capabilities"]

@@ -24,8 +24,8 @@ http_client = setup_http_client(api_url=VPC_URL, api_token=VPC_TOKEN)
 selvpc = Client(client=http_client)
 
 project = selvpc.projects.create(name="Awesome Projectq12")
-logging.info("Project '{}' has been created with id '{}'".format(project.name,
-                                                                 project.id))
+logging.info(
+    "Project '%s' has been created with id '%s'", project.name, project.id)
 
 quotas = {
     "quotas": {
@@ -66,4 +66,4 @@ floating_ips = {
 }
 
 ip = project.add_floating_ips(floating_ips)[0]
-logging.info("IP {} has been added".format(ip.floating_ip_address))
+logging.info("IP %s has been added", ip.floating_ip_address)

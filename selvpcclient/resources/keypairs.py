@@ -64,9 +64,8 @@ class KeyPairManager(base.Manager):
         for name in key_names:
             try:
                 self.delete(user_id, name)
-                log.info("Keypair {} has been deleted for {}".format(name,
-                                                                     user_id))
+                log.info("Keypair %s has been deleted for %s", name, user_id)
             except ClientException as err:
                 if raise_if_not_found:
                     raise err
-                log.error("{} {} {}".format(err, user_id, name))
+                log.error("%s %s %s", err, user_id, name)
