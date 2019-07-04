@@ -20,7 +20,7 @@ def test_quota_set():
 
 
 def test_quota_show():
-    count_of_quotas = 3
+    count_of_quotas = len(answers.QUOTAS_SHOW['quotas'])
     client = make_client(return_value=answers.QUOTAS_SHOW)
     args = ['quota show', '30bde559615740d28bb63ee626fd0f25']
 

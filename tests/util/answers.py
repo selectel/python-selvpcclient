@@ -872,7 +872,15 @@ QUOTAS_SHOW = {
                 "value": 100,
                 "used": 0
             }
-        ]
+        ],
+        "network_subnets_29_vrrp": [
+            {
+                "region": None,
+                "used": 0,
+                "value": 0,
+                "zone": None
+            }
+        ],
     }
 }
 

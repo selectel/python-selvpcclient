@@ -7,6 +7,9 @@ def format_servers(val):
 
 def join_by_key(key):
     def formatter(val):
+        for index in range(len(val[key])):
+            if val[key][index] is None:
+                val[key][index] = ""
         return "\n".join(val[key])
 
     return formatter
