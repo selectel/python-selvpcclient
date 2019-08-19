@@ -13,6 +13,7 @@ def test_show_theme_b64():
 
     assert output["color"] == "00ffee"
     assert output["logo"] == params.LOGO_BASE64
+    assert output["brand_color"] == "00ffee"
 
 
 def test_show_no_theme_b64():
@@ -23,6 +24,7 @@ def test_show_no_theme_b64():
 
     assert output["color"] == ""
     assert output["logo"] == ""
+    assert output["brand_color"] == ""
 
 
 def test_show_theme_b64_short():
@@ -33,6 +35,7 @@ def test_show_theme_b64_short():
 
     assert output["color"] == "00ffee"
     assert output["logo"] == params.LOGO_BASE64_SHORTEN
+    assert output["brand_color"] == "00ffee"
 
 
 def test_show_no_theme_b64_short():
@@ -43,6 +46,7 @@ def test_show_no_theme_b64_short():
 
     assert output["color"] == ""
     assert output["logo"] == ""
+    assert output["brand_color"] == ""
 
 
 def test_show_theme():
@@ -53,6 +57,7 @@ def test_show_theme():
 
     assert output["color"] == "00ffee"
     assert output["logo"] is True
+    assert output["brand_color"] == "00ffee"
 
 
 def test_show_no_theme():
@@ -63,15 +68,19 @@ def test_show_no_theme():
 
     assert output["color"] == ""
     assert output["logo"] is False
+    assert output["brand_color"] == ""
 
 
 def test_update_theme():
     client = make_client(return_value=answers.CUSTOMIZATION_UPDATE)
-    args = ['customization update', '--color', '00eeff']
+    args = ['customization update',
+            '--color', '00eeff',
+            '--brand-color', '00ffee']
 
     output = run_cmd(args, client, json_output=True)
 
     assert output["color"] == "00eeff"
+    assert output["brand_color"] == "00ffee"
 
 
 def test_customization_delete_without_confirm_flag():

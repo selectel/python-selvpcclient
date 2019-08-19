@@ -33,7 +33,7 @@ class Update(ShowCommand):
     """Set project properties"""
 
     columns = ["id", "name", "url", "custom_url",
-               "enabled", "color", "logo"]
+               "enabled", "color", "logo", "brand_color"]
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)
@@ -49,6 +49,7 @@ class Update(ShowCommand):
         parser.add_argument('--cname')
         parser.add_argument('--color')
         parser.add_argument('--logo')
+        parser.add_argument('--brand-color')
         parser.add_argument(
             '--reset-cname',
             default=False,
@@ -66,6 +67,11 @@ class Update(ShowCommand):
         )
         parser.add_argument(
             '--reset-theme',
+            default=False,
+            action="store_true"
+        )
+        parser.add_argument(
+            '--reset-brand-color',
             default=False,
             action="store_true"
         )
@@ -89,13 +95,16 @@ class Update(ShowCommand):
             cname=parsed_args.cname,
             color=parsed_args.color,
             logo=parsed_args.logo,
+            brand_color=parsed_args.brand_color,
             reset_cname=parsed_args.reset_cname,
             reset_color=parsed_args.reset_color,
             reset_logo=parsed_args.reset_logo,
-            reset_theme=parsed_args.reset_theme
+            reset_theme=parsed_args.reset_theme,
+            reset_brand_color=parsed_args.reset_brand_color,
         )
         result.logo = result["theme"]["logo"]
         result.color = result["theme"]["color"]
+        result.brand_color = result["theme"]["brand_color"]
 
         if parsed_args.show_short_base64:
             result.logo = convert_to_short(result.logo)
@@ -108,7 +117,7 @@ class Show(ShowCommand):
     """Display project info"""
 
     columns = ["id", "name", "url", "custom_url",
-               "enabled", "color", "logo"]
+               "enabled", "color", "logo", "brand_color"]
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)
@@ -133,6 +142,7 @@ class Show(ShowCommand):
         result = self.app.context["client"].projects.show(parsed_args.id)
         result.logo = result["theme"]["logo"]
         result.color = result["theme"]["color"]
+        result.brand_color = result["theme"]["brand_color"]
 
         if parsed_args.show_short_base64:
             result.logo = convert_to_short(result.logo)

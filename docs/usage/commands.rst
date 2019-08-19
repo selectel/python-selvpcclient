@@ -11,7 +11,7 @@ Show capabilities
 Manage customization
 ~~~~~~~~~~~~~~~~~~~~
 .. code-block:: console
-   $ selvpc customization update [--logo VALUE] [--color COLOR]
+   $ selvpc customization update [--logo VALUE] [--color COLOR] [--brand-color COLOR]
    $ selvpc customization show [--show-base64] [--show-short-base64]
    $ selvpc customization delete --yes-i-really-want-to-delete
 
@@ -40,7 +40,7 @@ Manage projects
    $ selvpc project list
    $ selvpc project create --name VALUE
    $ selvpc project show <project_id> [--show-base64] [--show-short-base64]
-   $ selvpc project update <project_id> [--name VALUE] [--logo VALUE] [--color VALUE] [--reset-logo] [--reset-color]
+   $ selvpc project update <project_id> [--name VALUE] [--logo VALUE] [--color VALUE] [--brand-color VALUE] [--reset-logo] [--reset-color] [--reset-brand-color]
    [--reset-theme] [--reset-cname] [--show-base64] [--show-short-base64]
    $ selvpc project delete <project_id_1> ... <project_id_n> --yes-i-really-want-to-delete
 
@@ -55,7 +55,7 @@ Manage projects
    **--logo** param can be like URL to logo or local path.
 
 .. note::
-   **--reset-theme** flag equals to **--reset-logo** and **--reset-color** together.
+   **--reset-theme** flag equals to **--reset-logo**, **--reset-color**, **--reset-brand-color** together.
 
 Manage quotas
 ~~~~~~~~~~~~~

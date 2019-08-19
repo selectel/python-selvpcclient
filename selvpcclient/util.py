@@ -258,6 +258,9 @@ def process_theme_params(func):
         color = kwargs.get("color", None)
         if color and not color.startswith("#"):
             kwargs["color"] = "#" + color
+        brand_color = kwargs.get("brand_color", None)
+        if brand_color and not brand_color.startswith("#"):
+            kwargs["brand_color"] = "#" + brand_color
         path = kwargs.get("logo", None)
         if path:
             if os.path.isfile(path) and path.endswith(FILES_EXTENSIONS):

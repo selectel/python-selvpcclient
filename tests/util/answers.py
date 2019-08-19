@@ -8,7 +8,8 @@ PROJECTS_LIST = {
         "enabled": True,
         "theme": {
             "color": "",
-            "logo": ""
+            "logo": "",
+            "brand_color": "",
         }
     }, {
         "id": "2c578ea47a5466db2aeb57dc8443676",
@@ -17,7 +18,8 @@ PROJECTS_LIST = {
         "enabled": True,
         "theme": {
             "color": "",
-            "logo": ""
+            "logo": "",
+            "brand_color": "",
         }
     }]
 }
@@ -31,7 +33,8 @@ PROJECTS_CREATE = {
         "custom_url": "",
         "theme": {
             "color": "",
-            "logo": ""
+            "logo": "",
+            "brand_color": "",
         }
     }
 }
@@ -64,7 +67,8 @@ PROJECTS_SET = {
         "custom_url": "www.customhost.no",
         "theme": {
             "color": "",
-            "logo": ""
+            "logo": "",
+            "brand_color": "",
         }
     }
 }
@@ -109,7 +113,8 @@ PROJECTS_SHOW = {
         },
         "theme": {
             "color": "",
-            "logo": ""
+            "logo": "",
+            "brand_color": "",
         }
     }
 }
@@ -127,7 +132,8 @@ PROJECTS_SHOW_ROLES = {
 PROJECT_CUSTOMIZE = {
     'theme': {
         "color": "00ffee",
-        "logo": LOGO_BASE64
+        "logo": LOGO_BASE64,
+        "brand_color": "00ffee",
     }
 }
 
@@ -138,12 +144,13 @@ CUSTOMIZATION_SHOW = PROJECT_CUSTOMIZE
 CUSTOMIZATION_UPDATE = {
     'theme': {
         "color": "00eeff",
-        "logo": LOGO_BASE64
+        "logo": LOGO_BASE64,
+        "brand_color": "00ffee",
     }
 }
 
 CUSTOMIZATION_NO_THEME = {
-    "theme": {"color": "", "logo": ""}
+    "theme": {"color": "", "logo": "", "brand_color": ""}
 }
 
 LIMITS_SHOW = {

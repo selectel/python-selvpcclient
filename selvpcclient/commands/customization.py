@@ -6,13 +6,14 @@ from selvpcclient.util import (handle_http_error,
 class Update(ShowCommand):
     """Set customization properties."""
 
-    columns = ["color", "logo"]
+    columns = ["color", "logo", "brand_color"]
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)
 
         parser.add_argument('--logo')
         parser.add_argument('--color')
+        parser.add_argument('--brand-color')
         parser.add_argument(
             '--show-base64',
             default=False,
@@ -29,7 +30,8 @@ class Update(ShowCommand):
     def take_action(self, parsed_args):
         result = self.app.context["client"].customization.update(
             color=parsed_args.color,
-            logo=parsed_args.logo)
+            logo=parsed_args.logo,
+            brand_color=parsed_args.brand_color)
         if parsed_args.show_short_base64:
             result.logo = convert_to_short(result.logo)
         elif not parsed_args.show_base64:
@@ -40,7 +42,7 @@ class Update(ShowCommand):
 class Show(ShowCommand):
     """Display customization info."""
 
-    columns = ["color", "logo"]
+    columns = ["color", "logo", "brand_color"]
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)

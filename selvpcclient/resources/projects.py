@@ -26,7 +26,7 @@ class Project(base.Resource):
         """
         return self.manager.get(self.id, return_raw=return_raw)
 
-    def update(self, name=None, cname=None, color=None,
+    def update(self, name=None, cname=None, color=None, brand_color=None,
                logo=None, reset_cname=False, reset_color=False,
                reset_logo=False, reset_theme=False,
                return_raw=False):
@@ -38,6 +38,7 @@ class Project(base.Resource):
         :param bool reset_logo: Reset logo
         :param bool reset_color: Reset color
         :param bool reset_cname: Reset CNAME
+        :param string brand_color: Main color of external panel (e.x: 00ffee)
         :param string logo: Path to logo or URL
         :param string color: Color for project panel
         :param string cname: New CNAME for project
@@ -49,6 +50,7 @@ class Project(base.Resource):
                                    cname=cname,
                                    color=color,
                                    logo=logo,
+                                   brand_color=brand_color,
                                    reset_cname=reset_cname,
                                    reset_color=reset_color,
                                    reset_logo=reset_logo,
@@ -258,9 +260,9 @@ class ProjectsManager(base.Manager):
 
     @process_theme_params
     def update(self, project_id, name=None, cname=None,
-               color=None, logo=None, reset_cname=False,
+               color=None, logo=None, brand_color=None, reset_cname=False,
                reset_color=False, reset_logo=False, reset_theme=False,
-               return_raw=False):
+               reset_brand_color=None, return_raw=False):
         """Update Project's properties.
 
         :param return_raw: flag to force returning raw JSON instead of
@@ -268,7 +270,9 @@ class ProjectsManager(base.Manager):
         :param bool reset_theme: Reset logo and color
         :param bool reset_logo: Reset logo
         :param bool reset_color: Reset color
+        :param bool reset_brand_color: Reset brand_color
         :param bool reset_cname: Reset CNAME
+        :param string brand_color: Main color of external panel (e.x: 00ffee)
         :param string logo: Path to logo or URL
         :param string color: Color for project panel
         :param string cname: New CNAME for project
@@ -285,14 +289,19 @@ class ProjectsManager(base.Manager):
             body["project"]["theme"]["color"] = color
         if logo:
             body["project"]["theme"]["logo"] = logo
+        if brand_color:
+            body["project"]["theme"]["brand_color"] = brand_color
         if reset_cname:
             body["project"]["custom_url"] = ""
         if reset_color:
             body["project"]["theme"]["color"] = ""
         if reset_logo:
             body["project"]["theme"]["logo"] = ""
+        if reset_brand_color:
+            body["project"]["theme"]["brand_color"] = ""
         if reset_theme:
-            body["project"]["theme"].update({"color": "", "logo": ""})
+            body["project"]["theme"].update({"color": "", "logo": "",
+                                             "brand_color": ""})
         if not body["project"]["theme"]:
             body["project"].pop("theme")
         return self._patch('/projects/{}'.format(project_id), body, 'project',
