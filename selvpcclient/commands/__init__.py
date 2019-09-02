@@ -65,6 +65,7 @@ commands = {
     'role delete': role.Delete,
 
     'token create': token.Create,
+    'token delete': token.Delete,
 
     'keypair add': keypair.Add,
     'keypair list': keypair.List,

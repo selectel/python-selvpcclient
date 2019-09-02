@@ -27,3 +27,14 @@ def test_add_raw():
     token = manager.create(project_id=322, return_raw=True)
 
     assert token == answers.TOKENS_CREATE["token"]
+
+
+@responses.activate
+def test_remove():
+    responses.add(responses.DELETE, 'http://api/v2/tokens/666', status=204)
+
+    manager = TokensManager(client)
+
+    result = manager.delete(token_id=666)
+
+    assert result is None

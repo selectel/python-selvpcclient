@@ -181,7 +181,7 @@ Manage tokens
 .. code-block:: console
 
    $ selvpc token create <project_id>
-
+   $ selvpc token delete <token_id> ... <token_id_n> --yes-i-really-want-to-delete
 
 Manage keypairs
 ~~~~~~~~~~~~~~~

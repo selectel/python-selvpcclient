@@ -1,5 +1,5 @@
-from selvpcclient.base import ShowCommand
-from selvpcclient.util import handle_http_error
+from selvpcclient.base import ShowCommand, CLICommand
+from selvpcclient.util import confirm_action, handle_http_error
 
 
 class Create(ShowCommand):
@@ -27,3 +27,28 @@ class Create(ShowCommand):
             parsed_args.account_name
         )
         return self.setup_columns(result, parsed_args)
+
+
+class Delete(CLICommand):
+    """Revoke user token"""
+
+    def get_parser(self, prog_name):
+        parser = super(CLICommand, self).get_parser(prog_name)
+        parser.add_argument(
+            'id',
+            metavar="<token_id>",
+            nargs='+'
+        )
+        parser.add_argument(
+            '--yes-i-really-want-to-delete',
+            default=False,
+            action='store_true'
+        )
+        return parser
+
+    @confirm_action("delete")
+    def take_action(self, parsed_args):
+        self.app.context["client"].tokens.delete_many(
+            parsed_args.id,
+            raise_if_not_found=False
+        )
