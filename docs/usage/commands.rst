@@ -158,24 +158,6 @@ Manage VRRP subnets
 .. note::
    By defaults: key **type** is **ipv4**, **prefix** is **29**, **quantity** is **1**
 
-Mange cross-region subnets
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. code-block:: console
-
-    $ selvpc subnet cross-region list [--detailed]
-    $ selvpc subnet cross-region show <cross_region_subnet_id>
-    $ selvpc subnet cross-region add <project_id> --region VALUE [--cidr VALUE] [--quantity VALUE]
-    $ selvpc subnet cross-region delete <cross_region_subnet_id_1> ... <cross_region_subnet_id_n> --yes-i-really-want-to-delete
-
-.. note::
-   Key **detailed** appends additional column: *servers*.
-
-.. note::
-   Key **region** is repeatable.
-
-.. note::
-   By defaults: **quantity** is **1**
-
 Manage tokens
 ~~~~~~~~~~~~~
 .. code-block:: console

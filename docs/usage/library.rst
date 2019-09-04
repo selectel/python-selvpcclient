@@ -159,13 +159,6 @@ Manage VRRP Subnets
     :members:
     :show-inheritance:
 
-Manage Cross-region Subnets
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. automodule:: selvpcclient.resources.cross_region_subnets
-    :members:
-    :show-inheritance:
-
 Manage Floating IP
 ~~~~~~~~~~~~~~~~~~
 

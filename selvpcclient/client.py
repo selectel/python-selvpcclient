@@ -1,8 +1,6 @@
 from selvpcclient import __version__
 from selvpcclient.httpclient import HTTPClient
 from selvpcclient.resources.capabilities import CapabilitiesManager
-from selvpcclient.resources.cross_region_subnets import \
-    CrossRegionSubnetManager
 from selvpcclient.resources.customization import CustomizationManager
 from selvpcclient.resources.floatingips import FloatingIPManager
 from selvpcclient.resources.keypairs import KeyPairManager
@@ -53,7 +51,6 @@ class Client:
         self.floatingips = FloatingIPManager(client)
         self.subnets = SubnetManager(client)
         self.vrrp = VRRPManager(client)
-        self.cross_region_subnets = CrossRegionSubnetManager(client)
         self.capabilities = CapabilitiesManager(client)
         self.tokens = TokensManager(client)
         self.customization = CustomizationManager(client)
