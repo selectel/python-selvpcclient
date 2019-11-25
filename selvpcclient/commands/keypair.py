@@ -61,6 +61,7 @@ class Delete(CLICommand):
             '--user',
             dest="user_id",
             metavar="USER_ID",
+            required=True,
         )
         parser.add_argument(
             'keys',
