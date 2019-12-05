@@ -31,7 +31,7 @@ class HTTPClient:
             raise err
         except requests.exceptions.ConnectionError as err:
             raise err
-        except requests.exceptions.RequestException as err:
+        except requests.exceptions.RequestException:
             raise ClientException(
                 status_code=response.status_code,
                 message=get_http_exception(
