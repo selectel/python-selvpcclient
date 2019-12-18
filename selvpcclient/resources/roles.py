@@ -74,7 +74,7 @@ class RolesManager(base.Manager):
         :rtype: :class:`Role`
         """
         url = '/roles/projects/{}/users/{}'.format(project_id, user_id)
-        return self._post(url=url, body='', response_key='role',
+        return self._post(url=url, body=None, response_key='role',
                           return_raw=return_raw)
 
     def delete_user_role_from_project(self, project_id, user_id):
