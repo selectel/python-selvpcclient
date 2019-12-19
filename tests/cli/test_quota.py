@@ -5,7 +5,7 @@ from tests.util import answers
 
 
 def test_quota_set():
-    COUNT_OF_QUOTAS = 7
+    COUNT_OF_QUOTAS = 6
     client = make_client(return_value=answers.QUOTAS_SET)
     args = ['quota set',
             'c2383dc1894748b193031ae1bccf508a',
@@ -38,7 +38,7 @@ def test_quota_optimize_nothing():
 
 
 def test_quota_list():
-    count_of_quotas = 12
+    count_of_quotas = 10
     client = make_client(return_value=answers.QUOTAS_LIST)
     args = ['quota list']
 

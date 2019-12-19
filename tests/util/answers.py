@@ -467,20 +467,6 @@ QUOTAS_LIST = {
                     "value": 81
                 }
             ],
-            "volume_gigabytes_iso": [
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": None,
-                    "value": 46
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": None,
-                    "value": 44
-                }
-            ],
             "compute_ram": [
                 {
                     "region": "ru1",
@@ -613,20 +599,6 @@ QUOTAS_LIST = {
                     "value": 0
                 }
             ],
-            "volume_gigabytes_iso": [
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": None,
-                    "value": 13
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": None,
-                    "value": 0
-                }
-            ],
             "compute_ram": [
                 {
                     "region": "ru1",
@@ -743,20 +715,6 @@ QUOTAS_SET = {
                 "used": 0,
                 "zone": "ru-2a",
                 "value": 1
-            }
-        ],
-        "volume_gigabytes_iso": [
-            {
-                "region": "ru-1",
-                "used": 0,
-                "zone": None,
-                "value": 0
-            },
-            {
-                "region": "ru-2",
-                "used": 0,
-                "zone": None,
-                "value": 0
             }
         ],
         "volume_gigabytes_universal": [
