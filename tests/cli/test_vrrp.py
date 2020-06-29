@@ -8,7 +8,7 @@ def test_vrrp_add():
     client = make_client(return_value=answers.VRRP_ADD)
     args = ['vrrp add',
             'a2e6dd715ca24681b9b335d247b83d16',
-            '--region', 'ru-1',
+            '--master', 'ru-1',
             '--type', 'ipv4',
             '--prefix', '29',
             '--quantity', '3']
