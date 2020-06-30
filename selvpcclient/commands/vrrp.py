@@ -53,8 +53,9 @@ class Add(ListCommand):
             "vrrp_subnets": [
                 {
                     "regions": {
-                        "master": parsed_args.master, 
-                        "slave": parsed_args.slave},
+                        "master": parsed_args.master,
+                        "slave": parsed_args.slave
+                    },
                     "prefix_length": parsed_args.prefix,
                     "type": parsed_args.type,
                     "quantity": parsed_args.quantity,
