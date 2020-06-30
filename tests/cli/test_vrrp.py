@@ -9,6 +9,7 @@ def test_vrrp_add():
     args = ['vrrp add',
             'a2e6dd715ca24681b9b335d247b83d16',
             '--master', 'ru-1',
+            '--slave', 'ru-2',
             '--type', 'ipv4',
             '--prefix', '29',
             '--quantity', '3']
