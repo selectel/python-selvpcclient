@@ -144,7 +144,7 @@ Manage VRRP subnets
 ~~~~~~~~~~~~~~~~~~~
 .. code-block:: console
 
-   $ selvpc vrrp add --region ru-1 --region ru-2 [--type VALUE] [--prefix VALUE] [--quantity VALUE]
+   $ selvpc vrrp add --master ru-1 --slave ru-2 [--type VALUE] [--prefix VALUE] [--quantity VALUE]
    $ selvpc vrrp list [--project XXX] [--detailed]
    $ selvpc vrrp show <vrrp_id>
    $ selvpc vrrp delete <vrrp_id_1> ... <vrrp_id_n> --yes-i-really-want-to-delete
