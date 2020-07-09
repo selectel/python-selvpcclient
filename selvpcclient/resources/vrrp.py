@@ -40,7 +40,10 @@ class VRRPManager(base.Manager):
                                     {
                                         "vrrp_subnets": [
                                             {
-                                                "regions": ["ru-1", "ru-2"],
+                                                "regions": [
+                                                    "master": "ru-1",
+                                                    "slave": "ru-2"
+                                                ],
                                                 "quantity": 1,
                                                 "prefix_length": 29,
                                                 "type": "ipv4",

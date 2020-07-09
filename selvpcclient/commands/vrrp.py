@@ -17,11 +17,18 @@ class Add(ListCommand):
             metavar="<project_id>"
         )
         parser.add_argument(
-            '-r',
-            '--region',
+            '-m',
+            '--master',
             required=True,
-            action='append',
-            dest="regions",
+            action='store',
+            dest="master",
+        )
+        parser.add_argument(
+            '-s',
+            '--slave',
+            required=True,
+            action='store',
+            dest="slave",
         )
         parser.add_argument(
             '--type',
@@ -45,7 +52,10 @@ class Add(ListCommand):
         body = {
             "vrrp_subnets": [
                 {
-                    "regions": parsed_args.regions,
+                    "regions": {
+                        "master": parsed_args.master,
+                        "slave": parsed_args.slave
+                    },
                     "prefix_length": parsed_args.prefix,
                     "type": parsed_args.type,
                     "quantity": parsed_args.quantity,
