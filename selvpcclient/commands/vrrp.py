@@ -12,39 +12,39 @@ class Add(ListCommand):
 
     def get_parser(self, prog_name):
         parser = super(ListCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'project_id',
-            metavar="<project_id>"
-        )
-        parser.add_argument(
-            '-m',
-            '--master',
-            required=True,
-            action='store',
-            dest="master",
-        )
-        parser.add_argument(
-            '-s',
-            '--slave',
-            required=True,
-            action='store',
-            dest="slave",
-        )
-        parser.add_argument(
-            '--type',
-            default="ipv4",
-        )
-        parser.add_argument(
-            '-p',
-            '--prefix',
-            default=29,
-            type=int,
-        )
-        parser.add_argument(
-            '--quantity',
-            default=1,
-            type=int,
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('--project_id',
+                              required=True,
+                              metavar='<project_id>',
+                              help='Project id'
+                              )
+        required.add_argument('-m',
+                              '--master',
+                              required=True,
+                              action='store',
+                              dest='master',
+                              help='Master region'
+                              )
+        required.add_argument('-s',
+                              '--slave',
+                              required=True,
+                              action='store',
+                              dest='slave',
+                              help='Slave region'
+                              )
+        optional = parser.add_argument_group('Optional arguments')
+        optional.add_argument('--type',
+                              default='ipv4',
+                              )
+        optional.add_argument('-p',
+                              '--prefix',
+                              type=int,
+                              default=29,
+                              )
+        optional.add_argument('--quantity',
+                              type=int,
+                              default=1,
+                              )
         return parser
 
     @handle_http_error
@@ -72,16 +72,18 @@ class Show(ListCommand):
     """Show detailed vrrp subnet information"""
 
     columns = [
-        'id', 'project_id', 'cidr', 'status', 'servers'
+        'id', 'project_id', 'cidr', 'status', 'servers', 'master_region', 'slave_region'
     ]
     _formatters = {"servers": format_servers}
 
     def get_parser(self, prog_name):
         parser = super(ListCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'id',
-            metavar="<vrrp_id>"
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('--id',
+                              required=True,
+                              metavar='<vrrp_id>',
+                              help='Project VRRP subnet id'
+                              )
         return parser
 
     @handle_http_error
@@ -95,16 +97,17 @@ class Delete(CLICommand):
 
     def get_parser(self, prog_name):
         parser = super(CLICommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'id',
-            metavar="<vrrp_id>",
-            nargs='+'
-        )
-        parser.add_argument(
-            '--yes-i-really-want-to-delete',
-            default=False,
-            action='store_true'
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('--id',
+                              required=True,
+                              nargs='+',
+                              metavar='<vrrp_id>',
+                              help='Project VRRP subnet ids')
+        required.add_argument('--yes-i-really-want-to-delete',
+                              required=True,
+                              default=False,
+                              action='store_true',
+                              )
         return parser
 
     @confirm_action("delete")
@@ -118,16 +121,16 @@ class Delete(CLICommand):
 class List(ListCommand):
     """List of vrrp subnets"""
 
-    columns = ['id', 'project_id', 'cidr', 'status']
+    columns = ['id', 'project_id', 'cidr', 'status', 'master_region', 'slave_region']
     sorting_support = True
 
     def get_parser(self, prog_name):
         parser = super(ListCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            '--detailed',
-            default=False,
-            action='store_true'
-        )
+        optional = parser.add_argument_group('Optional arguments')
+        optional.add_argument('--detailed',
+                              required=False,
+                              action='store_true',
+                              help='Show servers connected to subnet')
         add_resource_filter_arguments(parser, add_region=False)
         return parser
 

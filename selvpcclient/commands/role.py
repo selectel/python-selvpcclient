@@ -10,16 +10,15 @@ class Create(ShowCommand):
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            '-p',
-            '--project',
-            required=True,
-        )
-        parser.add_argument(
-            '-u',
-            '--user',
-            required=True,
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('-p',
+                              '--project',
+                              required=True,
+                              )
+        required.add_argument('-u',
+                              '--user',
+                              required=True,
+                              )
         return parser
 
     @handle_http_error
@@ -35,21 +34,20 @@ class Delete(CLICommand):
 
     def get_parser(self, prog_name):
         parser = super(CLICommand, self).get_parser(prog_name)
-        parser.add_argument(
-            '-p',
-            '--project',
-            required=True,
-        )
-        parser.add_argument(
-            '-u',
-            '--user',
-            required=True,
-        )
-        parser.add_argument(
-            '--yes-i-really-want-to-delete',
-            default=False,
-            action='store_true'
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('-p',
+                              '--project',
+                              required=True,
+                              )
+        required.add_argument('-u',
+                              '--user',
+                              required=True,
+                              )
+        required.add_argument('--yes-i-really-want-to-delete',
+                              required=True,
+                              default=False,
+                              action='store_true',
+                              )
         return parser
 
     @handle_http_error
@@ -70,18 +68,19 @@ class List(ListCommand):
 
     def get_parser(self, prog_name):
         parser = super(ListCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            '--project',
-            dest='project_id',
-            metavar="<project_id>",
-            help="List of roles for provided project"
-        )
-        parser.add_argument(
-            '--all',
-            default=False,
-            action='store_true',
-            help="List of all roles for all projects in the domain"
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('--project',
+                              required=True,
+                              metavar='<project_id>',
+                              dest='project_id',
+                              help='List of roles for provided project',
+                              )
+        optional = parser.add_argument_group('Optional arguments')
+        optional.add_argument('--all',
+                              default=False,
+                              action='store_true',
+                              help='List of all roles for all projects in the domain',
+                              )
         return parser
 
     @handle_http_error

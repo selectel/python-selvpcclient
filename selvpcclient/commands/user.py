@@ -9,18 +9,18 @@ class Create(ShowCommand):
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            '--name',
-            required=True,
-        )
-        parser.add_argument(
-            '--password',
-            required=True,
-        )
-        parser.add_argument(
-            '--enabled',
-            default=True
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('--name',
+                              required=True,
+                              )
+        required.add_argument('--password',
+                              required=True,
+                              )
+
+        optional = parser.add_argument_group('Optional arguments')
+        optional.add_argument('--enabled',
+                              default=True,
+                              )
         return parser
 
     @handle_http_error
@@ -38,19 +38,18 @@ class Update(ShowCommand):
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'id',
-            metavar="<user_id>"
-        )
-        parser.add_argument(
-            '--name',
-        )
-        parser.add_argument(
-            '--password',
-        )
-        parser.add_argument(
-            '--enabled',
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('--id',
+                              required=True,
+                              metavar='<user_id>')
+
+        optional = parser.add_argument_group('Optional arguments')
+        optional.add_argument('--name',
+                              )
+        optional.add_argument('--password',
+                              )
+        optional.add_argument('--enabled',
+                              )
         return parser
 
     @handle_http_error
@@ -67,16 +66,17 @@ class Delete(CLICommand):
 
     def get_parser(self, prog_name):
         parser = super(CLICommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'id',
-            metavar="<user_id>",
-            nargs='+'
-        )
-        parser.add_argument(
-            '--yes-i-really-want-to-delete',
-            default=False,
-            action='store_true'
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('--id',
+                              required=True,
+                              metavar='<user_id>',
+                              nargs='+',
+                              )
+        required.add_argument('--yes-i-really-want-to-delete',
+                              required=True,
+                              default=False,
+                              action='store_true',
+                              )
         return parser
 
     @confirm_action("delete")
@@ -106,7 +106,11 @@ class Show(ShowCommand):
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)
-        parser.add_argument('id', metavar="<user_id>")
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('--id',
+                              required=True,
+                              metavar='<user_id>',
+                              )
         return parser
 
     @handle_http_error
@@ -123,10 +127,11 @@ class RolesList(ListCommand):
 
     def get_parser(self, prog_name):
         parser = super(ListCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'id',
-            metavar="<user_id>"
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('--id',
+                              required=True,
+                              metavar='<user_id>',
+                              )
         return parser
 
     @handle_http_error

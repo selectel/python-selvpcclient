@@ -10,16 +10,16 @@ class Create(ShowCommand):
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            '-n',
-            '--name',
-            required=True,
-        )
-        parser.add_argument(
-            '--auto-quotas',
-            default=False,
-            action="store_true"
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('-n',
+                              '--name',
+                              required=True,
+                              )
+        optional = parser.add_argument_group('Optional arguments')
+        optional.add_argument('--auto-quotas',
+                              default=False,
+                              action='store_true',
+                              )
         return parser
 
     @handle_http_error
@@ -37,54 +37,53 @@ class Update(ShowCommand):
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'id',
-            metavar="<project_id>"
-        )
-        parser.add_argument(
-            '-n',
-            '--name',
-            metavar="NEW_NAME"
-        )
-        parser.add_argument('--cname')
-        parser.add_argument('--color')
-        parser.add_argument('--logo')
-        parser.add_argument('--brand-color')
-        parser.add_argument(
-            '--reset-cname',
-            default=False,
-            action="store_true"
-        )
-        parser.add_argument(
-            '--reset-color',
-            default=False,
-            action="store_true"
-        )
-        parser.add_argument(
-            '--reset-logo',
-            default=False,
-            action="store_true"
-        )
-        parser.add_argument(
-            '--reset-theme',
-            default=False,
-            action="store_true"
-        )
-        parser.add_argument(
-            '--reset-brand-color',
-            default=False,
-            action="store_true"
-        )
-        parser.add_argument(
-            '--show-base64',
-            default=False,
-            action='store_true'
-        )
-        parser.add_argument(
-            '--show-short-base64',
-            default=False,
-            action='store_true'
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('--id',
+                              required=True,
+                              metavar='<project_id>',
+                              )
+
+        optional = parser.add_argument_group('Optional arguments')
+        optional.add_argument('-n',
+                              '--name',
+                              metavar='NEW_NAME',
+                              )
+        optional.add_argument('--cname',
+                              )
+        optional.add_argument('--color',
+                              )
+        optional.add_argument('--logo',
+                              )
+        optional.add_argument('--brand-color',
+                              )
+        optional.add_argument('--reset-cname',
+                              default=False,
+                              action='store_true',
+                              )
+        optional.add_argument('--reset-color',
+                              default=False,
+                              action='store_true',
+                              )
+        optional.add_argument('--reset-logo',
+                              default=False,
+                              action='store_true',
+                              )
+        optional.add_argument('--reset-theme',
+                              default=False,
+                              action='store_true',
+                              )
+        optional.add_argument('--reset-brand-color',
+                              default=False,
+                              action='store_true',
+                              )
+        optional.add_argument('--show-base64',
+                              default=False,
+                              action='store_true',
+                              )
+        optional.add_argument('--show-short-base64',
+                              default=False,
+                              action='store_true',
+                              )
         return parser
 
     @handle_http_error
@@ -121,20 +120,21 @@ class Show(ShowCommand):
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'id',
-            metavar="<project_id>"
-        )
-        parser.add_argument(
-            '--show-base64',
-            default=False,
-            action='store_true'
-        )
-        parser.add_argument(
-            '--show-short-base64',
-            default=False,
-            action='store_true'
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('--id',
+                              required=True,
+                              metavar='<project_id>',
+                              )
+
+        optional = parser.add_argument_group('Optional arguments')
+        optional.add_argument('--show-base64',
+                              default=False,
+                              action='store_true',
+                              )
+        optional.add_argument('--show-short-base64',
+                              default=False,
+                              action='store_true',
+                              )
         return parser
 
     @handle_http_error
@@ -156,16 +156,16 @@ class Delete(CLICommand):
 
     def get_parser(self, prog_name):
         parser = super(CLICommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'id',
-            metavar="<project_id>",
-            nargs='+'
-        )
-        parser.add_argument(
-            '--yes-i-really-want-to-delete',
-            default=False,
-            action='store_true'
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('--id',
+                              required=True,
+                              metavar='<project_id>',
+                              nargs='+',
+                              )
+        required.add_argument('--yes-i-really-want-to-delete',
+                              required=True,
+                              action='store_true',
+                              )
         return parser
 
     @confirm_action("delete")

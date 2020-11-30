@@ -10,20 +10,21 @@ class Update(ShowCommand):
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)
-
-        parser.add_argument('--logo')
-        parser.add_argument('--color')
-        parser.add_argument('--brand-color')
-        parser.add_argument(
-            '--show-base64',
-            default=False,
-            action='store_true'
-        )
-        parser.add_argument(
-            '--show-short-base64',
-            default=False,
-            action='store_true'
-        )
+        optional = parser.add_argument_group('Optional arguments')
+        optional.add_argument('--logo',
+                              )
+        optional.add_argument('--color',
+                              )
+        optional.add_argument('--brand-color',
+                              )
+        optional.add_argument('--show-base64',
+                              default=False,
+                              action='store_true',
+                              )
+        optional.add_argument('--show-short-base64',
+                              default=False,
+                              action='store_true',
+                              )
         return parser
 
     @handle_http_error
@@ -46,17 +47,15 @@ class Show(ShowCommand):
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)
-
-        parser.add_argument(
-            '--show-base64',
-            default=False,
-            action='store_true'
-        )
-        parser.add_argument(
-            '--show-short-base64',
-            default=False,
-            action='store_true'
-        )
+        optional = parser.add_argument_group('Optional arguments')
+        optional.add_argument('--show-base64',
+                              default=False,
+                              action='store_true',
+                              )
+        optional.add_argument('--show-short-base64',
+                              default=False,
+                              action='store_true',
+                              )
         return parser
 
     @handle_http_error
@@ -74,12 +73,12 @@ class Delete(CLICommand):
 
     def get_parser(self, prog_name):
         parser = super(CLICommand, self).get_parser(prog_name)
-
-        parser.add_argument(
-            '--yes-i-really-want-to-delete',
-            default=False,
-            action='store_true'
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('--yes-i-really-want-to-delete',
+                              required=True,
+                              default=False,
+                              action='store_true',
+                              )
         return parser
 
     @handle_http_error

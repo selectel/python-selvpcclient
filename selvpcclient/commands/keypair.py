@@ -11,29 +11,27 @@ class Add(ListCommand):
 
     def get_parser(self, prog_name):
         parser = super(ListCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            '--key',
-            dest="public_key",
-            metavar="ID_RSA_KEY",
-            required=True,
-        )
-        parser.add_argument(
-            '--user',
-            dest="user_id",
-            metavar="USER_ID",
-            required=True,
-        )
-        parser.add_argument(
-            '--name',
-            metavar="KEY_NAME",
-            required=True,
-        )
-        parser.add_argument(
-            '--region',
-            metavar="REGION",
-            dest="regions",
-            action='append',
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('--key',
+                              required=True,
+                              metavar='ID_RSA_KEY',
+                              dest='public_key',
+                              )
+        required.add_argument('--user',
+                              required=True,
+                              metavar='USER_ID',
+                              dest='user_id',
+                              )
+        required.add_argument('--name',
+                              required=True,
+                              metavar='KEY_NAME',
+                              )
+        required.add_argument('--region',
+                              required=True,
+                              metavar='REGION',
+                              dest='regions',
+                              action='append',
+                              )
         return parser
 
     @handle_http_error
@@ -56,23 +54,23 @@ class Delete(CLICommand):
 
     def get_parser(self, prog_name):
         parser = super(CLICommand, self).get_parser(prog_name)
-        parser.add_argument(
-            '-u',
-            '--user',
-            dest="user_id",
-            metavar="USER_ID",
-            required=True,
-        )
-        parser.add_argument(
-            'keys',
-            metavar="<key_name>",
-            nargs='+'
-        )
-        parser.add_argument(
-            '--yes-i-really-want-to-delete',
-            default=False,
-            action='store_true'
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('-u',
+                              '--user',
+                              required=True,
+                              metavar='USER_ID',
+                              dest='user_id',
+                              )
+        required.add_argument('--keys',
+                              required=True,
+                              metavar='<key_name>',
+                              nargs='+',
+                              )
+        required.add_argument('--yes-i-really-want-to-delete',
+                              required=True,
+                              default=False,
+                              action='store_true',
+                              )
         return parser
 
     @confirm_action("delete")
@@ -95,16 +93,15 @@ class List(ListCommand):
     def get_parser(self, prog_name):
         parser = super(ListCommand, self).get_parser(prog_name)
         add_resource_filter_arguments(parser, add_project=False)
-        parser.add_argument(
-            '--show-key',
-            default=False,
-            action='store_true'
-        )
-        parser.add_argument(
-            '--show-short-key',
-            default=False,
-            action='store_true'
-        )
+        optional = parser.add_argument_group('Optional arguments')
+        optional.add_argument('--show-key',
+                              default=False,
+                              action='store_true',
+                              )
+        optional.add_argument('--show-short-key',
+                              default=False,
+                              action='store_true',
+                              )
         return parser
 
     @handle_http_error
