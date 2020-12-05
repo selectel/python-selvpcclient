@@ -69,7 +69,8 @@ class Show(ListCommand):
     """Show detailed vrrp subnet information"""
 
     columns = [
-        'id', 'project_id', 'cidr', 'status', 'servers'
+        'id', 'project_id', 'cidr', 'status', 'servers', 'master_region',
+        'slave_region'
     ]
     _formatters = {"servers": format_servers}
 
@@ -115,7 +116,7 @@ class Delete(CLICommand):
 class List(ListCommand):
     """List of vrrp subnets"""
 
-    columns = ['id', 'project_id', 'cidr', 'status']
+    columns = ['id', 'project_id', 'cidr', 'status', 'master_region', 'slave_region']
     sorting_support = True
 
     def get_parser(self, prog_name):

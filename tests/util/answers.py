@@ -1354,7 +1354,9 @@ VRRP_SHOW = {
         "servers": [],
         "cidr": "78.155.195.0/29",
         "project_id": "b63ab68796e34858befb8fa2a8b1e12a",
-        "id": 2
+        "id": 2,
+        "master_region": "ru-1",
+        "slave_region": "ru-2"
     }
 }
 
@@ -1366,7 +1368,9 @@ VRRP_LIST = {
             "servers": [],
             "cidr": "78.155.196.0/29",
             "project_id": "x63ab68796e34858befb8fa2a8b1e12a",
-            "id": 3
+            "id": 3,
+            "master_region": "ru-1",
+            "slave_region": "ru-2"
         },
         {
             "status": "DOWN",
@@ -1374,7 +1378,9 @@ VRRP_LIST = {
             "servers": [],
             "cidr": "78.155.195.0/29",
             "project_id": "b63ab68796e34858befb8fa2a8b1e12a",
-            "id": 2
+            "id": 2,
+            "master_region": "ru-1",
+            "slave_region": "ru-2"
         }
     ]
 }
