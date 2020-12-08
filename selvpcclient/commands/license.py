@@ -13,26 +13,25 @@ class Add(ListCommand):
 
     def get_parser(self, prog_name):
         parser = super(ListCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'project_id',
-            metavar="<project_id>"
-        )
-        parser.add_argument(
-            '-r',
-            '--region',
-            required=True,
-        )
-        parser.add_argument(
-            '-t',
-            '--type',
-            required=True,
-        )
-        parser.add_argument(
-            '--quantity',
-            required=False,
-            default=1,
-            type=int,
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('project_id',
+                              metavar='<project_id>',
+                              )
+        required.add_argument('-r',
+                              '--region',
+                              required=True,
+                              )
+        required.add_argument('-t',
+                              '--type',
+                              required=True,
+                              )
+
+        optional = parser.add_argument_group('Optional arguments')
+        optional.add_argument('--quantity',
+                              required=False,
+                              default=1,
+                              type=int,
+                              )
         return parser
 
     @handle_http_error
@@ -57,10 +56,10 @@ class Show(ShowCommand):
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'id',
-            metavar="<license_id>"
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('id',
+                              metavar='<license_id>',
+                              )
         return parser
 
     @handle_http_error
@@ -74,16 +73,15 @@ class Delete(CLICommand):
 
     def get_parser(self, prog_name):
         parser = super(CLICommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'id',
-            metavar="<license_id>",
-            nargs='+'
-        )
-        parser.add_argument(
-            '--yes-i-really-want-to-delete',
-            default=False,
-            action='store_true'
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('id',
+                              metavar='<license_id>',
+                              nargs='+',
+                              )
+        required.add_argument('--yes-i-really-want-to-delete',
+                              default=False,
+                              action='store_true',
+                              )
         return parser
 
     @confirm_action("delete")
@@ -102,11 +100,11 @@ class List(ListCommand):
 
     def get_parser(self, prog_name):
         parser = super(ListCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            '--detailed',
-            default=False,
-            action='store_true'
-        )
+        optional = parser.add_argument_group('Optional arguments')
+        optional.add_argument('--detailed',
+                              default=False,
+                              action='store_true',
+                              )
         add_resource_filter_arguments(parser)
         return parser
 

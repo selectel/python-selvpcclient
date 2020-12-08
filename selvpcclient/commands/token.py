@@ -10,14 +10,13 @@ class Create(ShowCommand):
 
     def get_parser(self, prog_name):
         parser = super(ShowCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            '--project',
-            dest='project_id'
-        )
-        parser.add_argument(
-            '--account',
-            dest='account_name',
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('--project',
+                              dest='project_id',
+                              )
+        required.add_argument('--account',
+                              dest='account_name',
+                              )
         return parser
 
     @handle_http_error
@@ -34,16 +33,15 @@ class Delete(CLICommand):
 
     def get_parser(self, prog_name):
         parser = super(CLICommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'id',
-            metavar="<token_id>",
-            nargs='+'
-        )
-        parser.add_argument(
-            '--yes-i-really-want-to-delete',
-            default=False,
-            action='store_true'
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('id',
+                              metavar='<token_id>',
+                              nargs='+',
+                              )
+        required.add_argument('--yes-i-really-want-to-delete',
+                              default=False,
+                              action='store_true',
+                              )
         return parser
 
     @confirm_action("delete")
