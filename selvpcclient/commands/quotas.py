@@ -39,31 +39,29 @@ class Update(ListCommand):
 
     def get_parser(self, prog_name):
         parser = super(ListCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'project_id',
-            metavar="<project_id>"
-        )
-        parser.add_argument(
-            '-R',
-            '--resource',
-            required=True,
-        )
-        parser.add_argument(
-            '-r',
-            '--region',
-            required=True,
-        )
-        parser.add_argument(
-            '-z',
-            '--zone',
-            required=False,
-            default=None,
-        )
-        parser.add_argument(
-            '--value',
-            required=True,
-            type=int,
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('project_id',
+                              metavar='<project_id>',
+                              )
+        required.add_argument('-r',
+                              '--region',
+                              required=True,
+                              )
+        required.add_argument('-R',
+                              '--resource',
+                              required=True,
+                              )
+        required.add_argument('--value',
+                              required=True,
+                              type=int,
+                              )
+
+        optional = parser.add_argument_group('Optional arguments')
+        optional.add_argument('-z',
+                              '--zone',
+                              required=False,
+                              default=None,
+                              )
         return parser
 
     @handle_http_error
@@ -102,10 +100,10 @@ class Show(ListCommand):
 
     def get_parser(self, prog_name):
         parser = super(ListCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'project_id',
-            metavar="<project_id>"
-        )
+        required = parser.add_argument_group('Required arguments')
+        required.add_argument('project_id',
+                              metavar='<project_id>',
+                              )
         return parser
 
     @handle_http_error
