@@ -1,5 +1,3 @@
-import pytest
-
 from tests.cli import make_client, run_cmd
 from tests.util import answers
 
@@ -22,25 +20,9 @@ def test_quota_set():
 def test_quota_show():
     count_of_quotas = len(answers.QUOTAS_SHOW['quotas'])
     client = make_client(return_value=answers.QUOTAS_SHOW)
-    args = ['quota show', '30bde559615740d28bb63ee626fd0f25']
-
-    output = run_cmd(args, client, json_output=True)
-
-    assert len(output) == count_of_quotas
-
-
-def test_quota_optimize_nothing():
-    client = make_client(return_value=answers.QUOTAS_OPTIMIZE_ALL_USING)
-    args = ['quota optimize', '30bde559615740d28bb63ee626fd0f25']
-
-    with pytest.raises(SystemExit):
-        run_cmd(args, client)
-
-
-def test_quota_list():
-    count_of_quotas = 10
-    client = make_client(return_value=answers.QUOTAS_LIST)
-    args = ['quota list']
+    args = ['quota show',
+            '--region=ru-1',
+            '30bde559615740d28bb63ee626fd0f25']
 
     output = run_cmd(args, client, json_output=True)
 

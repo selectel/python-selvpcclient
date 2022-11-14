@@ -15,17 +15,11 @@ class Create(ShowCommand):
                               '--name',
                               required=True,
                               )
-        optional = parser.add_argument_group('Optional arguments')
-        optional.add_argument('--auto-quotas',
-                              default=False,
-                              action='store_true',
-                              )
         return parser
 
     @handle_http_error
     def take_action(self, parsed_args):
-        result = self.app.context["client"].projects.create(
-            parsed_args.name, auto_quotas=parsed_args.auto_quotas)
+        result = self.app.context["client"].projects.create(parsed_args.name)
         return self.setup_columns(result, parsed_args)
 
 

@@ -26,12 +26,11 @@ Manage customization
    **--logo** param can be like URL to logo or local path.
 
 
-Show domain limits
+Show project limits
 ~~~~~~~~~~~~~~~~~~
 .. code-block:: console
 
-   $ selvpc limit show
-   $ selvpc limit show free
+   $ selvpc limit show --region VALUE <project_id>
 
 Manage projects
 ~~~~~~~~~~~~~~~
@@ -61,10 +60,8 @@ Manage quotas
 ~~~~~~~~~~~~~
 .. code-block:: console
 
-   $ selvpc quota list
-   $ selvpc quota optimize <project_id>
-   $ selvpc quota show <project_id>
-   $ selvpc quota set <project_id> --resource VALUE --region VALUE [--zone VALUE] --value VALUE
+   $ selvpc quota show --region VALUE <project_id>
+   $ selvpc quota set --resource VALUE --region VALUE [--zone VALUE] --value VALUE <project_id>
 
 .. note::
    Key **zone** by default is empty.

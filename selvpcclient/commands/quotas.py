@@ -1,36 +1,16 @@
-import sys
-
-from selvpcclient.base import ListCommand, PartialResponse
-from selvpcclient.formatters import join_by_key, reformat_quotas_with_usages
-from selvpcclient.util import handle_http_error
-
-
-class List(ListCommand):
-    """Show quotas for all projects"""
-
-    columns = ['project_id', 'resource', 'region', 'zone', 'value', 'used']
-    _formatters = {
-        "region": join_by_key("region"),
-        "zone": join_by_key("zone"),
-        "value": join_by_key("value"),
-        "used": join_by_key("used")
-    }
-    sorting_support = True
-
-    @handle_http_error
-    def take_action(self, parsed_args):
-        result = self.app.context["client"].quotas.get_projects_quotas()
-        return self.setup_columns(
-            reformat_quotas_with_usages(result._info), parsed_args
-        )
+from selvpcclient.base import ListCommand
+from selvpcclient.exceptions.base import ClientException
+from selvpcclient.formatters import join_by_key
+from selvpcclient.formatters import reformat_quotas
+from selvpcclient.formatters import reformat_quotas_with_usages
+from selvpcclient.util import extract_single_quota_error, handle_http_error
 
 
 class Update(ListCommand):
     """Set quotas for project"""
 
-    columns = ['resource', 'region', 'zone', 'value', 'used']
+    columns = ['resource', 'zone', 'value']
     _formatters = {
-        "region": join_by_key("region"),
         "zone": join_by_key("zone"),
         "value": join_by_key("value"),
         "used": join_by_key("used")
@@ -69,29 +49,32 @@ class Update(ListCommand):
         quotas = {
             'quotas': {
                 parsed_args.resource: [{
-                    "region": parsed_args.region,
                     "zone": parsed_args.zone,
                     "value": parsed_args.value
                 }]
             }
         }
-        result = self.app.context["client"].quotas.update(
-            parsed_args.project_id, quotas
-        )
-        if isinstance(result, PartialResponse):
-            result._info = result._info["quotas"]
-        val = {parsed_args.project_id: result._info}
+        try:
+            result = self.app.context["client"].quotas.update_project_quotas(
+                project_id=parsed_args.project_id,
+                region=parsed_args.region,
+                quotas=quotas,
+            )
+        except ClientException as e:
+            # Through the CLI, you can set a quota for only 1 resource.
+            # It is assumed that there will be only one error.
+            raise Exception(extract_single_quota_error(e))
+
         return self.setup_columns(
-            reformat_quotas_with_usages(val), parsed_args
+            reformat_quotas(result._info), parsed_args
         )
 
 
 class Show(ListCommand):
     """Show quotas for project"""
 
-    columns = ['resource', 'region', 'zone', 'value', 'used']
+    columns = ['resource', 'zone', 'value', 'used']
     _formatters = {
-        "region": join_by_key("region"),
         "zone": join_by_key("zone"),
         "value": join_by_key("value"),
         "used": join_by_key("used")
@@ -101,6 +84,10 @@ class Show(ListCommand):
     def get_parser(self, prog_name):
         parser = super(ListCommand, self).get_parser(prog_name)
         required = parser.add_argument_group('Required arguments')
+        required.add_argument('-r',
+                              '--region',
+                              required=True,
+                              )
         required.add_argument('project_id',
                               metavar='<project_id>',
                               )
@@ -109,29 +96,10 @@ class Show(ListCommand):
     @handle_http_error
     def take_action(self, parsed_args):
         result = self.app.context["client"].quotas.get_project_quotas(
-            parsed_args.project_id
+            project_id=parsed_args.project_id,
+            region=parsed_args.region
         )
 
-        val = {parsed_args.project_id: result._info}
         return self.setup_columns(
-            reformat_quotas_with_usages(val), parsed_args
-        )
-
-
-class Optimize(Show):
-    """Optimize quotas for project"""
-
-    @handle_http_error
-    def take_action(self, parsed_args):
-        result = self.app.context["client"].quotas.optimize_project_quotas(
-            parsed_args.project_id
-        )
-
-        if not result:
-            self.logger.warning("Nothing to optimize!")
-            sys.exit(1)
-
-        val = {parsed_args.project_id: result._info}
-        return self.setup_columns(
-            reformat_quotas_with_usages(val), parsed_args
+            reformat_quotas_with_usages(result._info), parsed_args
         )

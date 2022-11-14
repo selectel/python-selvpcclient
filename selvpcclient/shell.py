@@ -1,16 +1,18 @@
 #!/usr/bin/env python
 
+import logging
 import os
 import os.path
 import sys
-import logging
 
 from cliff.app import App
 from cliff.commandmanager import CommandManager
 
 from selvpcclient import __version__
-from selvpcclient.client import Client, setup_http_client
+from selvpcclient.client import Client
+from selvpcclient.client import setup_http_client
 from selvpcclient.commands import commands
+from selvpcclient.httpclient import RegionalHTTPClient
 from selvpcclient.util import parse_headers
 
 logger = logging.getLogger(__name__)
@@ -33,6 +35,13 @@ class CLI(App):
         parser.add_argument(
             '--url',
             default=os.environ.get('SEL_URL', None)
+        )
+        parser.add_argument(
+            '--identity_url',
+            default=os.environ.get(
+                'OS_AUTH_URL',
+                'https://api.selvpc.ru/identity/v3'
+            )
         )
         parser.add_argument(
             '--token',
@@ -83,7 +92,17 @@ class CLI(App):
             custom_headers=headers,
             timeout=self.options.timeout,
         )
-        self.context = dict(client=Client(client=http_client))
+        regional_http_client = RegionalHTTPClient(
+            http_client=http_client,
+            identity_url=self.options.identity_url
+        )
+
+        self.context = {
+            'client': Client(
+                client=http_client,
+                regional_client=regional_http_client
+            )
+        }
 
 
 def main(argv=sys.argv[1:]):

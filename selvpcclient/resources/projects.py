@@ -1,15 +1,17 @@
 import logging
+from typing import Union
 
 from selvpcclient import base
+from selvpcclient.base import PartialResponse
 from selvpcclient.exceptions.base import ClientException
 from selvpcclient.resources.floatingips import FloatingIPManager
 from selvpcclient.resources.licenses import LicenseManager
+from selvpcclient.resources.quotas import Quotas
 from selvpcclient.resources.quotas import QuotasManager
 from selvpcclient.resources.roles import RolesManager
 from selvpcclient.resources.subnets import SubnetManager
 from selvpcclient.resources.tokens import TokensManager
 from selvpcclient.util import process_theme_params
-
 
 log = logging.getLogger(__name__)
 
@@ -68,16 +70,16 @@ class Project(base.Resource):
             self.id,
             return_raw=return_raw)
 
-    def get_quotas(self, return_raw=False):
+    def get_quotas(self, region, return_raw=False
+                   ) -> Union[Quotas, PartialResponse]:
         """Show quotas info for current project.
 
+        :param string region: name of region
         :param return_raw: flag to force returning raw JSON instead of
                 Python object of self.resource_class
-        :rtype: list of :class:`selvpcclient.resources.quotas.Quotas`
         """
         return self.manager.quotas_manager.get_project_quotas(
-            project_id=self.id,
-            return_raw=return_raw)
+            project_id=self.id, region=region, return_raw=return_raw)
 
     def add_license(self, licenses, return_raw=False):
         """Create licenses for current project.
@@ -157,22 +159,22 @@ class Project(base.Resource):
         return self.manager.token_manager.create(self.id,
                                                  return_raw=return_raw)
 
-    def update_quotas(self, quotas, return_raw=False):
+    def update_quotas(self, region, quotas, return_raw=False
+                      ) -> Union[Quotas, PartialResponse]:
         """Update current project's quotas.
 
-        :param dict quotas: Dict with key `quotas` and keys as dict
+        :param string region: name of region
+        :param dict quotas: dict with key `quotas` and keys as dict
                             of items region, zone and value::
 
                                 {
                                     "quotas": {
                                         "compute_cores": [
                                             {
-                                                "region": "ru-1",
                                                 "zone": "ru-1a",
                                                 "value": 10
                                             },
                                             {
-                                                "region": "ru-1",
                                                 "zone": "ru-1b",
                                                 "value": 10
                                             }
@@ -181,11 +183,10 @@ class Project(base.Resource):
                                 }
         :param return_raw: flag to force returning raw JSON instead of
                 Python object of self.resource_class
-        :rtype: list of :class:`selvpcclient.resources.quotas.Quotas`
         """
-        return self.manager.quotas_manager.update(project_id=self.id,
-                                                  quotas=quotas,
-                                                  return_raw=return_raw)
+        return self.manager.quotas_manager.update_project_quotas(
+            project_id=self.id, region=region, quotas=quotas,
+            return_raw=return_raw)
 
     def delete(self):
         """Delete current project and all it's objects."""
@@ -196,10 +197,10 @@ class ProjectsManager(base.Manager):
     """Manager class for manipulating project."""
     resource_class = Project
 
-    def __init__(self, client):
+    def __init__(self, client, regional_client):
         super(ProjectsManager, self).__init__(client)
         self.roles_manager = RolesManager(client)
-        self.quotas_manager = QuotasManager(client)
+        self.quotas_manager = QuotasManager(regional_client)
         self.licenses_manager = LicenseManager(client)
         self.token_manager = TokensManager(client)
         self.subnets_manager = SubnetManager(client)
@@ -214,37 +215,15 @@ class ProjectsManager(base.Manager):
         """
         return self._list('/projects', 'projects', return_raw=return_raw)
 
-    def create(self, name, quotas=None, auto_quotas=False, return_raw=False):
-        """Create new project and optionally set quotas on it.
+    def create(self, name, return_raw=False):
+        """Create new project.
 
         :param string name: Name of project.
         :param return_raw: flag to force returning raw JSON instead of
                 Python object of self.resource_class
-        :param dict quotas: Dict with key `quotas` and keys as dict
-                            of items region, zone and value::
-
-                                {
-                                    "quotas": {
-                                        "compute_cores": [
-                                            {
-                                                "region": "ru-1",
-                                                "zone": "ru-1a",
-                                                "value": 10
-                                            },
-                                            {
-                                                "region": "ru-1",
-                                                "zone": "ru-1b",
-                                                "value": 10
-                                            }
-                                        ]
-                                    }
-                                }
-        :param bool auto_quotas: Automatically set quotas for a project
         :rtype: list of :class:`Project`.
         """
-        body = {"project": {"name": name, "auto_quotas": auto_quotas}}
-        if quotas:
-            body["project"]["quotas"] = quotas
+        body = {"project": {"name": name}}
         return self._post('/projects', body, 'project', return_raw=return_raw)
 
     def show(self, project_id, return_raw=False):

@@ -1,5 +1,15 @@
 from tests.util.params import LOGO_BASE64
 
+ACCOUNT_INFO = {
+    "account": {
+        "enabled": True,
+        "locked": False,
+        "locks": [],
+        "name": "fake_domain",
+        "onboarding": False
+    }
+}
+
 PROJECTS_LIST = {
     'projects': [{
         "id": "15c578ea47a5466db2aeb57dc8443676",
@@ -36,25 +46,6 @@ PROJECTS_CREATE = {
             "logo": "",
             "brand_color": "",
         }
-    }
-}
-
-PROJECTS_CREATE_WITH_AUTO_QUOTAS = {
-    'project': {
-        "id": "15c578ea47a5466db2aeb57dc8443676",
-        "name": "project1",
-        "url": "http://11111.selvpc.ru",
-        "enabled": True,
-        "quotas": {
-            "compute_cores": [
-                {
-                    "region": "ru-1",
-                    "used": 0,
-                    "zone": "ru-1a",
-                    "value": 10,
-                },
-            ],
-        },
     }
 }
 
@@ -157,521 +148,74 @@ LIMITS_SHOW = {
     'quotas': {
         "compute_cores": [
             {
-                "region": "ru-2",
-                "zone": "ru-2a",
-                "value": 10
-            },
-            {
-                "region": "ru-1",
                 "zone": "ru-1a",
                 "value": 10
             },
-            {
-                "region": "ru-3",
-                "zone": "ru-3c",
-                "value": 10
-            },
-            {
-                "region": "ru-3",
-                "zone": "ru-3a",
-                "value": 10
-            },
-            {
-                "region": "ru-3",
-                "zone": "ru-3z",
-                "value": 10
-            }
         ],
         "compute_ram": [
             {
-                "region": "ru-1",
                 "zone": "ru-1a",
                 "value": 1024
             },
             {
-                "region": "ru-1",
                 "zone": "ru-1b",
                 "value": 2048
             }
         ],
         "volume_gigabytes_fast": [
             {
-                "region": "ru-1",
                 "zone": "ru-1a",
                 "value": 100
             },
             {
-                "region": "ru-1",
                 "zone": "ru-1b",
                 "value": 100
             }
         ],
         "volume_gigabytes_universal": [
             {
-                "region": "ru-1",
                 "zone": "ru-1a",
                 "value": 100
             },
             {
-                "region": "ru-1",
                 "zone": "ru-1b",
                 "value": 100
             }
         ],
         "volume_gigabytes_basic": [
             {
-                "region": "ru-1",
                 "zone": "ru-1a",
                 "value": 100
             },
             {
-                "region": "ru-1",
                 "zone": "ru-1b",
                 "value": 100
             }
         ],
         "image_gigabytes": [
             {
-                "region": "ru-2",
-                "zone": None,
-                "value": 10
-            },
-            {
-                "region": "ru-1",
                 "zone": None,
                 "value": 10
             },
         ],
         "network_floatingips": [
             {
-                "region": "ru-1",
                 "zone": None,
                 "value": 5
             }
         ],
         "network_subnets_29": [
             {
-                "region": "ru-1",
                 "zone": None,
                 "value": 1
             }
         ],
         "license_windows_2012_standard": [
             {
-                "region": "ru-1",
                 "zone": None,
                 "value": 1
             }
         ]
-    }
-}
-
-LIMITS_SHOW_FREE = {
-    'quotas': {
-        "compute_cores": [
-            {
-                "region": "ru-1",
-                "zone": "ru-1a",
-                "value": 10
-            },
-            {
-                "region": "ru-1",
-                "zone": "ru-1b",
-                "value": 10
-            }
-        ],
-        "compute_ram": [
-            {
-                "region": "ru-1",
-                "zone": "ru-1a",
-                "value": 1024
-            },
-            {
-                "region": "ru-1",
-                "zone": "ru-1b",
-                "value": 2048
-            }
-        ],
-        "volume_gigabytes_fast": [
-            {
-                "region": "ru-1",
-                "zone": "ru-1a",
-                "value": 100
-            },
-            {
-                "region": "ru-1",
-                "zone": "ru-1b",
-                "value": 100
-            }
-        ],
-        "volume_gigabytes_universal": [
-            {
-                "region": "ru-1",
-                "zone": "ru-1a",
-                "value": 100
-            },
-            {
-                "region": "ru-1",
-                "zone": "ru-1b",
-                "value": 100
-            }
-        ],
-        "volume_gigabytes_basic": [
-            {
-                "region": "ru-1",
-                "zone": "ru-1a",
-                "value": 100
-            },
-            {
-                "region": "ru-1",
-                "zone": "ru-1b",
-                "value": 100
-            }
-        ],
-        "image_gigabytes": [
-            {
-                "region": "ru-1",
-                "zone": None,
-                "value": 10
-            }
-        ],
-        "network_floatingips": [
-            {
-                "region": "ru-1",
-                "zone": None,
-                "value": 5
-            }
-        ],
-        "network_subnets_29": [
-            {
-                "region": "ru-1",
-                "zone": None,
-                "value": 1
-            }
-        ],
-        "license_windows_2012_standard": [
-            {
-                "region": "ru-1",
-                "zone": None,
-                "value": 1
-            }
-        ]
-    }
-}
-
-QUOTAS_OPTIMIZE_ALL_USING = {
-    'quotas': {
-        "compute_cores": [
-            {
-                "region": "ru-1",
-                "zone": "ru-1a",
-                "value": 10,
-                "used": 10
-            },
-            {
-                "region": "ru-1",
-                "zone": "ru-1b",
-                "value": 10,
-                "used": 10
-            }
-        ],
-        "compute_ram": [
-            {
-                "region": "ru-1",
-                "zone": "ru-1a",
-                "value": 1024,
-                "used": 1024
-            },
-            {
-                "region": "ru-1",
-                "zone": "ru-1b",
-                "value": 2048,
-                "used": 2048
-            }
-        ],
-        "volume_gigabytes_fast": [
-            {
-                "region": "ru-1",
-                "zone": "ru-1a",
-                "value": 100,
-                "used": 100
-            },
-            {
-                "region": "ru-1",
-                "zone": "ru-1b",
-                "value": 100,
-                "used": 100
-            }
-        ]
-    }
-}
-
-QUOTAS_LIST = {
-    "quotas": {
-        "30bde559615740d28bb63ee626fd0f25": {
-            "compute_cores": [
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1b",
-                    "value": 36
-                },
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1a",
-                    "value": 14
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": "ru2a",
-                    "value": 66
-                }
-            ],
-            "volume_gigabytes_basic": [
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1b",
-                    "value": 44
-                },
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1a",
-                    "value": 25
-                },
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1c",
-                    "value": 0
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": "ru2c",
-                    "value": 0
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": "ru2b",
-                    "value": 0
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": "ru2a",
-                    "value": 81
-                }
-            ],
-            "compute_ram": [
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1b",
-                    "value": 9728
-                },
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1a",
-                    "value": 4608
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": "ru2a",
-                    "value": 12800
-                }
-            ],
-            "volume_gigabytes_fast": [
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1b",
-                    "value": 47
-                },
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1a",
-                    "value": 26
-                },
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1c",
-                    "value": 0
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": "ru2b",
-                    "value": 0
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": "ru2c",
-                    "value": 0
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": "ru2a",
-                    "value": 26
-                }
-            ],
-            "image_gigabytes": [
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": None,
-                    "value": 46
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": None,
-                    "value": 44
-                }
-            ]
-        },
-        "efae8856aa67477a97847ad595306628": {
-            "compute_cores": [
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1b",
-                    "value": 11
-                },
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1a",
-                    "value": 0
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": "ru2a",
-                    "value": 0
-                }
-            ],
-            "volume_gigabytes_basic": [
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1b",
-                    "value": 13
-                },
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1a",
-                    "value": 0
-                },
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1c",
-                    "value": 0
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": "ru2c",
-                    "value": 0
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": "ru2b",
-                    "value": 0
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": "ru2a",
-                    "value": 0
-                }
-            ],
-            "compute_ram": [
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1b",
-                    "value": 3840
-                },
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1a",
-                    "value": 0
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": "ru2a",
-                    "value": 0
-                }
-            ],
-            "volume_gigabytes_fast": [
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1b",
-                    "value": 12
-                },
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1a",
-                    "value": 0
-                },
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": "ru1c",
-                    "value": 0
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": "ru2b",
-                    "value": 0
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": "ru2c",
-                    "value": 0
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": "ru2a",
-                    "value": 0
-                }
-            ],
-            "image_gigabytes": [
-                {
-                    "region": "ru1",
-                    "used": 0,
-                    "zone": None,
-                    "value": 13
-                },
-                {
-                    "region": "ru2",
-                    "used": 0,
-                    "zone": None,
-                    "value": 0
-                }
-            ]
-        }
     }
 }
 
@@ -679,114 +223,68 @@ QUOTAS_SET = {
     "quotas": {
         "volume_gigabytes_basic": [
             {
-                "region": "ru-1",
-                "used": 0,
                 "zone": "ru-1b",
                 "value": 0
             },
             {
-                "region": "ru-1",
-                "used": 0,
                 "zone": "ru-1a",
                 "value": 0
             },
             {
-                "region": "ru-2",
-                "used": 0,
                 "zone": "ru-2a",
                 "value": 0
             }
         ],
         "compute_cores": [
             {
-                "region": "ru-1",
-                "used": 0,
                 "zone": "ru-1b",
                 "value": 1
             },
             {
-                "region": "ru-1",
-                "used": 2,
                 "zone": "ru-1a",
                 "value": 2
             },
             {
-                "region": "ru-2",
-                "used": 0,
                 "zone": "ru-2a",
                 "value": 1
             }
         ],
         "volume_gigabytes_universal": [
             {
-                "region": "ru-1",
-                "used": 0,
                 "zone": "ru-1b",
                 "value": 0
             },
             {
-                "region": "ru-1",
-                "used": 0,
                 "zone": "ru-1a",
                 "value": 0
             },
-            {
-                "region": "ru-2",
-                "used": 0,
-                "zone": "ru-2a",
-                "value": 0
-            }
         ],
         "compute_ram": [
             {
-                "region": "ru-1",
-                "used": 0,
                 "zone": "ru-1b",
                 "value": 512
             },
             {
-                "region": "ru-1",
-                "used": 1536,
                 "zone": "ru-1a",
                 "value": 1536
             },
-            {
-                "region": "ru-2",
-                "used": 0,
-                "zone": "ru-2a",
-                "value": 0
-            }
         ],
         "volume_gigabytes_fast": [
             {
-                "region": "ru-1",
-                "used": 5,
                 "zone": "ru-1b",
                 "value": 5
             },
             {
-                "region": "ru-1",
-                "used": 20,
                 "zone": "ru-1a",
                 "value": 20
             },
-            {
-                "region": "ru-2",
-                "used": 0,
-                "zone": "ru-2a",
-                "value": 0
-            }
         ],
         "image_gigabytes": [
             {
-                "region": "ru-1",
-                "used": 0,
                 "zone": None,
                 "value": 0
             },
             {
-                "region": "ru-2",
-                "used": 0,
                 "zone": None,
                 "value": 0
             }
@@ -798,13 +296,11 @@ QUOTAS_SHOW = {
     'quotas': {
         "compute_cores": [
             {
-                "region": "ru-1",
                 "zone": "ru-1a",
                 "value": 10,
                 "used": 0
             },
             {
-                "region": "ru-1",
                 "zone": "ru-1b",
                 "value": 10,
                 "used": 0
@@ -812,13 +308,11 @@ QUOTAS_SHOW = {
         ],
         "compute_ram": [
             {
-                "region": "ru-1",
                 "zone": "ru-1a",
                 "value": 1024,
                 "used": 0
             },
             {
-                "region": "ru-1",
                 "zone": "ru-1b",
                 "value": 2048,
                 "used": 0
@@ -826,13 +320,11 @@ QUOTAS_SHOW = {
         ],
         "volume_gigabytes_fast": [
             {
-                "region": "ru-1",
                 "zone": "ru-1a",
                 "value": 100,
                 "used": 0
             },
             {
-                "region": "ru-1",
                 "zone": "ru-1b",
                 "value": 100,
                 "used": 0
@@ -840,7 +332,6 @@ QUOTAS_SHOW = {
         ],
         "network_subnets_29_vrrp": [
             {
-                "region": None,
                 "used": 0,
                 "value": 0,
                 "zone": None
@@ -1387,35 +878,23 @@ VRRP_LIST = {
 
 QUOTAS_PARTIAL = {
     "quotas": {
-        "fail": [
+        "compute_ram": [
             {
-                "region": "ru-1",
-                "resource": "compute_ram",
                 "zone": "ru-1b",
                 "value": 2048
             }
         ],
-        "ok": [
+    },
+    "error": {
+        "message": "Multi-Status",
+        "code": 207,
+        "errors": [
             {
-                "region": "ru-1",
                 "resource": "image_gigabytes",
-                "zone": None,
-                "used": 0,
-                "value": 400
+                "zone": "ru-1a",
+                "message": "Internal Server Error",
+                "code": 500
             }
-        ],
-        "error": "multi_status"
-    }
-}
-
-QUOTAS_PARTIAL_RESULT = {
-    "quotas": {
-        'image_gigabytes': [
-            {
-                "zone": None,
-                "region": "ru-1",
-                "value": 400,
-                "used": 0}
         ]
     }
 }

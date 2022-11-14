@@ -4,15 +4,17 @@ Command-line Interface
 Basic Usage
 -----------
 
-In order to use the CLI, you must provide your Selectel VPC API token
-and API endpoint. Use the corresponding configuration options
-(``--url``, ``--token``), but it is easier to set them in environment variables.
+In order to use the CLI, you must provide your Selectel VPC API token,
+API endpoint and Keystone identity url. Use the corresponding configuration
+options (``--url``, ``--token``, ``--identity_url``),
+but it is easier to set them in environment variables.
 
 .. code-block:: shell
 
     export SEL_URL=url
     export SEL_TOKEN=token
-    export SEL_API_VERSION=api_version # by default 2
+    export SEL_API_VERSION=api_version # by default: 2
+    export OS_AUTH_URL=url # by default: https://api.selvpc.ru/identity/v3
 
 Once you've configured your authentication parameters, you can run **selvpc**
 commands.  All commands take the form of:

@@ -1,5 +1,7 @@
+import os
+
 from selvpcclient import __version__
-from selvpcclient.httpclient import HTTPClient
+from selvpcclient.httpclient import HTTPClient, RegionalHTTPClient
 from selvpcclient.resources.capabilities import CapabilitiesManager
 from selvpcclient.resources.customization import CustomizationManager
 from selvpcclient.resources.floatingips import FloatingIPManager
@@ -42,9 +44,21 @@ def setup_http_client(api_url, api_token=None, api_version=2,
 class Client:
     """Client for the Selectel VPC API."""
 
-    def __init__(self, client):
-        self.projects = ProjectsManager(client)
-        self.quotas = QuotasManager(client)
+    def __init__(
+        self,
+        client: HTTPClient,
+        regional_client: RegionalHTTPClient = None
+    ):
+        if not regional_client:
+            regional_client = RegionalHTTPClient(
+                http_client=client,
+                identity_url=os.environ.get(
+                    'OS_AUTH_URL', 'https://api.selvpc.ru/identity/v3'
+                )
+            )
+
+        self.projects = ProjectsManager(client, regional_client)
+        self.quotas = QuotasManager(regional_client)
         self.users = UsersManager(client)
         self.licenses = LicenseManager(client)
         self.roles = RolesManager(client)
