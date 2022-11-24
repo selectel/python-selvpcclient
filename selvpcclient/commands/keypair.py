@@ -97,11 +97,20 @@ class List(ListCommand):
                               default=False,
                               action='store_true',
                               )
+        optional.add_argument('-u',
+                              '--user',
+                              metavar='USER_ID',
+                              dest='user_id',
+                              required=False,
+                              default=None,
+                              )
         return parser
 
     @handle_http_error
     def take_action(self, parsed_args):
-        result = self.app.context["client"].keypairs.list()
+        result = self.app.context["client"].keypairs.list(
+            user_id=parsed_args.user_id
+        )
         if parsed_args.show_key or parsed_args.show_short_key:
             self.columns.append("public_key")
         if parsed_args.show_short_key and not parsed_args.show_key:

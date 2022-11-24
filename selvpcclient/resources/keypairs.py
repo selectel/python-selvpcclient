@@ -19,14 +19,18 @@ class KeyPairManager(base.Manager):
     """Manager class for manipulating keypairs."""
     resource_class = KeyPair
 
-    def list(self, return_raw=False):
+    def list(self, return_raw=False, user_id=None):
         """Get list of all keypairs for domain.
 
         :param return_raw: flag to force returning raw JSON instead of
                 Python object of self.resource_class
+        :param string user_id: optional filter of keypairs by User id.
         :rtype: list of :class:`Keypair`
         """
-        return self._list('/keypairs', 'keypairs', return_raw=return_raw)
+        url = '/keypairs'
+        if user_id:
+            url = url + '?user_id={}'.format(user_id)
+        return self._list(url, 'keypairs', return_raw=return_raw)
 
     @process_pair_params
     def add(self, keypair, return_raw=False):

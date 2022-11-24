@@ -14,6 +14,17 @@ def test_keypair_list():
     assert len(output) == 2
 
 
+def test_keypair_list_filter():
+    client = make_client(return_value=answers.KEYPAIR_LIST)
+
+    args = ["keypair list",
+            "--user", "88ad5569d8c64f828ac3d2efa4e552dd"]
+
+    output = run_cmd(args, client, json_output=True)
+
+    assert len(output) == 2
+
+
 def test_keypair_add():
     client = make_client(return_value=answers.KEYPAIR_ADD)
 
