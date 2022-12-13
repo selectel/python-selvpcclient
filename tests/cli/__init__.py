@@ -56,4 +56,4 @@ def make_client(return_value):
         "delete.return_value": response,
     }
     http_client.configure_mock(**methods)
-    return Client(client=http_client)
+    return Client(client=http_client, regional_client=http_client)

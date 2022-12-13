@@ -1,2 +1,2 @@
-sphinx_rtd_theme>=0.1.9
-sphinx-pypi-upload-2>=0.2.2
+sphinx_rtd_theme==1.1.1
+sphinx-pypi-upload-2==0.2.2

@@ -10,11 +10,22 @@ API URL `here <https://support.selectel.ru/vpc/docs/>`_)
 
 .. code-block:: python
 
-    >>> from selvpcclient.client import Client, setup_http_client
-    >>> SEL_TOKEN=YOUR_API_TOKEN_HERE
-    >>> SEL_URL="https://api.selectel.ru/vpc/resell"
-    >>> http_client = setup_http_client(api_url=SEL_URL, api_token=SEL_TOKEN)
-    >>> selvpc = Client(client=http_client)
+    >>> from selvpcclient.client import Client
+    >>> from selvpcclient.client import setup_http_client
+    >>> from selvpcclient.httpclient import RegionalHTTPClient
+
+    >>> SEL_TOKEN = YOUR_API_TOKEN_HERE
+    >>> SEL_URL = "https://api.selectel.ru/vpc/resell"
+    >>> OS_AUTH_URL = "https://api.selvpc.ru/identity/v3"
+
+    >>> http_client = setup_http_client(
+    ...     api_url=SEL_URL, api_token=SEL_TOKEN)
+
+    >>> regional_http_client = RegionalHTTPClient(
+    ...     http_client=http_client,
+    ...     identity_url=OS_AUTH_URL)
+
+    >>> selvpc = Client(client=http_client, regional_client=regional_http_client)
 
 Now you can call various methods on the client instance. For example
 
@@ -48,14 +59,12 @@ Set project quotas
         "quotas": {
             "compute_cores": [
                 {
-                    "region": "ru-1",
                     "zone": "ru-1a",
                     "value": 10
                 }
             ],
             "compute_ram": [
                 {
-                    "region": "ru-1",
                     "zone": "ru-1a",
                     "value": 1024
                 }
@@ -64,11 +73,10 @@ Set project quotas
     }
 
     # via object
-    >>> project.update_quotas(quotas)
+    >>> project.update_quotas("ru-1", quotas)
 
     # via quotas manager
-    >>> quotas = selvpc.quotas.update(project.id, quotas=quotas)
-
+    >>> quotas = selvpc.quotas.update_project_quotas(project.id, "ru-1", quotas)
 
 Add Windows license
 ~~~~~~~~~~~~~~~~~~~

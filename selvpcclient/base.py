@@ -6,7 +6,7 @@ from cliff.command import Command
 from cliff.lister import Lister
 from cliff.show import ShowOne
 
-from selvpcclient.util import get_item_properties, process_partial_quotas
+from selvpcclient.util import get_item_properties
 
 log = logging.getLogger(__name__)
 
@@ -17,7 +17,7 @@ class PartialResponse(object):
 
     def __init__(self, manager, ok, fail):
         if manager.resource_class.__name__ == "Quotas":
-            self.resources = Resource(manager, process_partial_quotas(ok))
+            self.resources = Resource(manager, ok)
             self._info = self.resources._info
         else:
             self._info = ok

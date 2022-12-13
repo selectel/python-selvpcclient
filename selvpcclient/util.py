@@ -2,15 +2,18 @@ import base64
 import hashlib
 import json
 import logging
-import requests
 import os
 import sys
+from typing import Dict, Optional, Tuple
 
+import requests
 import six
+
+from selvpcclient.exceptions.base import ClientException
 
 log = logging.getLogger(__name__)
 
-SENSITIVE_HEADERS = ['X-Token']
+SENSITIVE_HEADERS = ['X-Token', 'X-Auth-Token', 'X-Subject-Token']
 
 FILES_EXTENSIONS = ("png", "jpg", "svg", "txt")
 
@@ -220,20 +223,6 @@ def make_curl(url, method, data):
     return "".join(string_parts)
 
 
-def process_partial_quotas(resp_ok):
-    result = {"quotas": {}}
-    for item in resp_ok:
-        if item["resource"] not in result["quotas"]:
-            result["quotas"][item["resource"]] = [{
-                k: item[k] for k in item if k != "resource"
-            }]
-        else:
-            result["quotas"][item["resource"]].append({
-                k: item[k] for k in item if k != "resource"
-            })
-    return result
-
-
 def is_url(data):
     """Checks if getting value is valid url and path exists."""
     try:
@@ -298,3 +287,47 @@ def convert_to_short(logo_b64):
     if len(logo_b64) >= 50:
         logo_b64 = logo_b64[:15] + ' ... ' + logo_b64[len(logo_b64) - 15:]
     return logo_b64
+
+
+def unserialize_quota_error(content: str) -> Tuple[str, Optional[Dict]]:
+    """Extract general error message and list of errors.
+
+    :param str content: serialized dictionary
+
+    Example input data: str({
+        "error": {
+            "message": "Bad Request",
+            "code": 400,
+            "errors": [
+                {
+                    "resource": "compute_ram",
+                    "zone": "ru-1a",
+                    "message": "Value doesn't divisible 256.",
+                    "code": 400
+                }
+            ]
+        }
+    })
+    """
+    if 'error' in content:
+        try:
+            error = json.loads(content)['error']
+            return error['message'], error['errors']
+        except Exception:
+            return content, None
+
+    return content, None
+
+
+def extract_single_quota_error(e: ClientException) -> str:
+    """Extract single error from quotas error list.
+
+    :param ClientException e: Client Exception (400-599 HTTP error)
+
+    This is used for pretty output in CLI (quota set). It is assumed that when
+    setting a quota through the CLI, there can be only one error.
+    """
+    if isinstance(e.errors, list):
+        return e.errors[0]['message']
+
+    return e.args[0].message

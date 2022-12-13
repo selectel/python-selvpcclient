@@ -19,13 +19,10 @@ commands = {
     'project show': project.Show,
     'project delete': project.Delete,
 
-    'limit show': limit.List,
-    'limit show free': limit.Free,
+    'limit show': limit.Show,
 
-    'quota list': quotas.List,
     'quota set': quotas.Update,
     'quota show': quotas.Show,
-    'quota optimize': quotas.Optimize,
 
     'license add': license.Add,
     'license list': license.List,
