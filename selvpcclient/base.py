@@ -1,7 +1,6 @@
 import abc
 import logging
 
-import six
 from cliff.command import Command
 from cliff.lister import Lister
 from cliff.show import ShowOne
@@ -176,7 +175,7 @@ class Resource(object):
         return "<%s %s>" % (self.__class__.__name__, info)
 
     def _add_details(self, info):
-        for (k, v) in six.iteritems(info):
+        for k, v in info.items():
             setattr(self, k, v)
 
     def __getattr__(self, k):
@@ -201,8 +200,7 @@ class CLICommand(Command):
         pass
 
 
-@six.add_metaclass(abc.ABCMeta)
-class DisplayCommand(CLICommand):
+class DisplayCommand(CLICommand, metaclass=abc.ABCMeta):
     columns = []
     _formatters = {}
 

@@ -1,0 +1,21 @@
+name: Checks
+on: push
+jobs:
+  flake8:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+      - run: pip install -r requirements.txt -r test-requirements.txt
+      - run: flake8 .
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+      - run: pip install -r requirements.txt -r test-requirements.txt
+      - run: pytest tests/

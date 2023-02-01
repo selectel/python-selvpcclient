@@ -1,11 +1,9 @@
 import mock
 
 from datetime import datetime, timedelta
-from _pytest.monkeypatch import monkeypatch
 
 from selvpcclient.httpclient import HTTPClient, RegionalHTTPClient
 
-monkeypatch().setenv("SEL_URL", "http://api")
 
 x_token = "aaaaaaaaaaaaaaaaaaaaaaaaa_000000"
 
