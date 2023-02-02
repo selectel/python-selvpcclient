@@ -7,7 +7,6 @@ import sys
 from typing import Dict, Optional, Tuple
 
 import requests
-import six
 
 from selvpcclient.exceptions.base import ClientException
 
@@ -207,7 +206,7 @@ def try_parse_json(json_):
 def make_curl(url, method, data):
     string_parts = ['curl -i', ' -X{} "{}"'.format(method, url)]
 
-    for (key, value) in six.iteritems(data.get('headers', {})):
+    for key, value in data.get('headers', {}).items():
         if key in SENSITIVE_HEADERS:
             v = str()
             if value:

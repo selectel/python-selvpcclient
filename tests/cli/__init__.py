@@ -4,11 +4,6 @@ import mock
 from selvpcclient.client import Client
 from selvpcclient.shell import CLI
 
-from _pytest.monkeypatch import monkeypatch
-
-monkeypatch().setenv("SEL_URL", "http://selvpcapi")
-monkeypatch().setenv("SEL_TOKEN", "5ba50055-ff2e-4145-a8cf-f03e9fbd5ee6")
-
 
 def prepare_to_run_command(cmd):
     pass

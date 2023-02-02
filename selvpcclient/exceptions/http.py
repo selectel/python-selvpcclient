@@ -1,8 +1,6 @@
 import inspect
 import sys
 
-import six
-
 from selvpcclient.exceptions import base
 
 
@@ -300,11 +298,13 @@ class HttpVersionNotSupported(HttpServerError):
     message = "HTTP Version Not Supported"
 
 
-# _code_map contains all the classes that have http_status attribute.
-_code_map = dict(
-    (getattr(obj, 'http_status', None), obj)
-    for name, obj in six.iteritems(vars(sys.modules[__name__]))
-    if inspect.isclass(obj) and getattr(obj, 'http_status', False))
+_code_map = {}
+
+for member in inspect.getmembers(sys.modules[__name__], inspect.isclass):
+    name, obj = member
+
+    if hasattr(obj, 'http_status'):
+        _code_map[getattr(obj, 'http_status')] = obj
 
 
 def get_http_exception(status_code, content=None):

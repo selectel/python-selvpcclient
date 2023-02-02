@@ -1,7 +1,5 @@
-cliff==3.10.1
-pbr==5.11.0
-requests==2.28.1
-six==1.16.0
-PyYAML==6.0
-python-keystoneclient==4.5.0
-importlib-metadata==4.13.0
+cliff>=3.1.0
+pbr>=5.4.5
+requests>=2.22.0
+PyYAML>=5.3.1
+python-keystoneclient>=4.0.0
