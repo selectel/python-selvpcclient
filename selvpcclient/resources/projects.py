@@ -215,15 +215,21 @@ class ProjectsManager(base.Manager):
         """
         return self._list('/projects', 'projects', return_raw=return_raw)
 
-    def create(self, name, return_raw=False):
+    def create(self, name, skip_quotas_init=False, return_raw=False):
         """Create new project.
 
         :param string name: Name of project.
+        :param skip_quotas_init: flag to skip quotas initialization.
         :param return_raw: flag to force returning raw JSON instead of
                 Python object of self.resource_class
         :rtype: list of :class:`Project`.
         """
-        body = {"project": {"name": name}}
+        body = {
+            "project": {
+                    "name": name,
+                    "skip_quotas_init": skip_quotas_init
+                }
+        }
         return self._post('/projects', body, 'project', return_raw=return_raw)
 
     def show(self, project_id, return_raw=False):
