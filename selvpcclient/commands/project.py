@@ -15,11 +15,16 @@ class Create(ShowCommand):
                               '--name',
                               required=True,
                               )
+        required.add_argument('--skip_quotas_init',
+                              default=False,
+                              action='store_true'
+                              )
         return parser
 
     @handle_http_error
     def take_action(self, parsed_args):
-        result = self.app.context["client"].projects.create(parsed_args.name)
+        result = self.app.context["client"].projects.create(
+            parsed_args.name, parsed_args.skip_quotas_init)
         return self.setup_columns(result, parsed_args)
 
 
