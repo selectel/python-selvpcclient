@@ -1,7 +1,5 @@
 # python-selvpcclient
 
-[![Build Status](https://travis-ci.org/selectel/python-selvpcclient.svg?branch=master)](https://travis-ci.org/selectel/python-selvpcclient)
-
 This is a client for the Selectel VPC API. There is a Python API
 (the selvpcclient module), and command-line script (installed as **selvpc**).
 
