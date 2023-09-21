@@ -23,7 +23,8 @@ VPC_URL = "https://api.selectel.ru/vpc/resell"
 # You can get actual api URL here
 # https://support.selectel.ru/vpc/docs
 #
-IDENTITY_URL = os.getenv('OS_AUTH_URL', 'https://api.selvpc.ru/identity/v3')
+IDENTITY_URL = os.getenv('OS_AUTH_URL',
+                         'https://cloud.api.selcloud.ru/identity/v3')
 
 REGION = "ru-2"
 ZONE = "ru-2c"

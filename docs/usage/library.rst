@@ -16,7 +16,7 @@ API URL `here <https://support.selectel.ru/vpc/docs/>`_)
 
     >>> SEL_TOKEN = YOUR_API_TOKEN_HERE
     >>> SEL_URL = "https://api.selectel.ru/vpc/resell"
-    >>> OS_AUTH_URL = "https://api.selvpc.ru/identity/v3"
+    >>> OS_AUTH_URL = "https://cloud.api.selcloud.ru/identity/v3"
 
     >>> http_client = setup_http_client(
     ...     api_url=SEL_URL, api_token=SEL_TOKEN)
