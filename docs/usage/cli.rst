@@ -14,7 +14,7 @@ but it is easier to set them in environment variables.
     export SEL_URL=url
     export SEL_TOKEN=token
     export SEL_API_VERSION=api_version # by default: 2
-    export OS_AUTH_URL=url # by default: https://api.selvpc.ru/identity/v3
+    export OS_AUTH_URL=url # by default: https://cloud.api.selcloud.ru/identity/v3
 
 Once you've configured your authentication parameters, you can run **selvpc**
 commands.  All commands take the form of:

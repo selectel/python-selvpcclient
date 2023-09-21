@@ -40,7 +40,7 @@ class CLI(App):
             '--identity_url',
             default=os.environ.get(
                 'OS_AUTH_URL',
-                'https://api.selvpc.ru/identity/v3'
+                'https://cloud.api.selcloud.ru/identity/v3'
             )
         )
         parser.add_argument(

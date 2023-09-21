@@ -53,7 +53,7 @@ class Client:
             regional_client = RegionalHTTPClient(
                 http_client=client,
                 identity_url=os.environ.get(
-                    'OS_AUTH_URL', 'https://api.selvpc.ru/identity/v3'
+                    'OS_AUTH_URL', 'https://cloud.api.selcloud.ru/identity/v3'
                 )
             )
 
