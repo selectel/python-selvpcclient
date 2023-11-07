@@ -3,10 +3,7 @@ Show capabilities
 .. code-block:: console
 
    $ selvpc capabilities show regions
-   $ selvpc capabilities show licenses
-   $ selvpc capabilities show traffic
    $ selvpc capabilities show resources
-   $ selvpc capabilities show subnets
 
 Manage customization
 ~~~~~~~~~~~~~~~~~~~~

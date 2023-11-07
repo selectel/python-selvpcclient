@@ -668,15 +668,6 @@ SUBNET_SHOW = {
 
 CAPABILITIES_LIST = {
     "capabilities": {
-        "licenses": [
-            {
-                "availability": [
-                    "ru-1",
-                    "ru-2"
-                ],
-                "type": "license_windows_2012_standard"
-            }
-        ],
         "regions": [
             {
                 "description": "Moscow",
@@ -776,32 +767,6 @@ CAPABILITIES_LIST = {
                 "unbillable": True,
             }
         ],
-        "subnets": [
-            {
-                "availability": [
-                    "ru-1",
-                    "ru-2"
-                ],
-                "prefix_length": "29",
-                "type": "ipv4"
-            }
-        ],
-        "traffic": {
-            "granularities": [
-                {
-                    "granularity": 3600,
-                    "timespan": 96
-                },
-                {
-                    "granularity": 1,
-                    "timespan": 32
-                },
-                {
-                    "granularity": 86400,
-                    "timespan": 1825
-                }
-            ]
-        }
     }
 }
 

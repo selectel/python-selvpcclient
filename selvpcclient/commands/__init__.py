@@ -3,11 +3,8 @@ from selvpcclient.commands import (capabilities, customization, floatingips,
                                    role, subnet, token, user, vrrp)
 
 commands = {
-    'capabilities show licenses': capabilities.Licenses,
     'capabilities show regions': capabilities.Regions,
     'capabilities show resources': capabilities.Resources,
-    'capabilities show subnets': capabilities.Subnets,
-    'capabilities show traffic': capabilities.Traffic,
 
     'customization update': customization.Update,
     'customization show': customization.Show,
