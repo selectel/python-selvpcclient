@@ -211,7 +211,7 @@ def make_curl(url, method, data):
             v = str()
             if value:
                 v = value.encode('utf-8')
-            h = hashlib.sha1(v)
+            h = hashlib.sha256(v)
             d = h.hexdigest()
             value = "{SHA1}%s" % d
         header = ' -H "%s: %s"' % (key, value)
@@ -225,15 +225,17 @@ def make_curl(url, method, data):
 def is_url(data):
     """Checks if getting value is valid url and path exists."""
     try:
-        r = requests.head(data)
-    except Exception:
+        r = requests.head(data, timeout=15)
+        r.raise_for_status()
+    except requests.RequestException:
         return False
     return r.status_code == requests.codes.ok
 
 
 def process_logo_by_url(url):
     """Download and encode image by url."""
-    res = requests.get(url)
+    res = requests.get(url, timeout=15)
+    res.raise_for_status()
     encoded_logo = base64.b64encode(res.content)
     return encoded_logo
 

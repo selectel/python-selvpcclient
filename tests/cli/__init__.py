@@ -1,10 +1,12 @@
 import json
 
-import mock
+from unittest import mock
+
 from selvpcclient.client import Client
 from selvpcclient.shell import CLI
 
 
+# nosemgrep: python.lang.best-practice.pass-body.pass-body-fn
 def prepare_to_run_command(cmd):
     pass
 

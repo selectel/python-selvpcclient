@@ -1,0 +1,64 @@
+name: Secure
+
+on: push
+
+jobs:
+  # Sample GitHub Actions:
+  # https://semgrep.dev/docs/semgrep-ci/sample-ci-configs#sample-github-actions-configuration-file
+  #
+  # CLI Reference:
+  # https://semgrep.dev/docs/cli-reference
+  semgrep:
+    runs-on: ubuntu-24.04
+    container:
+      image: semgrep/semgrep
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: semgrep scan --sarif --output=semgrep.sarif --error --severity=WARNING
+        env:
+          SEMGREP_RULES: >-
+            p/bandit
+            p/command-injection
+            p/comment
+            p/cwe-top-25
+            p/default
+            p/gitlab
+            p/gitlab-bandit
+            p/gitleaks
+            p/insecure-transport
+            p/owasp-top-ten
+            p/python
+            p/r2c-best-practices
+            p/r2c-bug-scan
+            p/r2c-security-audit
+            p/secrets
+            p/security-audit
+            p/xss
+      - uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep.sarif
+        if: always()
+
+  # Samples GitHub Actions:
+  # https://github.com/aquasecurity/trivy-action
+  trivy:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          format: 'sarif'
+          output: 'trivy.sarif'
+          exit-code: '1'
+          severity: 'MEDIUM,CRITICAL,HIGH'
+      - uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy.sarif
+        if: always()
