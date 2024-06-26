@@ -95,6 +95,7 @@ def test_process_theme_params_hex_to_color():
 
 
 def test_process_theme_params_invalid_logo():
+    # nosemgrep: python.lang.best-practice.pass-body.pass-body-fn
     @process_theme_params
     def function_that_takes_theme_params(logo=None, color=''):
         pass
@@ -105,6 +106,7 @@ def test_process_theme_params_invalid_logo():
 
 
 def test_process_theme_params_wrong_path():
+    # nosemgrep: python.lang.best-practice.pass-body.pass-body-fn
     @process_theme_params
     def function_that_takes_theme_params(logo=None, color=''):
         pass

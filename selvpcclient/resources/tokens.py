@@ -1,9 +1,5 @@
-import logging
-
 from selvpcclient import base
 from selvpcclient.exceptions.base import ClientException
-
-log = logging.getLogger(__name__)
 
 
 class Token(base.Resource):
@@ -46,8 +42,6 @@ class TokensManager(base.Manager):
         for token_id in token_ids:
             try:
                 self.delete(token_id)
-                log.info("Token %s has been deleted", token_id)
             except ClientException as err:
                 if raise_if_not_found:
                     raise err
-                log.error("%s %s", err, token_id)

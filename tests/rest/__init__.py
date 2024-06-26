@@ -1,6 +1,5 @@
-import mock
-
 from datetime import datetime, timedelta
+from unittest import mock
 
 from selvpcclient.httpclient import HTTPClient, RegionalHTTPClient
 
