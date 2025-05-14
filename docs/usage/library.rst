@@ -160,13 +160,6 @@ Manage Subnets
     :members:
     :show-inheritance:
 
-Manage VRRP Subnets
-~~~~~~~~~~~~~~~~~~~
-
-.. automodule:: selvpcclient.resources.vrrp
-    :members:
-    :show-inheritance:
-
 Manage Floating IP
 ~~~~~~~~~~~~~~~~~~
 
