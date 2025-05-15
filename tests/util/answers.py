@@ -330,13 +330,6 @@ QUOTAS_SHOW = {
                 "used": 0
             }
         ],
-        "network_subnets_29_vrrp": [
-            {
-                "used": 0,
-                "value": 0,
-                "zone": None
-            }
-        ],
     }
 }
 
@@ -768,77 +761,6 @@ CAPABILITIES_LIST = {
             }
         ],
     }
-}
-
-VRRP_ADD = {
-    "vrrp_subnets":
-        [{
-            "status": "DOWN",
-            "cidr": "78.155.195.8/29",
-            "project_id": "b63ab68796e34858befb8fa2a8b1e12a",
-            "id": 6,
-            "subnets": [
-                {
-                    "network_id": "827fe85f-a379-4f28-a426-2ddf7ddab6a2",
-                    "subnet_id": "6595e66c-b14e-4167-9a48-6be6fb407c63",
-                    "region": "ru-1"
-                },
-                {
-                    "network_id": "68b6a3e0-d016-4248-b8de-03cb20cacb2c",
-                    "subnet_id": "9e8cf4bb-a385-401d-bda4-395f3985ead1",
-                    "region": "ru-2"
-                }
-            ],
-        }]
-}
-
-VRRP_SHOW = {
-    "vrrp_subnet": {
-        "status": "DOWN",
-        "subnets": [
-            {
-                "network_id": "1eb0e13d-0ce6-4c00-99e8-45e4787766fd",
-                "subnet_id": "053f7817-6804-4fad-8f6b-0d1edef074ed",
-                "region": "ru-1"
-            },
-            {
-                "network_id": "74694b81-4203-4599-ae71-029182f9cef9",
-                "subnet_id": "cc1d50b9-4890-4173-a750-4537c1f747a2",
-                "region": "ru-2"
-            }
-        ],
-        "servers": [],
-        "cidr": "78.155.195.0/29",
-        "project_id": "b63ab68796e34858befb8fa2a8b1e12a",
-        "id": 2,
-        "master_region": "ru-1",
-        "slave_region": "ru-2"
-    }
-}
-
-VRRP_LIST = {
-    "vrrp_subnets": [
-        {
-            "status": "DOWN",
-            "subnets": [],
-            "servers": [],
-            "cidr": "78.155.196.0/29",
-            "project_id": "x63ab68796e34858befb8fa2a8b1e12a",
-            "id": 3,
-            "master_region": "ru-1",
-            "slave_region": "ru-2"
-        },
-        {
-            "status": "DOWN",
-            "subnets": [],
-            "servers": [],
-            "cidr": "78.155.195.0/29",
-            "project_id": "b63ab68796e34858befb8fa2a8b1e12a",
-            "id": 2,
-            "master_region": "ru-1",
-            "slave_region": "ru-2"
-        }
-    ]
 }
 
 QUOTAS_PARTIAL = {

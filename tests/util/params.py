@@ -72,18 +72,6 @@ roles = {
     ]
 }
 
-vrrp = {
-    "vrrp_subnet": {
-        "type": "ipv4",
-        "prefix_length": 29,
-        'quantity': 3,
-        "regions": [
-            "ru-1",
-            "ru-2"
-        ]
-    }
-}
-
 keypair = {
     "keypair": {
         "user_id": "b832ef...94469d",

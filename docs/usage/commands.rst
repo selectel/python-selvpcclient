@@ -134,24 +134,6 @@ Manage subnets
 .. note::
    By defaults: key **type** is **ipv4**, **prefix** is **29**, **quantity** is **1**
 
-Manage VRRP subnets
-~~~~~~~~~~~~~~~~~~~
-.. code-block:: console
-
-   $ selvpc vrrp add --master ru-1 --slave ru-2 [--type VALUE] [--prefix VALUE] [--quantity VALUE]
-   $ selvpc vrrp list [--project XXX] [--detailed]
-   $ selvpc vrrp show <vrrp_id>
-   $ selvpc vrrp delete <vrrp_id_1> ... <vrrp_id_n> --yes-i-really-want-to-delete
-
-.. note::
-   Key **detailed** appends additional column: *servers*.
-
-.. note::
-   Key **region** is repeatable.
-
-.. note::
-   By defaults: key **type** is **ipv4**, **prefix** is **29**, **quantity** is **1**
-
 Manage tokens
 ~~~~~~~~~~~~~
 .. code-block:: console

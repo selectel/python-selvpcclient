@@ -54,22 +54,6 @@ Some API attributes take a dictionary.
 
 This means ``{"foo": {"key1": "val1", "key2": "val2"} }`` is passed in the API layer.
 
-Options for list value
-----------------------
-
-Some attributes take a list.
-
-In this case, we usually use:
-
-* Define an option per element (Use a singular form as an option name)
-* Allow to specify the option multiple times
-
-For Example, **port-create** has ``--security-group`` option.
-``selvpc vrrp add XXXX --region ru-1 --region ru-2`` generates
-``{"vlan_subnets": {"regions": ["SG1", "SG2"] ... }`` in the API layer.
-
-.. _background-nargs:
-
 Avoid using nargs in positional or optional arguments
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
